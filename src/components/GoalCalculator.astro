@@ -1,7 +1,6 @@
 ---
 // Goal calculator: pick a goal, fill in the sentence, get the month you reach it.
 // All maths runs in the browser; nothing is sent anywhere.
-const ctaHref = '/#course'; // TODO: point at the course section once it exists
 ---
 <section class="calc" id="calculator" data-goal="debt">
   <div class="card">
@@ -40,10 +39,6 @@ const ctaHref = '/#course'; // TODO: point at the course section once it exists
       <p class="label" data-label>You're debt free in</p>
       <p class="date" data-out>&nbsp;</p>
       <p class="note" data-note></p>
-    </div>
-    <div class="next">
-      <p>That's your starting date. Let's bring it closer.</p>
-      <a class="btn btn--primary" href={ctaHref}>See how the course works</a>
     </div>
   </div>
 
@@ -202,20 +197,16 @@ const ctaHref = '/#course'; // TODO: point at the course section once it exists
   .months span { display: inline-block; font-weight: 500; color: var(--on-card-muted); }
   .months input:checked + span { color: var(--on-card); box-shadow: inset 0 -2px 0 var(--card-accent); }
 
-  .result { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px 56px; margin-top: 44px; padding-top: 36px; border-top: 1px solid rgb(245 232 216 / 0.22); }
+  .result { margin-top: 44px; padding-top: 36px; border-top: 1px solid rgb(245 232 216 / 0.22); }
   .label { font-size: 1.1rem; color: var(--on-card-muted); margin: 0 0 6px; }
   .date { font-family: var(--font-display); font-size: clamp(3.6rem, 8vw, 7.5rem); line-height: 0.95; color: var(--on-card); margin: 0; white-space: nowrap; }
   .note { color: var(--on-card-muted); margin: 12px 0 0; }
-  .next p { color: var(--on-card-muted); margin: 0 0 14px; max-width: 24ch; }
-  .next .btn { white-space: nowrap; }
-  .next .btn:focus-visible { outline-color: var(--card-accent); }
   .fine { font-size: 0.85rem; color: var(--on-card-muted); margin: 28px 0 0; max-width: 70ch; }
 
   @media (max-width: 760px) {
     .calc { padding: 8vw 16px 16vw; }
     .card { border-radius: 20px; padding: 28px 20px; }
     .goals { flex-direction: column; gap: 10px; }
-    .result { grid-template-columns: 1fr; }
     .date { white-space: normal; }
   }
 </style>
