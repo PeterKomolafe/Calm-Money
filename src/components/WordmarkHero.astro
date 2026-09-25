@@ -44,7 +44,9 @@ const notes = [
     ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
     const cap = ctx.measureText('H').actualBoundingBoxAscent;
     const o = ctx.measureText('O');
-    const slotW = cap + (o.width - (o.actualBoundingBoxLeft + o.actualBoundingBoxRight));
+    // Tracking applies after the M but not after the inline-block slot, so the slot absorbs it too
+    const tracking = parseFloat(cs.letterSpacing) || 0;
+    const slotW = cap + (o.width - (o.actualBoundingBoxLeft + o.actualBoundingBoxRight)) + tracking;
     const svgS = cap / 0.822; // the ring's outer diameter is 82.2% of its viewBox
     Object.assign(slot.style, { width: `${slotW}px`, height: `${cap}px` });
     Object.assign(svg.style, { width: `${svgS}px`, height: `${svgS}px`, left: `${(slotW - svgS) / 2}px`, bottom: `${-(svgS - cap) / 2}px` });
@@ -58,7 +60,8 @@ const notes = [
   .hero { position: relative; text-align: center; padding: 3vw 0 8vw; overflow: hidden; }
   .kicker { font-family: var(--font-display); font-size: clamp(1.25rem, 2.4vw, 2.1rem); margin: 0 0 1.4vw; padding: 0 16px; text-wrap: balance; }
   h1 { margin: 0; font-family: var(--font-body); font-weight: 450; color: var(--teal); letter-spacing: 0; }
-  .word { display: block; text-transform: uppercase; font-size: 23vw; line-height: 0.9; }
+  /* 20% smaller than the first build (23vw), with tighter tracking */
+  .word { display: block; text-transform: uppercase; font-size: 18.4vw; line-height: 0.9; letter-spacing: -0.04em; padding-right: 0.04em; /* re-centre: tracking also trims after the last letter */ }
   /* Placeholder width until the script measures the font; ring hidden until sized */
   .slot { display: inline-block; position: relative; width: 0.75em; height: 0.7em; }
   .slot :global(svg) { position: absolute; visibility: hidden; }
@@ -82,7 +85,7 @@ const notes = [
   .arrow svg { display: block; width: 100%; fill: none; stroke: var(--terracotta); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
 
   @media (max-width: 760px) {
-    .word { font-size: 24vw; }
+    .word { font-size: 19.2vw; }
     .kicker { margin-bottom: 4vw; }
     .hero { padding-bottom: 22vw; }
     .subs, .control, .monthly, .apr, .life, .secure, .wealth { display: none; }
