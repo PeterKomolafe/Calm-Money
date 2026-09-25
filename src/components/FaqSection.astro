@@ -61,9 +61,9 @@ const isPlaceholder = (a: string) => a.includes('[');
 <style>
   .faq { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   /* The question mark sits in the open space between the questions and the plus signs, tilted.
-     It starts a quarter of the heading height above the heading, and stays put as answers open */
+     It starts half the heading height above the heading, and stays put as answers open */
   .list { position: relative; }
-  .qmark { position: absolute; left: 74%; top: calc(-32px - 0.9 * 1.02 * clamp(2.2rem, 4.2vw, 3.5rem)); /* visible top sits a quarter of the heading height above the heading (the tilt lifts it slightly) */ translate: -50% 0; rotate: 14deg; width: clamp(150px, 15vw, 200px); height: auto; pointer-events: none; }
+  .qmark { position: absolute; left: 74%; top: calc(-32px - 1.15 * 1.02 * clamp(2.2rem, 4.2vw, 3.5rem)); /* visible top sits half the heading height above the heading (the tilt lifts it slightly) */ translate: -50% 0; rotate: 14deg; width: clamp(150px, 15vw, 200px); height: auto; pointer-events: none; }
   h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 32px; }
 
   /* No rules between questions: they would fight the page grid. Spacing separates them instead */
