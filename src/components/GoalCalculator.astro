@@ -3,15 +3,16 @@
 // All maths runs in the browser; nothing is sent anywhere.
 ---
 <section class="calc" id="calculator" data-goal="debt">
+  <div class="wrap">
+  <!-- Goals as ledger index tabs on the card's top edge; short labels on phones -->
+  <fieldset class="goals" aria-labelledby="goal-heading">
+    <label><input type="radio" name="goal" value="debt" checked /><span><span class="full">Get debt free</span><span class="short" aria-hidden="true">Debt free</span></span></label>
+    <label><input type="radio" name="goal" value="secure" /><span><span class="full">Get financially secure</span><span class="short" aria-hidden="true">Secure</span></span></label>
+    <label><input type="radio" name="goal" value="house" /><span><span class="full">Save a house deposit</span><span class="short" aria-hidden="true">House</span></span></label>
+    <label><input type="radio" name="goal" value="wealth" /><span><span class="full">Build wealth</span><span class="short" aria-hidden="true">Wealth</span></span></label>
+  </fieldset>
   <div class="card">
   <h2 id="goal-heading">What’s your goal?</h2>
-
-  <fieldset class="goals" aria-labelledby="goal-heading">
-    <label><input type="radio" name="goal" value="debt" checked /><span>Get debt free</span></label>
-    <label><input type="radio" name="goal" value="secure" /><span>Get financially secure</span></label>
-    <label><input type="radio" name="goal" value="house" /><span>Save a house deposit</span></label>
-    <label><input type="radio" name="goal" value="wealth" /><span>Build wealth</span></label>
-  </fieldset>
 
   <p class="sentence" data-panel="debt">
     I owe <span class="in">£<input data-k="owe" inputmode="decimal" value="8,500" aria-label="Total debt in pounds" /></span>
@@ -52,6 +53,7 @@
   <p class="fine" data-panel="secure" hidden>Based on your essential monthly costs. An estimate, not financial advice.</p>
   <p class="fine" data-panel="house" hidden>Counts what you save, before any interest or government bonus. An estimate, not financial advice.</p>
   <p class="fine" data-panel="wealth" hidden>Counts the money you put in, not investment growth. The value of investments can go down as well as up and you may get back less than you put in. This is not financial advice.</p>
+  </div>
   </div>
 </section>
 
@@ -181,9 +183,10 @@
     --card-accent: #e6a89c;   /* blush, 4.7:1 */
     padding: 4vw 32px 8vw;
   }
+  .wrap { position: relative; max-width: 920px; margin: 0 auto; } /* about the width of the MONEY wordmark */
   .card {
     position: relative;
-    max-width: 920px; margin: 0 auto; /* about the width of the MONEY wordmark */
+    z-index: 1; /* above unselected tabs, below the selected one */
     container-type: inline-size; /* text below scales with the card, not the window */
     background: linear-gradient(180deg, var(--card-top), var(--card) 40%);
     color: var(--on-card);
@@ -205,19 +208,23 @@
   fieldset { border: 0; margin: 0; padding: 0; }
   fieldset label { position: relative; cursor: pointer; }
   fieldset input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
-  fieldset input:focus-visible + span { outline: 3px solid var(--card-accent); outline-offset: 3px; }
+  .months input:focus-visible + span { outline: 3px solid var(--card-accent); outline-offset: 3px; }
 
-  /* Goal options as buttons: outlined, filled cream when selected */
-  .goals { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
-  .goals span {
-    display: block; padding: 0.6em 1.15em; border-radius: 12px; line-height: 1.25;
-    font-family: var(--font-body); font-weight: 500; font-size: clamp(1rem, 2.3cqi, 1.15rem);
-    color: var(--on-card); background: rgb(245 232 216 / 0.05);
-    border: 1px solid rgb(245 232 216 / 0.28);
-    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  /* Ledger index tabs: unselected tabs sit just behind the card; the selected tab joins it */
+  .goals { display: flex; gap: 6px; padding: 0 28px; margin: 0 0 -6px; }
+  .goals label { position: relative; z-index: 0; }
+  .goals > label > span {
+    display: block; padding: 13px 22px 19px; border-radius: 14px 14px 0 0;
+    font-family: var(--font-body); font-weight: 500; font-size: 1.05rem; line-height: 1.2;
+    background: #2e4041; color: var(--on-card-muted);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 -2px 6px rgb(31 38 36 / 0.10);
+    transition: background-color 0.15s, color 0.15s;
   }
-  .goals label:hover span { background: rgb(245 232 216 / 0.12); border-color: rgb(245 232 216 / 0.5); }
-  .goals input:checked + span { background: var(--on-card); border-color: var(--on-card); color: var(--card); }
+  .goals label:hover > span { background: #334647; color: var(--on-card); }
+  .goals label:has(input:checked) { z-index: 2; }
+  .goals input:checked + span { background: var(--card-top); color: var(--on-card); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.10); }
+  .goals input:focus-visible + span { outline: 3px solid var(--card-accent); outline-offset: -5px; }
+  .short { display: none; }
 
   .sentence { font-size: clamp(1.3rem, 3.6cqi, 1.8rem); line-height: 1.9; margin: 0; text-wrap: pretty; }
   .in { display: inline-flex; align-items: baseline; border-bottom: 2px solid var(--card-accent); color: var(--on-card); font-weight: 600; padding: 0 4px; margin: 0 2px; }
@@ -238,8 +245,11 @@
   @media (max-width: 760px) {
     .calc { padding: 8vw 16px 16vw; }
     .card { border-radius: 20px; padding: 28px 20px; }
-    .goals { display: grid; grid-template-columns: 1fr 1fr; }
-    .goals span { text-align: center; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .goals { padding: 0 12px; gap: 4px; }
+    .goals label { flex: 1 1 0; }
+    .goals > label > span { padding: 11px 6px 17px; font-size: 0.95rem; text-align: center; }
+    .full { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } /* still read by screen readers */
+    .short { display: inline; }
     .date { white-space: normal; }
   }
 </style>
