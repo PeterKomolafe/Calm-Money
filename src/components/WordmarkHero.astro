@@ -5,15 +5,14 @@
 import Logo from './Logo.astro';
 
 const notes = [
-  { file: 'subscription', ar: 4.005, cls: 'subs' },
-  { file: 'control-balance', ar: 3.751, cls: 'control' },
-  { file: '250-mo', ar: 1.156, cls: 'monthly' },
-  { file: 'apr-first', ar: 6.982, cls: 'apr' },
-  { file: 'life-goals', ar: 1.71, cls: 'life' },
-  { file: 'financial-security', ar: 3.714, cls: 'secure' },
-  { file: 'build-wealth', ar: 2.838, cls: 'wealth' },
-  { file: 'breathing-space', ar: 7.223, cls: 'breathe key' },
-  { file: 'peace', ar: 4.055, cls: 'peace key' },
+  { file: 'subscription', ar: 4.025, cls: 'subs' },
+  { file: 'balance-control', ar: 3.873, cls: 'control' },
+  { file: '250-mo', ar: 1.688, cls: 'monthly' },
+  { file: 'apr-first', ar: 5.958, cls: 'apr' },
+  { file: 'life-goals', ar: 2.792, cls: 'life' },
+  { file: 'financial-security', ar: 4.562, cls: 'secure' },
+  { file: 'build-wealth', ar: 2.902, cls: 'wealth' },
+  { file: 'peace-of-mind', ar: 3.308, cls: 'peace key' },
 ];
 ---
 <section class="hero">
@@ -28,9 +27,7 @@ const notes = [
   {notes.map((n) => (
     <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />
   ))}
-  <a class="arrow" href="#calculator" aria-label="Find your date">
-    <svg viewBox="0 0 60 90" aria-hidden="true"><path d="M30 4 C 22 26, 38 44, 29 80 M16 66 C 22 72, 26 78, 29 82 C 33 76, 38 71, 45 66" /></svg>
-  </a>
+  <a class="arrow" href="#calculator" aria-label="Find your date"><span class="note key arrow-ink" style="--src: url(/images/notes/arrow.png); --ar: 0.671" aria-hidden="true" /></a>
 </section>
 
 <script>
@@ -71,18 +68,18 @@ const notes = [
   .note { position: absolute; aspect-ratio: var(--ar); background: var(--graphite); pointer-events: none;
           -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }
   .note.key { background: var(--terracotta); }
-  .subs    { width: 14vw;  left: 5%;    top: 17%; rotate: -5deg; }
+  .subs    { width: 15vw;  left: 4%;    top: 17%; rotate: -5deg; }
   .control { width: 13vw;  right: 6%;   top: 1%;  rotate: 3deg; }
   .monthly { width: 6.5vw; right: 6%;   top: 17%; rotate: 3deg; }
-  .apr     { width: 17vw;  left: 1.5%;  top: 37%; rotate: -3deg; }
+  .apr     { width: 18vw;  left: 1.5%;  top: 37%; rotate: -3deg; }
   .life    { width: 8vw;   right: 5%;   top: 36%; rotate: -4deg; }
   .secure  { width: 14vw;  left: 4%;    bottom: 11%; rotate: -2deg; }
   .wealth  { width: 12vw;  left: 17%;   bottom: 3%;  rotate: 3deg; }
-  .breathe { width: 20vw;  right: 5%;   bottom: 11%; rotate: -3deg; }
-  .peace   { width: 13.5vw; right: 9%;  bottom: 5%;  rotate: -3deg; }
+  .peace   { width: 17vw;  right: 5%;   bottom: 7%;  rotate: -3deg; }
 
-  .arrow { position: absolute; left: 50%; bottom: 1vw; width: 3.2vw; min-width: 28px; translate: -50% 0; }
-  .arrow svg { display: block; width: 100%; fill: none; stroke: var(--terracotta); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+  /* Peter's hand-drawn arrow, leading down to the calculator */
+  .arrow { position: absolute; left: 50%; bottom: 0.6vw; width: 3vw; min-width: 26px; translate: -50% 0; }
+  .arrow .arrow-ink { position: static; display: block; width: 100%; }
 
   @media (max-width: 760px) {
     .word { font-size: 19.2vw; }
@@ -90,8 +87,7 @@ const notes = [
     .kicker span { display: block; } /* one sentence per line on phones */
     .hero { padding-bottom: 22vw; }
     .subs, .control, .monthly, .apr, .life, .secure, .wealth { display: none; }
-    .breathe { width: 46vw; right: 4%; bottom: 11%; }
-    .peace { width: 27vw; right: 13%; bottom: 2.5%; }
+    .peace { width: 44vw; right: 5%; bottom: 5%; }
     .arrow { width: 7vw; left: 22%; bottom: 3vw; }
   }
 </style>
