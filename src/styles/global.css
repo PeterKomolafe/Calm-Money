@@ -33,12 +33,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+html { background-color: var(--paper); }
 body {
   margin: 0;
-  background-color: var(--paper);
-  /* faint ledger grid */
-  background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px), linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
-  background-size: calc(100vw / 8) calc(100vw / 8);
+  background: transparent; /* the paper colour sits on html so the fixed grid below can show through */
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.125rem;
@@ -61,6 +59,18 @@ h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); }
 h3 { font-size: 1.35rem; }
 p { margin: 0 0 1em; }
 main { padding-bottom: var(--section-gap); }
+
+/* Faint ledger grid fixed behind the page: content scrolls over it while it stays still.
+   A fixed layer (not background-attachment: fixed) so it also stays put on iPhone and iPad. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px), linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: calc(100vw / 8) calc(100vw / 8);
+}
 
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .section { padding: clamp(56px, 9vw, 104px) 0; }
