@@ -150,7 +150,7 @@
     const bridge = root.querySelector('[data-bridge]')!, turn = root.querySelector('[data-turn]')!;
     if (months && monthly) {
       const m = `${months}\u00a0month${months > 1 ? 's' : ''}`; // non-breaking: keeps '39 months' on one line
-      bridge.innerHTML = `${date} depends on ${habit[goal](gbp(monthly))} <b>every month for ${m}</b>, without missing one.`;
+      bridge.innerHTML = `${date} depends on ${habit[goal](gbp(monthly))} <b>every month for&nbsp;${m}</b>, without missing one.`;
       turn.innerHTML = `Willpower won’t carry you for ${m}.<br class="wide-only"> ${underlined('A system will.')}`;
     } else if (date === 'Already there') {
       bridge.textContent = 'You’re already there.';
@@ -264,14 +264,14 @@
 
   .bridge { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   .bridge p { margin: 0; text-wrap: pretty; }
-  .big { font-weight: 450; letter-spacing: -0.02em; font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.2; }
-  .big :global(b) { font-weight: 600; color: var(--teal-dark); }
+  .big { font-weight: 450; letter-spacing: -0.02em; font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.2; text-wrap: balance; } /* even lines, no stranded words */
+  .big :global(b) { font-weight: 500; color: var(--teal-dark); }
   /* Desktop: each sentence of the turn on its own line; phones wrap naturally */
-  @media (max-width: 760px) { .bridge :global(.wide-only) { display: none; } }
+  @media (max-width: 760px) { .bridge :global(.wide-only) { display: none; } .big { text-wrap: wrap; } }
   /* Tablets: the card nearly fills the width, so keep the roll inside the screen */
   @media (max-width: 1100px) { .roll { right: 0; width: 210px; } }
   .bridge :global(.underlined) { position: relative; display: inline-block; white-space: nowrap; }
-  .bridge :global(.underlined svg) { position: absolute; left: -2%; top: 112%; width: 104%; height: 0.42em; overflow: visible; pointer-events: none; }
+  .bridge :global(.underlined svg) { position: absolute; left: -2%; top: 104%; width: 104%; height: 0.36em; overflow: visible; pointer-events: none; }
   .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
   .bridge .turn { font-family: var(--font-display); font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.3; color: var(--teal); margin-top: 0.55em; padding-bottom: 0.5em; } /* room for the pen underline */
 
