@@ -84,13 +84,13 @@ const tiers = [
   .btn { align-self: flex-start; padding-inline: 1.4em; }
 
   .intro { margin: 26px 0 12px; padding-top: 20px; border-top: 1px solid rgb(31 38 36 / 0.12); font-size: 0.95rem; font-weight: 600; color: var(--muted); }
-  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  /* The list scales with the card so its widest title always spans the full width */
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; font-size: min(1.125rem, 6.25cqi); }
   li { display: grid; gap: 2px; padding-left: 22px; position: relative; line-height: 1.4; }
   li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); }
   strong { font-weight: 500; color: var(--ink); }
-  /* Kept on one line: shrinks with the card rather than wrapping */
-  .one-line { white-space: nowrap; font-size: min(1em, 6.3cqi); }
-  li span { font-size: 0.95rem; color: var(--muted); }
+  .one-line { white-space: nowrap; }
+  li span { font-size: 0.95em; color: var(--muted); text-wrap: pretty; }
 
   /* The most supported option uses the calculator's deep-teal card */
   .full { background: linear-gradient(180deg, #3d5453, #34494a 40%); color: #f5e8d8; }
@@ -101,7 +101,7 @@ const tiers = [
   .btn--light { background: var(--cream); color: var(--ink); }
   .btn--light:hover { background: #fff; color: var(--ink); }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     .tiers { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
   }
   @media (max-width: 760px) {
