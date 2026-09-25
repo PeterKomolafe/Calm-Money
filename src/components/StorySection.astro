@@ -88,12 +88,22 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
       // Read the caption from the chapter so copy edits carry over
       cap.textContent = chapters[i].querySelector('figcaption')?.textContent ?? '';
     };
-    // The chapter crossing the middle of the screen chooses the photo
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && show(chapters.indexOf(e.target as HTMLElement))),
-      { rootMargin: '-45% 0px -45% 0px' },
-    );
-    chapters.forEach((c) => io.observe(c));
+    // A chapter takes over once its number reaches the top edge of the photo
+    const frame = story.querySelector<HTMLElement>('.frame')!;
+    const steps = chapters.map((c) => c.querySelector<HTMLElement>('.step')!);
+    let current = 0, queued = false;
+    const update = () => {
+      queued = false;
+      if (getComputedStyle(frame).display === 'none') return; // phones: each chapter has its own photo
+      const line = frame.getBoundingClientRect().top;
+      let i = 0;
+      steps.forEach((s, j) => { if (s.getBoundingClientRect().top <= line) i = j; });
+      if (i !== current) { current = i; show(i); }
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    update();
   }
 </script>
 
@@ -103,7 +113,8 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 24px; }
 
   .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); }
-  .chapters { list-style: none; margin: 0; padding: 0; }
+  /* Room below the last chapter so its number can reach the top of the photo */
+  .chapters { list-style: none; margin: 0; padding: 0 0 min(40vh, 340px); }
   /* Each chapter gets most of a screen, so the photo changes one stage at a time */
   .chapter { min-height: 64vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.5; transition: opacity 0.4s; }
   .chapter.on { opacity: 1; }
@@ -128,6 +139,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     .story { padding-inline: 12px; }
     .grid { grid-template-columns: 1fr; }
     .frame { display: none; }
+    .chapters { padding-bottom: 0; }
     .chapter { min-height: 0; opacity: 1; margin-top: 48px; }
     .chapter .inline { display: block; margin: 0 0 18px; }
     .inline img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); }
