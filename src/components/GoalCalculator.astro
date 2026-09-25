@@ -59,6 +59,7 @@
     <p class="big" data-bridge></p>
     <p class="turn" data-turn></p>
   </div>
+  <div class="bridge-cta"><a class="btn btn--primary" href="#pricing">Build your system</a></div>
 </section>
 
 <script>
@@ -266,6 +267,7 @@
 
   .bridge { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; container-type: inline-size; }
   .bridge p { margin: 0; text-wrap: pretty; }
+  .bridge-cta { max-width: 920px; margin: 8px auto 0; padding-inline: 28px; }
   /* Centred in the gap between the card and the text */
   .bridge { position: relative; }
   .down { position: absolute; left: 50%; top: calc(var(--section-gap) / 2); translate: -50% -50%; width: clamp(18px, 1.9vw, 27px); aspect-ratio: 0.414;
@@ -285,7 +287,7 @@
   @media (min-width: 761px) { .bridge .turn { white-space: nowrap; } }
 
   @media (max-width: 760px) {
-    .bridge { padding-inline: 12px; }
+    .bridge, .bridge-cta { padding-inline: 12px; }
     .bridge :global(.underlined path) { stroke-width: 3; }
     .calc { padding: var(--section-gap) 16px 0; }
     .roll { display: none; } /* no room beside the tabs on phones */
