@@ -267,7 +267,7 @@
 
   .bridge { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; container-type: inline-size; }
   .bridge p { margin: 0; text-wrap: pretty; }
-  .bridge-cta { max-width: 920px; margin: 8px auto 0; padding-inline: 28px; }
+  .bridge-cta { max-width: 920px; margin: clamp(20px, 2.5vw, 36px) auto 0; padding-inline: 28px; } /* clear of the pen underline */
   /* Centred in the gap between the card and the text */
   .bridge { position: relative; }
   .down { position: absolute; left: 50%; top: calc(var(--section-gap) / 2); translate: -50% -50%; width: clamp(18px, 1.9vw, 27px); aspect-ratio: 0.414;
