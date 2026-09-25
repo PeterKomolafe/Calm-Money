@@ -4,6 +4,7 @@
 const ctaHref = '/#course'; // TODO: point at the course section once it exists
 ---
 <section class="calc" id="calculator" data-goal="debt">
+  <div class="card">
   <h2>When will you get there?</h2>
 
   <fieldset class="goals">
@@ -50,6 +51,7 @@ const ctaHref = '/#course'; // TODO: point at the course section once it exists
   <p class="fine" data-panel="debt">Assumes a fixed interest rate and no new borrowing. An estimate, not financial advice.</p>
   <p class="fine" data-panel="secure" hidden>Based on your essential monthly costs. An estimate, not financial advice.</p>
   <p class="fine" data-panel="wealth" hidden>Illustration only. Assumes 5% growth a year after fees, which is not guaranteed. The value of investments can go down as well as up and you may get back less than you put in. This is not financial advice.</p>
+  </div>
 </section>
 
 <script>
@@ -149,39 +151,66 @@ const ctaHref = '/#course'; // TODO: point at the course section once it exists
 </script>
 
 <style>
-  .calc { max-width: 1180px; margin: 0 auto; padding: 5vw 32px 7vw; }
-  h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1; color: var(--ink); margin: 0 0 32px; }
+  /* The calculator sits on a deep-teal card lifted off the ledger page.
+     On this dark surface blush replaces terracotta as the accent (terracotta is ~1.9:1 here). */
+  .calc {
+    --card: #34494a; --card-top: #3d5453;
+    --on-card: #f5e8d8;       /* cream, 7.8:1 */
+    --on-card-muted: #bbb8ad; /* 4.7:1 */
+    --on-card-quiet: #9ea098; /* large text only */
+    --card-accent: #e6a89c;   /* blush, 4.7:1 */
+    max-width: 1240px; margin: 0 auto; padding: 4vw 32px 8vw;
+  }
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, var(--card-top), var(--card) 40%);
+    color: var(--on-card);
+    border-radius: 28px;
+    padding: clamp(28px, 4.5vw, 64px);
+    /* Stacked shadows: contact, near and far, so the card reads as lifted rather than blurred */
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.10),
+      0 1px 1px rgb(31 38 36 / 0.10),
+      0 3px 6px rgb(31 38 36 / 0.10),
+      0 12px 24px -4px rgb(31 38 36 / 0.16),
+      0 32px 56px -12px rgb(31 38 36 / 0.24),
+      0 64px 96px -32px rgb(31 38 36 / 0.30);
+  }
+
+  h2 { font-size: clamp(2.1rem, 4vw, 3.5rem); line-height: 1; color: var(--on-card); margin: 0 0 28px; }
 
   fieldset { border: 0; margin: 0; padding: 0; }
   fieldset label { position: relative; cursor: pointer; }
   fieldset input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
-  fieldset input:focus-visible + span { outline: 3px solid var(--terracotta-dark); outline-offset: 4px; }
+  fieldset input:focus-visible + span { outline: 3px solid var(--card-accent); outline-offset: 4px; }
 
-  .goals { display: flex; flex-wrap: wrap; gap: 14px 44px; margin-bottom: 44px; }
-  .goals span { display: inline-block; font-family: var(--font-display); font-size: clamp(1.5rem, 2.4vw, 2.1rem); color: #8f9795; }
-  .goals label:hover span { color: var(--teal); }
-  .goals input:checked + span { color: var(--teal-dark); box-shadow: inset 0 -3px 0 var(--terracotta); }
+  .goals { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-bottom: 40px; }
+  .goals span { display: inline-block; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 1.9rem); color: var(--on-card-quiet); }
+  .goals label:hover span { color: var(--on-card); }
+  .goals input:checked + span { color: var(--on-card); box-shadow: inset 0 -3px 0 var(--card-accent); }
 
-  .sentence { font-size: clamp(1.4rem, 2.5vw, 2.25rem); line-height: 1.9; max-width: 22em; margin: 0; }
-  .in { display: inline-flex; align-items: baseline; border-bottom: 2px solid var(--teal); color: var(--teal-dark); font-weight: 600; padding: 0 4px; margin: 0 2px; }
+  .sentence { font-size: clamp(1.35rem, 2.3vw, 2.1rem); line-height: 1.9; max-width: 22em; margin: 0; }
+  .in { display: inline-flex; align-items: baseline; border-bottom: 2px solid var(--card-accent); color: var(--on-card); font-weight: 600; padding: 0 4px; margin: 0 2px; }
   .in input { font: inherit; color: inherit; border: 0; background: transparent; padding: 0; width: 5ch; min-width: 1.4ch; font-variant-numeric: tabular-nums; }
   .in input:focus { outline: none; }
-  .in:focus-within { background: color-mix(in srgb, var(--blush) 25%, transparent); }
+  .in:focus-within { background: rgb(245 232 216 / 0.10); }
 
-  .months { display: flex; gap: 28px; margin-top: 20px; }
-  .months span { display: inline-block; font-weight: 500; color: var(--muted); }
-  .months input:checked + span { color: var(--teal-dark); box-shadow: inset 0 -2px 0 var(--terracotta); }
+  .months { display: flex; gap: 28px; margin-top: 18px; }
+  .months span { display: inline-block; font-weight: 500; color: var(--on-card-muted); }
+  .months input:checked + span { color: var(--on-card); box-shadow: inset 0 -2px 0 var(--card-accent); }
 
-  .result { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px 56px; margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--ink); }
-  .label { font-size: 1.1rem; color: var(--muted); margin: 0 0 6px; }
-  .date { font-family: var(--font-display); font-size: clamp(4rem, 9vw, 8.5rem); line-height: 0.95; color: var(--teal); margin: 0; white-space: nowrap; }
-  .note { color: var(--muted); margin: 12px 0 0; }
-  .next p { color: var(--muted); margin: 0 0 14px; max-width: 24ch; }
+  .result { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px 56px; margin-top: 44px; padding-top: 36px; border-top: 1px solid rgb(245 232 216 / 0.22); }
+  .label { font-size: 1.1rem; color: var(--on-card-muted); margin: 0 0 6px; }
+  .date { font-family: var(--font-display); font-size: clamp(3.6rem, 8vw, 7.5rem); line-height: 0.95; color: var(--on-card); margin: 0; white-space: nowrap; }
+  .note { color: var(--on-card-muted); margin: 12px 0 0; }
+  .next p { color: var(--on-card-muted); margin: 0 0 14px; max-width: 24ch; }
   .next .btn { white-space: nowrap; }
-  .fine { font-size: 0.85rem; color: var(--muted); margin: 28px 0 0; max-width: 70ch; }
+  .next .btn:focus-visible { outline-color: var(--card-accent); }
+  .fine { font-size: 0.85rem; color: var(--on-card-muted); margin: 28px 0 0; max-width: 70ch; }
 
   @media (max-width: 760px) {
-    .calc { padding: 12vw 16px 16vw; }
+    .calc { padding: 8vw 16px 16vw; }
+    .card { border-radius: 20px; padding: 28px 20px; }
     .goals { flex-direction: column; gap: 10px; }
     .result { grid-template-columns: 1fr; }
     .date { white-space: normal; }
