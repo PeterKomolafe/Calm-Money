@@ -149,8 +149,9 @@
     wealth: (a) => `investing <b>${a}</b>`,
   };
 
-  // A hand-drawn pen underline under the "A system..." sentence, with a short return stroke
-  const UNDERLINE = '<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 11 C 70 5, 160 15, 297 7 M150 18 C 200 14, 250 15, 284 13" /></svg>';
+  // Two hand-drawn strokes under the "A system..." sentence: a full one rising gently to the right,
+  // then a shorter one set in beneath it, both clear of the letters
+  const UNDERLINE = '<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 90 7, 190 4, 297 2" /><path d="M24 25 C 100 22, 180 20, 246 19" /></svg>';
   const underlined = (text: string) => `<span class="underlined">${text}${UNDERLINE}</span>`;
 
   const update = () => {
@@ -282,12 +283,13 @@
   .big { font-weight: 450; letter-spacing: -0.02em; font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.2; }
   .big :global(b) { font-weight: 600; color: var(--teal-dark); }
   .bridge :global(.underlined) { position: relative; display: inline-block; white-space: nowrap; }
-  .bridge :global(.underlined svg) { position: absolute; left: -1%; top: 88%; width: 102%; height: 0.36em; overflow: visible; pointer-events: none; }
-  .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-  .bridge .turn { font-family: var(--font-display); font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.3; color: var(--teal); margin-top: 0.55em; } /* room for the pen underline */
+  .bridge :global(.underlined svg) { position: absolute; left: -2%; top: 112%; width: 104%; height: 0.42em; overflow: visible; pointer-events: none; }
+  .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .bridge .turn { font-family: var(--font-display); font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.3; color: var(--teal); margin-top: 0.55em; padding-bottom: 0.5em; } /* room for the pen underline */
 
   @media (max-width: 760px) {
     .bridge { padding-inline: 12px; }
+    .bridge :global(.underlined path) { stroke-width: 3; }
     .calc { padding: 8vw 16px 0; }
     .card { border-radius: 20px; padding: 28px 20px; }
     h2 { padding: 0 12px; }
