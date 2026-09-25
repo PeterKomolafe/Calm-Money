@@ -5,14 +5,14 @@
 import Logo from './Logo.astro';
 
 const notes = [
-  { file: 'subscription', ar: 4.025, cls: 'subs' },
-  { file: 'balance-control', ar: 3.873, cls: 'control' },
-  { file: '250-mo', ar: 1.688, cls: 'monthly' },
-  { file: 'apr-first', ar: 5.958, cls: 'apr' },
-  { file: 'life-goals', ar: 2.792, cls: 'life' },
-  { file: 'financial-security', ar: 4.562, cls: 'secure' },
-  { file: 'build-wealth', ar: 2.902, cls: 'wealth' },
-  { file: 'peace-of-mind', ar: 3.308, cls: 'peace key' },
+  { file: 'subscription', ar: 4.142, cls: 'subs' },
+  { file: 'balance-control', ar: 6.027, cls: 'control' },
+  { file: '250-mo', ar: 1.448, cls: 'monthly' },
+  { file: 'apr-first', ar: 7.117, cls: 'apr' },
+  { file: 'life-goals', ar: 2.798, cls: 'life' },
+  { file: 'financial-security', ar: 3.715, cls: 'secure' },
+  { file: 'build-wealth', ar: 3.733, cls: 'wealth' },
+  { file: 'peace', ar: 4.775, cls: 'peace key' },
 ];
 ---
 <section class="hero">
@@ -27,7 +27,7 @@ const notes = [
   {notes.map((n) => (
     <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />
   ))}
-  <a class="arrow" href="#calculator" aria-label="Find your date"><span class="note key arrow-ink" style="--src: url(/images/notes/arrow.png); --ar: 0.671" aria-hidden="true" /></a>
+  <a class="arrow" href="#calculator" aria-label="Find your date"><span class="note key arrow-ink" style="--src: url(/images/notes/arrow.png); --ar: 0.414" aria-hidden="true" /></a>
 </section>
 
 <script>
@@ -69,16 +69,16 @@ const notes = [
           -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }
   .note.key { background: var(--terracotta); }
   .subs    { width: 15vw;  left: 4%;    top: 17%; rotate: -5deg; }
-  .control { width: 13vw;  right: 6%;   top: 1%;  rotate: 3deg; }
+  .control { width: 15vw;  right: 5%;   top: 2%;  rotate: 3deg; }
   .monthly { width: 6.5vw; right: 6%;   top: 17%; rotate: 3deg; }
-  .apr     { width: 18vw;  left: 1.5%;  top: 37%; rotate: -3deg; }
+  .apr     { width: 19vw;  left: 1.5%;  top: 37%; rotate: -3deg; }
   .life    { width: 8vw;   right: 5%;   top: 36%; rotate: -4deg; }
   .secure  { width: 14vw;  left: 4%;    bottom: 11%; rotate: -2deg; }
   .wealth  { width: 12vw;  left: 17%;   bottom: 3%;  rotate: 3deg; }
-  .peace   { width: 17vw;  right: 5%;   bottom: 7%;  rotate: -3deg; }
+  .peace   { width: 16vw;  right: 5%;   bottom: 8%;  rotate: -3deg; }
 
   /* Peter's hand-drawn arrow, leading down to the calculator */
-  .arrow { position: absolute; left: 50%; bottom: 0.6vw; width: 3vw; min-width: 26px; translate: -50% 0; }
+  .arrow { position: absolute; left: 50%; bottom: 0.6vw; width: 1.9vw; min-width: 18px; translate: -50% 0; }
   .arrow .arrow-ink { position: static; display: block; width: 100%; }
 
   @media (max-width: 760px) {
