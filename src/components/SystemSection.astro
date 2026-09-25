@@ -1,0 +1,118 @@
+---
+// The five modules drawn as the logo ring. The module that builds the visitor's
+// chosen goal is lifted out of the ring; every segment keeps its exact logo colour.
+
+const c = 50, r = 34.6, w = 13;
+const pt = (deg: number, rad = r) => {
+  const a = (deg * Math.PI) / 180;
+  return [c + rad * Math.cos(a), c + rad * Math.sin(a)];
+};
+const arc = (from: number, to: number, dx = 0, dy = 0) => {
+  const [x1, y1] = pt(from);
+  const [x2, y2] = pt(to);
+  return `M ${x1 + dx} ${y1 + dy} A ${r} ${r} 0 ${to - from > 180 ? 1 : 0} 1 ${x2 + dx} ${y2 + dy}`;
+};
+
+// Same geometry as the logo. Each module owns one segment and the round cap at its start;
+// `prev` is the module whose end meets that start (it needs its own cap when this one lifts).
+const modules = [
+  { n: 1, title: 'Reset', text: 'Understand where you are and set your goals.', from: 231, to: 288, color: 'var(--cream)', prev: 2 },
+  { n: 2, title: 'Giving Your Money Structure', text: 'A budgeting system built for you.', from: 171, to: 231, color: 'var(--terracotta)', prev: 3 },
+  { n: 3, title: 'Breaking the Debt Cycle', text: 'A clear plan to eliminate debt.', from: 119, to: 171, color: 'var(--blush)', prev: 4 },
+  { n: 4, title: 'Creating Financial Stability', text: 'Build your safety net.', from: 72, to: 119, color: 'var(--sage)', prev: 5 },
+  { n: 5, title: 'From Stability to Investing', text: 'Pensions, ISAs and investing, explained.', from: -72, to: 72, color: 'var(--teal)', prev: 1 },
+];
+const byN = Object.fromEntries(modules.map((m) => [m.n, m]));
+const lift = (m: (typeof modules)[number]) => {
+  const a = (((m.from + m.to) / 2) * Math.PI) / 180;
+  return [5.5 * Math.cos(a), 5.5 * Math.sin(a)];
+};
+
+// Which module builds each calculator goal
+const goalModule = { debt: 3, secure: 4, house: 4, wealth: 5 };
+
+// Visibility rules for the lifted state, one set per module
+const css = modules
+  .map((m) => `.system[data-module="${m.n}"] .base-${m.n}{display:none}
+.system[data-module="${m.n}"] .lift-${m.n},.system[data-module="${m.n}"] .endcap-${m.n}{display:inline}
+.system[data-module="${m.n}"] li[data-m="${m.n}"]{background:var(--mint)}
+.system[data-module="${m.n}"] li[data-m="${m.n}"] .yours{display:block}
+.system[data-module="${m.n}"] .num-${m.n}{fill:var(--ink);font-size:6px}`)
+  .join('\n');
+---
+<section class="system" id="programme" data-module="3" data-goal-map={JSON.stringify(goalModule)}>
+  <style is:inline set:html={css}></style>
+  <h2>Five modules.<br />One complete system.</h2>
+  <p class="lede">Calm Money builds the system that turns your income into wealth, one module at a time.</p>
+
+  <div class="grid">
+    <svg class="ring" viewBox="-8 -8 116 116" aria-hidden="true">
+      <defs>
+        <filter id="lift-shadow" filterUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120">
+          <feDropShadow dx="0" dy="1.6" stdDeviation="1.6" flood-color="#1f2624" flood-opacity="0.28" />
+        </filter>
+      </defs>
+      {modules.map((m) => <path class={`base-${m.n}`} d={arc(m.from, m.to)} fill="none" stroke={m.color} stroke-width={w} />)}
+      {modules.map((m) => { const [x, y] = pt(m.from); return <circle class={`base-${m.n}`} cx={x} cy={y} r={w / 2} fill={m.color} />; })}
+      {modules.map((m) => { const p = byN[m.prev]; const [x, y] = pt(m.from); return <circle class={`endcap endcap-${m.n}`} cx={x} cy={y} r={w / 2} fill={p.color} />; })}
+      {modules.map((m) => { const [dx, dy] = lift(m); return <path class={`lifted lift-${m.n}`} d={arc(m.from, m.to, dx, dy)} fill="none" stroke={m.color} stroke-width={w} stroke-linecap="round" filter="url(#lift-shadow)" />; })}
+      {modules.map((m) => { const [x, y] = pt((m.from + m.to) / 2, 52); /* clear of a lifted segment's outer edge (46.6) */ return <text class={`num num-${m.n}`} x={x} y={y}>{m.n}</text>; })}
+    </svg>
+
+    <ol>
+      {modules.slice().sort((a, b) => a.n - b.n).map((m) => (
+        <li data-m={m.n}>
+          <span class="n">{String(m.n).padStart(2, '0')}</span>
+          <h3><i style={`background:${m.color}`} />{m.title}</h3>
+          <p>{m.text}</p>
+          <p class="yours" data-yours></p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<script>
+  const section = document.querySelector<HTMLElement>('.system')!;
+  const map: Record<string, number> = JSON.parse(section.dataset.goalMap!);
+  const yours: Record<string, string> = {
+    debt: 'Where your debt-free date gets built',
+    secure: 'Where your breathing space gets built',
+    house: 'Where your deposit habit gets built',
+    wealth: 'Where your first £10,000 invested gets built',
+  };
+  const show = (goal: string) => {
+    section.dataset.module = String(map[goal]);
+    section.querySelectorAll<HTMLElement>('[data-yours]').forEach((el) => (el.textContent = yours[goal]));
+  };
+  document.addEventListener('calm:goal', (e) => show((e as CustomEvent<{ goal: string }>).detail.goal));
+  // The calculator may have announced its first goal before this script ran
+  show(document.querySelector<HTMLElement>('#calculator')?.dataset.goal ?? 'debt');
+</script>
+
+<style>
+  .system { max-width: 920px; margin: 0 auto; padding: clamp(48px, 6vw, 80px) 28px clamp(80px, 10vw, 140px); }
+  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 56px; text-wrap: balance; }
+
+  .grid { display: grid; grid-template-columns: minmax(0, 360px) 1fr; gap: 56px; align-items: center; }
+  .ring { width: 100%; overflow: visible; }
+  .lifted, .endcap { display: none; }
+  .num { font: 600 5px var(--font-body); fill: var(--muted); text-anchor: middle; dominant-baseline: central; }
+
+  ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  li { display: grid; grid-template-columns: 34px 1fr; gap: 4px 14px; padding: 14px 18px; border-radius: 14px; transition: background-color 0.2s; }
+  .n { font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+  h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.3rem; color: var(--ink); display: flex; align-items: center; gap: 12px; }
+  h3 i { width: 12px; height: 12px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.08); }
+  li p { grid-column: 2; margin: 0; color: var(--muted); }
+  /* Darker terracotta keeps this small line readable on mint (4.8:1) */
+  li .yours { display: none; font-size: 0.95rem; font-weight: 600; color: var(--terracotta-dark); margin-top: 2px; }
+
+  @media (max-width: 760px) {
+    .system { padding-inline: 12px; }
+    .grid { grid-template-columns: 1fr; gap: 32px; }
+    .ring { max-width: 280px; margin: 0 auto; }
+    li { padding: 12px 12px; }
+  }
+</style>
