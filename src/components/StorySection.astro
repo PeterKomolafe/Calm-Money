@@ -149,8 +149,10 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   /* Press logos under chapter 3, kept small and quiet so they support the story */
   .featured { margin-top: 26px; }
   .featured .featured-label { margin: 0 0 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); font-style: normal; }
-  .featured ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
-  .featured img { display: block; height: 26px; width: auto; }
+  /* Nine logos in an even 3 x 3 grid, each centred in its own cell */
+  .featured ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 12px; max-width: 420px; }
+  .featured li { display: flex; align-items: center; justify-content: center; height: 40px; }
+  .featured img { display: block; height: 26px; width: auto; max-width: 100%; object-fit: contain; }
   /* Square marks look smaller than wordmarks at the same height, so give them more */
   .featured img.square { height: 34px; }
 
