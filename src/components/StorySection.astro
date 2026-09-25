@@ -1,0 +1,100 @@
+---
+// Peter's story in stages, one photo per stage. Stage copy is placeholder until Peter writes it;
+// every placeholder is worded differently so each can be edited on its own.
+const stages = [
+  {
+    img: 'family', w: 1200, h: 825,
+    alt: 'Peter as a baby, held by his parents',
+    caption: 'With my parents',
+    title: '[Where it started]',
+    text: '[Your early story: what money looked like growing up, and what you learned from your parents about it.]',
+    placeholder: true,
+  },
+  {
+    img: 'packed-lunch', w: 1200, h: 900,
+    alt: 'Peter on the set of Steph’s Packed Lunch',
+    caption: 'On Steph’s Packed Lunch, Channel 4',
+    title: '[The turning point]',
+    text: '[The moment your own relationship with money changed, and what you did about it.]',
+    placeholder: true,
+  },
+  {
+    img: 'lorraine', w: 1200, h: 1200,
+    alt: 'Peter with Lorraine Kelly on the set of Lorraine',
+    caption: 'On Lorraine, ITV',
+    title: '[Taking it public]',
+    text: '[How talking about money on TV and YouTube began, and what people kept asking you.]',
+    placeholder: true,
+  },
+  {
+    img: 'downing-street', w: 900, h: 1200,
+    alt: 'Peter outside 10 Downing Street',
+    caption: '10 Downing Street',
+    title: '[Why you were at Downing Street]',
+    text: '[What took you to Downing Street, and what it meant for the work.]',
+    placeholder: true,
+  },
+  {
+    img: 'stage', w: 414, h: 414,
+    alt: 'Peter speaking on stage at an awards event',
+    caption: '[Event name]',
+    title: '[Why Calm Money exists]',
+    text: '[Why you built Calm Money, and who it is for.]',
+    placeholder: true,
+  },
+];
+// Each stage's marker takes the next ring colour, in the logo's order
+const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sage)', 'var(--teal)'];
+---
+<section class="story" id="story">
+  <h2>Why I built Calm Money.</h2>
+  <p class="lede">A programme by Peter Komolafe. This is how it came to be.</p>
+
+  <ol class="stages">
+    {stages.map((s, i) => (
+      <li class:list={['stage', { placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`}>
+        <figure>
+          <img src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
+          <figcaption>{s.caption}</figcaption>
+        </figure>
+        <div class="words">
+          <span class="step">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+          {s.placeholder && <span class="tag">Placeholder</span>}
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .story { max-width: 1080px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
+  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 56px; }
+
+  .stages { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(56px, 8vw, 104px); }
+  /* Photo and words alternate sides down the page */
+  .stage { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .stage:nth-child(even) figure { order: 2; }
+
+  figure { margin: 0; }
+  img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); }
+  figcaption { margin-top: 14px; font-size: 0.9rem; color: var(--muted); }
+
+  .step { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.1); }
+  h3 { margin: 12px 0 12px; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); }
+  .words p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
+
+  /* Placeholders are obviously unfinished so they can't go live by mistake */
+  .placeholder h3, .placeholder .words p, .placeholder figcaption { color: #8a918f; font-style: italic; }
+  .tag { display: inline-block; margin-top: 14px; padding: 2px 8px; border: 1px dashed var(--terracotta-dark); border-radius: 6px; font-size: 0.8rem; color: var(--terracotta-dark); }
+
+  @media (max-width: 760px) {
+    .story { padding-inline: 12px; }
+    .stage { grid-template-columns: 1fr; gap: 20px; }
+    .stage:nth-child(even) figure { order: 0; }
+    img { max-height: 440px; }
+  }
+</style>
