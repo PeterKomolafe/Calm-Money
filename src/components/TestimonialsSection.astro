@@ -54,9 +54,8 @@ const lines = [
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
 
   .stories { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 32px; }
-  /* Brand-coloured cards, lifted like the calculator; cream and mint alternate */
+  /* All stories share one card: brand cream, lifted like the calculator */
   .story { background: var(--cream); border-radius: 22px; padding: clamp(24px, 3vw, 32px) clamp(22px, 3vw, 30px); box-shadow: var(--lift); }
-  .story:nth-child(even) { background: var(--mint); }
 
   .who { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; padding-bottom: 14px; border-bottom: 1px solid rgb(31 38 36 / 0.12); }
   .name { font-weight: 500; font-size: 1.15rem; color: var(--ink); }
