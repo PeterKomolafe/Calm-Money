@@ -19,7 +19,7 @@ const stages = [
     placeholder: true,
   },
   {
-    img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200, featured: true,
+    img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200,
     alt: 'Peter being interviewed by Lorraine Kelly on Lorraine',
     caption: 'On Lorraine, ITV, May 2022',
     title: '[Taking it public]',
@@ -44,12 +44,15 @@ const stages = [
   },
 ];
 // Each stage's marker takes the next ring colour, in the logo's order
-// Press logos, cropped from Peter's own 'As featured on' strip (display height is set in CSS)
+// Press logos, cropped from Peter's own 'As featured on' strip
 const featured = [
   ['channel-4', 'Channel 4', 38, 51], ['sky-news', 'Sky News', 138, 38], ['itv', 'ITV', 79, 42],
   ['lorraine', 'Lorraine', 144, 37], ['stephs-packed-lunch', 'Steph’s Packed Lunch', 57, 56], ['bbc', 'BBC', 145, 45],
   ['channel-5', 'Channel 5', 40, 56], ['the-times', 'The Times', 88, 37], ['metro', 'Metro', 121, 39],
 ] as const;
+// Size each logo by area so wide wordmarks and square marks look equally heavy; Steph's gets 10% more
+const logoHeight = (file: string, w: number, h: number) =>
+  Math.round(Math.max(18, Math.min(40, Math.sqrt(1900 / (w / h)))) * (file === 'stephs-packed-lunch' ? 1.1 : 1));
 const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sage)', 'var(--teal)'];
 ---
 <section class="story" id="story">
@@ -67,16 +70,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
           <span class="step">{String(i + 1).padStart(2, '0')}</span>
           <h3>{s.title}</h3>
           <p>{s.text}</p>
-          {s.featured && (
-            <div class="featured">
-              <p class="featured-label">As featured on</p>
-              <ul>
-                {featured.map(([file, name, w, h]) => (
-                  <li><img class:list={{ square: w / h < 1.2 }} src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" /></li>
-                ))}
-              </ul>
-            </div>
-          )}
           {s.placeholder && <span class="tag">Placeholder</span>}
         </li>
       ))}
@@ -89,6 +82,15 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
       ))}
       <p class="frame-cap" data-live>{stages[0].caption}</p>
     </div>
+  </div>
+
+  <div class="featured">
+    <p class="featured-label">As featured on</p>
+    <ul>
+      {featured.map(([file, name, w, h]) => (
+        <li><img src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" style={`height: ${logoHeight(file, w, h)}px`} /></li>
+      ))}
+    </ul>
   </div>
 </section>
 
@@ -146,15 +148,11 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   h3 { margin: 12px 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); text-wrap: balance; }
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
 
-  /* Press logos under chapter 3, kept small and quiet so they support the story */
-  .featured { margin-top: 26px; }
-  .featured .featured-label { margin: 0 0 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); font-style: normal; }
-  /* Nine logos in an even 3 x 3 grid, each centred in its own cell */
-  .featured ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 12px; max-width: 420px; }
-  .featured li { display: flex; align-items: center; justify-content: center; height: 40px; }
-  .featured img { display: block; height: 26px; width: auto; max-width: 100%; object-fit: contain; }
-  /* Square marks look smaller than wordmarks at the same height, so give them more */
-  .featured img.square { height: 34px; }
+  /* Press logos: one centred band closing the story, in their own colours */
+  .featured { margin-top: clamp(56px, 8vw, 96px); text-align: center; }
+  .featured-label { margin: 0 0 22px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); }
+  .featured ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px clamp(24px, 3.4vw, 44px); }
+  .featured img { display: block; width: auto; max-width: 100%; }
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
   .placeholder h3, .placeholder p, .placeholder figcaption { color: #8a918f; font-style: italic; }
