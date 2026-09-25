@@ -8,7 +8,7 @@ const tiers = [
     price: '£297',
     intro: 'What’s included',
     groups: [
-      { title: '5 modules, 64 lessons, 2.5\u00a0hours', items: ['From Reset to Investing, at your own pace'] },
+      { title: '5 modules, 64 lessons, 2.5 hours', oneLine: true, items: ['From Reset to Investing, at your own pace'] },
       { title: 'Money personality test', items: ['Find out your money personality, with practical tips based on it'] },
       { title: 'Practical tools', items: ['Exercises and guides to put every module into action'] },
       { title: 'The Calm Money platform', items: ['Purpose-built for Calm Money'] },
@@ -61,7 +61,7 @@ const tiers = [
         <ul>
           {t.groups.map((g) => (
             <li>
-              <strong>{g.title}</strong>
+              <strong class:list={{ "one-line": g.oneLine }}>{g.title}</strong>
               <span>{g.items.join('. ')}.</span>
             </li>
           ))}
@@ -72,12 +72,12 @@ const tiers = [
 </section>
 
 <style>
-  .pricing { max-width: 1080px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
+  .pricing { max-width: 1160px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
 
   .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
-  .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); }
+  .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); container-type: inline-size; }
 
   h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; color: var(--ink); }
   .price { margin: 10px 0 22px; font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
@@ -88,6 +88,8 @@ const tiers = [
   li { display: grid; gap: 2px; padding-left: 22px; position: relative; line-height: 1.4; }
   li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); }
   strong { font-weight: 500; color: var(--ink); }
+  /* Kept on one line: shrinks with the card rather than wrapping */
+  .one-line { white-space: nowrap; font-size: min(1em, 6.3cqi); }
   li span { font-size: 0.95rem; color: var(--muted); }
 
   /* The most supported option uses the calculator's deep-teal card */
