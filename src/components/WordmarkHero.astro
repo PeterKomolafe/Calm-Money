@@ -41,12 +41,14 @@ const notes = [
     ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
     const cap = ctx.measureText('H').actualBoundingBoxAscent;
     const o = ctx.measureText('O');
-    // Tracking applies after the M but not after the inline-block slot, so the slot absorbs it too
+    // The slot takes the O's full advance, tracking included (the inline-block gets none of its own),
+    // and the ring sits on the centre of the O's ink, so MONEY keeps the typeface's own spacing
     const tracking = parseFloat(cs.letterSpacing) || 0;
-    const slotW = cap + (o.width - (o.actualBoundingBoxLeft + o.actualBoundingBoxRight)) + tracking;
+    const slotW = o.width + tracking;
+    const inkCentre = (o.actualBoundingBoxRight - o.actualBoundingBoxLeft) / 2;
     const svgS = cap / 0.822; // the ring's outer diameter is 82.2% of its viewBox
     Object.assign(slot.style, { width: `${slotW}px`, height: `${cap}px` });
-    Object.assign(svg.style, { width: `${svgS}px`, height: `${svgS}px`, left: `${(slotW - svgS) / 2}px`, bottom: `${-(svgS - cap) / 2}px` });
+    Object.assign(svg.style, { width: `${svgS}px`, height: `${svgS}px`, left: `${inkCentre - svgS / 2}px`, bottom: `${-(svgS - cap) / 2}px` });
     slot.classList.add('ready');
   };
   document.fonts.ready.then(fit);
