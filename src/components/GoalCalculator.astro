@@ -39,7 +39,7 @@
 
   <div class="result">
     <div aria-live="polite">
-      <p class="label" data-label>You're debt free in</p>
+      <p class="label" data-label>You could be debt free by</p>
       <p class="date" data-out>&nbsp;</p>
       <p class="note" data-note></p>
     </div>
@@ -95,7 +95,7 @@
 
   const calc: Record<string, () => Result> = {
     debt() {
-      const label = "You're debt free in";
+      const label = 'You could be debt free by';
       // UK APR already includes monthly compounding, so convert it to the equivalent monthly rate
       const owe = num('debt', 'owe'), pay = num('debt', 'pay'), r = Math.pow(1 + num('debt', 'apr') / 100, 1 / 12) - 1;
       if (owe <= 0) return { label, date: 'Already there', note: 'No debt to clear.' };
@@ -110,7 +110,7 @@
     secure() {
       const months = Number(root.querySelector<HTMLInputElement>('input[name="months"]:checked')!.value);
       // Mirrors Peter's note: 3 months = breathing space, 6 months = peace
-      const label = months === 3 ? 'You have 3 months of breathing space in' : 'You have 6 months of peace of mind in';
+      const label = months === 3 ? 'You could have 3 months of breathing space by' : 'You could have 6 months of peace of mind by';
       const target = num('secure', 'essentials') * months, saved = num('secure', 'saved'), add = num('secure', 'add');
       if (target <= 0) return { label, date: ' ', note: 'Add your monthly essentials to see your date.' };
       if (saved >= target) return { label, date: 'Already there', note: `You already have ${months} months covered.` };
@@ -120,7 +120,7 @@
       return { label, date: inMonths(n), note: `Your target is ${gbp(target)}. That's ${span(n)} away.`, months: n, monthly: add };
     },
     wealth() {
-      const label = 'Your first £10,000 invested in';
+      const label = 'You could have your first £10,000 invested by';
       const invested = num('wealth', 'invested'), add = num('wealth', 'add');
       if (invested >= FIRST_INVESTED) return { label, date: 'Already there', note: 'You have put in your first £10,000.' };
       if (add <= 0) return { label, date: 'Not yet', note: 'Add something each month to get a date.' };

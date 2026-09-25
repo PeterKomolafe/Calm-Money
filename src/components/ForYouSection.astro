@@ -1,0 +1,72 @@
+---
+// Who Calm Money is for: one column per avatar, each linked to the matching calculator goal.
+const cards = [
+  {
+    goal: 'secure', dot: 'var(--sage)', cta: 'Work out when you could have breathing space',
+    title: 'You earn well, but it never feels like it.',
+    text: 'Money goes as fast as it comes in. You’ve tried apps, spreadsheets and budgets, and none of them stuck.',
+  },
+  {
+    goal: 'debt', dot: 'var(--blush)', cta: 'Work out when you could be debt free',
+    title: 'You’re in debt and wondering whether to invest anyway.',
+    text: 'You don’t know which to do first, so you end up doing neither.',
+  },
+  {
+    goal: 'wealth', dot: 'var(--teal)', cta: 'Work out when you could have £10,000 invested',
+    title: 'You know you should be investing, but you haven’t started.',
+    text: 'Pensions, ISAs, index funds. Knowing what to do and actually doing it are two very different things.',
+  },
+];
+---
+<section class="foryou" id="for-you">
+  <h2>This is for you if…</h2>
+  <div class="cards">
+    {cards.map((c) => (
+      <article style={`--dot: ${c.dot}`}>
+        <h3>{c.title}</h3>
+        <p>{c.text}</p>
+        <a href="#calculator" data-goal={c.goal}>{c.cta}&nbsp;<span aria-hidden="true">→</span></a>
+      </article>
+    ))}
+  </div>
+  <p class="not">
+    <strong class="underlined">This isn’t for you if<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 90 7, 190 4, 297 2" /><path d="M24 25 C 100 22, 180 20, 246 19" /></svg></strong> you want stock tips, a get-rich-quick plan, or someone to manage your money for you.
+  </p>
+</section>
+
+<script>
+  // Each card opens the calculator on its own goal
+  document.querySelectorAll<HTMLAnchorElement>('.foryou a[data-goal]').forEach((a) =>
+    a.addEventListener('click', () => {
+      document.querySelector<HTMLInputElement>(`#calculator input[name="goal"][value="${a.dataset.goal}"]`)?.click();
+    }),
+  );
+</script>
+
+<style>
+  .foryou { max-width: 1080px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
+  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 44px; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3.5vw, 48px); }
+  /* Open columns, each topped by a rule and a dot in the colour of the module that builds that goal */
+  article { display: flex; flex-direction: column; gap: 12px; padding-top: 22px; border-top: 1px solid rgb(31 38 36 / 0.16); position: relative; }
+  article::before { content: ''; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 3px var(--paper, #fff); }
+  h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.4rem, 2.1vw, 1.75rem); line-height: 1.2; color: var(--teal-dark); text-wrap: balance; }
+  article p { margin: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.55; }
+  article a { margin-top: auto; padding-top: 6px; align-self: flex-start; text-wrap: balance; font-weight: 500; color: var(--terracotta-dark); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 5px; }
+  article a:hover { color: #8a4a3e; }
+
+  .not { margin: 44px 0 0; padding-top: 20px; border-top: 1px dashed rgb(31 38 36 / 0.18); color: var(--muted); font-size: 1.05rem; }
+  .not strong { font-weight: 500; color: var(--ink); }
+  /* The same two-stroke pen underline as "A system will." */
+  .underlined { position: relative; display: inline-block; white-space: nowrap; }
+  .underlined svg { position: absolute; left: -2%; top: 100%; width: 104%; height: 0.5em; overflow: visible; pointer-events: none; }
+  .underlined path { fill: none; stroke: var(--terracotta); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+
+  @media (max-width: 860px) {
+    .cards { grid-template-columns: 1fr; gap: 36px; }
+  }
+  @media (max-width: 760px) {
+    .foryou { padding-inline: 12px; }
+  }
+</style>
