@@ -1,0 +1,102 @@
+---
+// Three ways to join. Price and button sit at the top of each card so they line up
+// whatever the length of the list below. The top tier is by application.
+// Replace each href with its checkout or application link.
+const tiers = [
+  {
+    name: 'The programme',
+    price: '£297',
+    intro: 'The full programme',
+    groups: [
+      { title: 'All five modules', items: ['From Reset to Investing, at your own pace'] },
+      { title: 'The Calm Money platform', items: ['Purpose-built for the programme'] },
+    ],
+    cta: 'Join the programme',
+    href: '#pricing',
+  },
+  {
+    name: 'Programme with coaching',
+    price: '£1,297',
+    intro: 'Everything in the programme, plus',
+    groups: [
+      { title: '4 coaching sessions', items: ['One every quarter'] },
+    ],
+    cta: 'Join with coaching',
+    href: '#pricing',
+  },
+  {
+    name: 'Programme with full support',
+    price: '£2,497',
+    intro: 'Everything in the programme, plus',
+    groups: [
+      { title: 'Onboarding call', items: ['Reviewing your Reset and budgeting numbers', 'Setting a timeline for your actions', 'Structure, and understanding where things are'] },
+      { title: '24 live online coaching calls', items: ['Every two weeks', 'Guest speakers', 'Q&A sessions', 'Module amplification sessions'] },
+      { title: 'WhatsApp support', items: ['Updates and alerts on new material', 'Direct access to message Peter', 'Keep up to date with the community'] },
+      { title: '2 meetups a year', items: ['Months 6 and 12', 'In the UK'] },
+    ],
+    cta: 'Apply',
+    href: '#pricing',
+    apply: true,
+  },
+];
+---
+<section class="pricing" id="pricing">
+  <h2>Choose how you’re supported.</h2>
+  <p class="lede">Every option includes the full five-module programme.</p>
+
+  <div class="tiers">
+    {tiers.map((t) => (
+      <article class:list={['tier', { full: t.apply }]}>
+        <h3>{t.name}</h3>
+        <p class="price">{t.price}</p>
+        <a class:list={['btn', t.apply ? 'btn--light' : 'btn--primary']} href={t.href}>{t.cta}</a>
+
+        <p class="intro">{t.intro}</p>
+        <ul>
+          {t.groups.map((g) => (
+            <li>
+              <strong>{g.title}</strong>
+              <span>{g.items.join('. ')}.</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .pricing { max-width: 1080px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
+  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
+
+  .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+  .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); }
+
+  h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; color: var(--ink); }
+  .price { margin: 10px 0 22px; font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
+  .btn { width: 100%; }
+
+  .intro { margin: 26px 0 12px; padding-top: 20px; border-top: 1px solid rgb(31 38 36 / 0.12); font-size: 0.95rem; font-weight: 600; color: var(--muted); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  li { display: grid; gap: 2px; padding-left: 22px; position: relative; line-height: 1.4; }
+  li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); }
+  strong { font-weight: 500; color: var(--ink); }
+  li span { font-size: 0.95rem; color: var(--muted); }
+
+  /* The most supported option uses the calculator's deep-teal card */
+  .full { background: linear-gradient(180deg, #3d5453, #34494a 40%); color: #f5e8d8; }
+  .full h3, .full .price, .full strong { color: #f5e8d8; }
+  .full .intro, .full li span { color: #bbb8ad; }
+  .full .intro { border-top-color: rgb(245 232 216 / 0.18); }
+  .full li::before { background: var(--blush); }
+  .btn--light { background: var(--cream); color: var(--ink); }
+  .btn--light:hover { background: #fff; color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .tiers { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+  }
+  @media (max-width: 760px) {
+    .pricing { padding-inline: 12px; }
+  }
+</style>
