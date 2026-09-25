@@ -38,11 +38,9 @@ const faqs = [
 const isPlaceholder = (a: string) => a.includes('[');
 ---
 <section class="faq" id="faq">
-  <div class="head">
-    <h2>Common questions.</h2>
-    <img class="qmark" src="/images/question-mark.png" width="481" height="700" alt="" aria-hidden="true" loading="lazy" />
-  </div>
+  <h2>Common questions.</h2>
   <div class="list">
+    <img class="qmark" src="/images/question-mark.png" width="481" height="700" alt="" aria-hidden="true" loading="lazy" />
     {faqs.map((f) => (
       <details name="faq">
         <summary>{f.q}</summary>
@@ -62,10 +60,10 @@ const isPlaceholder = (a: string) => a.includes('[');
 
 <style>
   .faq { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  /* The question mark sits beside the heading, as supplied, sized to the heading so it never meets the list */
-  .head { display: flex; align-items: flex-end; gap: clamp(12px, 2vw, 24px); margin-bottom: 32px; }
-  .head h2 { margin: 0; }
-  .qmark { width: clamp(52px, 7vw, 96px); height: auto; pointer-events: none; }
+  /* The question mark sits in the open space between the questions and the plus signs, tilted.
+     Pinned to the middle of the closed list so it stays put as answers open */
+  .list { position: relative; }
+  .qmark { position: absolute; left: 74%; top: 290px; translate: -50% -50%; rotate: 14deg; width: clamp(150px, 15vw, 200px); height: auto; pointer-events: none; }
   h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 32px; }
 
   /* No rules between questions: they would fight the page grid. Spacing separates them instead */
@@ -78,9 +76,13 @@ const isPlaceholder = (a: string) => a.includes('[');
       linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; transition: rotate 0.2s; }
   details[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
   summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
-  details p { margin: 0 0 24px; max-width: 62ch; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
+  details p { margin: 0 0 24px; max-width: min(62ch, 58%); color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
   details p.placeholder { color: #8a918f; font-style: italic; }
 
+  @media (max-width: 900px) {
+    .qmark { display: none; }
+    details p { max-width: 62ch; }
+  }
   @media (max-width: 760px) {
     .faq { padding-inline: 12px; }
     summary { font-size: 1.1rem; padding: 18px 0; }
