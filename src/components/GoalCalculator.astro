@@ -1,0 +1,189 @@
+---
+// Goal calculator: pick a goal, fill in the sentence, get the month you reach it.
+// All maths runs in the browser; nothing is sent anywhere.
+const ctaHref = '/#course'; // TODO: point at the course section once it exists
+---
+<section class="calc" id="calculator" data-goal="debt">
+  <h2>When will you get there?</h2>
+
+  <fieldset class="goals">
+    <legend class="sr-only">Choose your goal</legend>
+    <label><input type="radio" name="goal" value="debt" checked /><span>Get debt free</span></label>
+    <label><input type="radio" name="goal" value="secure" /><span>Get financially secure</span></label>
+    <label><input type="radio" name="goal" value="wealth" /><span>Build wealth</span></label>
+  </fieldset>
+
+  <p class="sentence" data-panel="debt">
+    I owe <span class="in">£<input data-k="owe" inputmode="decimal" value="8,500" aria-label="Total debt in pounds" /></span>
+    at <span class="in"><input data-k="apr" inputmode="decimal" value="22" aria-label="Interest rate, APR percent" />%</span> APR,
+    and I can pay <span class="in">£<input data-k="pay" inputmode="decimal" value="300" aria-label="Monthly payment in pounds" /></span> a month.
+  </p>
+  <div data-panel="secure" hidden>
+    <p class="sentence">
+      My essentials cost <span class="in">£<input data-k="essentials" inputmode="decimal" value="1,800" aria-label="Monthly essential costs in pounds" /></span> a month.
+      I have <span class="in">£<input data-k="saved" inputmode="decimal" value="1,000" aria-label="Savings so far in pounds" /></span> saved,
+      and I can add <span class="in">£<input data-k="add" inputmode="decimal" value="250" aria-label="Monthly saving in pounds" /></span> a month.
+    </p>
+    <fieldset class="months">
+      <legend class="sr-only">Size of emergency fund</legend>
+      <label><input type="radio" name="months" value="3" checked /><span>3 months</span></label>
+      <label><input type="radio" name="months" value="6" /><span>6 months</span></label>
+    </fieldset>
+  </div>
+  <p class="sentence" data-panel="wealth" hidden>
+    I have <span class="in">£<input data-k="invested" inputmode="decimal" value="10,000" aria-label="Amount invested in pounds" /></span> invested,
+    and I can add <span class="in">£<input data-k="add" inputmode="decimal" value="400" aria-label="Monthly amount added in pounds" /></span> a month.
+  </p>
+
+  <div class="result">
+    <div aria-live="polite">
+      <p class="label" data-label>You're debt free in</p>
+      <p class="date" data-out>&nbsp;</p>
+      <p class="note" data-note></p>
+    </div>
+    <div class="next">
+      <p>That's your starting date. Let's bring it closer.</p>
+      <a class="btn btn--primary" href={ctaHref}>See how the course works</a>
+    </div>
+  </div>
+
+  <p class="fine" data-panel="debt">Assumes a fixed interest rate and no new borrowing. An estimate, not financial advice.</p>
+  <p class="fine" data-panel="secure" hidden>Based on your essential monthly costs. An estimate, not financial advice.</p>
+  <p class="fine" data-panel="wealth" hidden>Illustration only. Assumes 5% growth a year after fees, which is not guaranteed. The value of investments can go down as well as up and you may get back less than you put in. This is not financial advice.</p>
+</section>
+
+<script>
+  const GROWTH = 0.05; // assumed yearly growth for the wealth illustration
+  const WEALTH_TARGET = 100_000;
+  const MAX_MONTHS = 50 * 12;
+
+  const root = document.querySelector<HTMLElement>('#calculator')!;
+  const fmtDate = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' });
+  const gbp = (n: number) => `£${Math.round(n).toLocaleString('en-GB')}`;
+
+  const input = (goal: string, k: string) =>
+    root.querySelector<HTMLInputElement>(`[data-panel="${goal}"] [data-k="${k}"]`)!;
+  const num = (goal: string, k: string) => {
+    const n = parseFloat(input(goal, k).value.replace(/[^0-9.]/g, ''));
+    return Number.isFinite(n) ? n : 0;
+  };
+  const inMonths = (n: number) => {
+    const d = new Date();
+    d.setDate(1);
+    d.setMonth(d.getMonth() + n);
+    return fmtDate.format(d);
+  };
+  const span = (n: number) => {
+    const y = Math.floor(n / 12), m = n % 12;
+    const parts = [];
+    if (y) parts.push(`${y} year${y > 1 ? 's' : ''}`);
+    if (m) parts.push(`${m} month${m > 1 ? 's' : ''}`);
+    return parts.join(' and ') || 'this month';
+  };
+
+  type Result = { label: string; date: string; note: string };
+
+  const calc: Record<string, () => Result> = {
+    debt() {
+      const label = "You're debt free in";
+      const owe = num('debt', 'owe'), pay = num('debt', 'pay'), r = num('debt', 'apr') / 100 / 12;
+      if (owe <= 0) return { label, date: 'Already there', note: 'No debt to clear.' };
+      if (pay <= owe * r) return { label, date: 'Not yet', note: `At this payment the interest (about ${gbp(owe * r)} a month) keeps pace with you. Try a higher monthly payment.` };
+      const n = r === 0 ? Math.ceil(owe / pay) : Math.ceil(-Math.log(1 - (r * owe) / pay) / Math.log(1 + r));
+      if (n > MAX_MONTHS) return { label, date: 'Over 50 years', note: 'Try a higher monthly payment.' };
+      return { label, date: inMonths(n), note: `That's ${span(n)} away, with roughly ${gbp(Math.max(0, pay * n - owe))} paid in interest.` };
+    },
+    secure() {
+      const months = Number(root.querySelector<HTMLInputElement>('input[name="months"]:checked')!.value);
+      // Mirrors Pete's note: 3 months = breathing space, 6 months = peace
+      const label = months === 3 ? 'You have 3 months of breathing space in' : 'You have 6 months of peace of mind in';
+      const target = num('secure', 'essentials') * months, saved = num('secure', 'saved'), add = num('secure', 'add');
+      if (target <= 0) return { label, date: ' ', note: 'Add your monthly essentials to see your date.' };
+      if (saved >= target) return { label, date: 'Already there', note: `You already have ${months} months covered.` };
+      if (add <= 0) return { label, date: 'Not yet', note: 'Add something each month to get a date.' };
+      const n = Math.ceil((target - saved) / add);
+      if (n > MAX_MONTHS) return { label, date: 'Over 50 years', note: 'Try a higher monthly amount.' };
+      return { label, date: inMonths(n), note: `Your target is ${gbp(target)}. That's ${span(n)} away.` };
+    },
+    wealth() {
+      const label = 'You cross £100,000 in';
+      let bal = num('wealth', 'invested');
+      const add = num('wealth', 'add'), g = Math.pow(1 + GROWTH, 1 / 12) - 1;
+      if (bal >= WEALTH_TARGET) return { label, date: 'Already there', note: 'You have already crossed £100,000.' };
+      let n = 0;
+      while (bal < WEALTH_TARGET && n <= MAX_MONTHS) { bal = bal * (1 + g) + add; n++; }
+      if (n > MAX_MONTHS) return { label, date: 'Over 50 years', note: 'Try a higher monthly amount.' };
+      return { label, date: inMonths(n), note: `That's ${span(n)} away.` };
+    },
+  };
+
+  const update = () => {
+    const { label, date, note } = calc[root.dataset.goal!]();
+    root.querySelector('[data-label]')!.textContent = label;
+    root.querySelector('[data-out]')!.textContent = date;
+    root.querySelector('[data-note]')!.textContent = note;
+  };
+
+  // Grow each inline field to fit its number
+  const fit = (el: HTMLInputElement) => (el.style.width = `${Math.max(el.value.length, 1) + 0.1}ch`);
+
+  root.querySelectorAll<HTMLInputElement>('input[name="goal"]').forEach((r) =>
+    r.addEventListener('change', () => {
+      root.dataset.goal = r.value;
+      root.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) => (p.hidden = p.dataset.panel !== r.value));
+      update();
+    }),
+  );
+  root.querySelectorAll<HTMLInputElement>('input[data-k]').forEach((el) => {
+    fit(el);
+    el.addEventListener('input', () => { fit(el); update(); });
+    el.addEventListener('blur', () => {
+      const n = parseFloat(el.value.replace(/[^0-9.]/g, ''));
+      el.value = Number.isFinite(n) ? n.toLocaleString('en-GB', { maximumFractionDigits: 2 }) : '0';
+      fit(el);
+      update();
+    });
+  });
+  root.querySelectorAll<HTMLInputElement>('input[name="months"]').forEach((el) => el.addEventListener('change', update));
+  update();
+</script>
+
+<style>
+  .calc { max-width: 1180px; margin: 0 auto; padding: 5vw 32px 7vw; }
+  h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1; color: var(--ink); margin: 0 0 32px; }
+
+  fieldset { border: 0; margin: 0; padding: 0; }
+  fieldset label { position: relative; cursor: pointer; }
+  fieldset input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  fieldset input:focus-visible + span { outline: 3px solid var(--terracotta-dark); outline-offset: 4px; }
+
+  .goals { display: flex; flex-wrap: wrap; gap: 14px 44px; margin-bottom: 44px; }
+  .goals span { display: inline-block; font-family: var(--font-display); font-size: clamp(1.5rem, 2.4vw, 2.1rem); color: #8f9795; }
+  .goals label:hover span { color: var(--teal); }
+  .goals input:checked + span { color: var(--teal-dark); box-shadow: inset 0 -3px 0 var(--terracotta); }
+
+  .sentence { font-size: clamp(1.4rem, 2.5vw, 2.25rem); line-height: 1.9; max-width: 22em; margin: 0; }
+  .in { display: inline-flex; align-items: baseline; border-bottom: 2px solid var(--teal); color: var(--teal-dark); font-weight: 600; padding: 0 4px; margin: 0 2px; }
+  .in input { font: inherit; color: inherit; border: 0; background: transparent; padding: 0; width: 5ch; min-width: 1.4ch; font-variant-numeric: tabular-nums; }
+  .in input:focus { outline: none; }
+  .in:focus-within { background: color-mix(in srgb, var(--blush) 25%, transparent); }
+
+  .months { display: flex; gap: 28px; margin-top: 20px; }
+  .months span { display: inline-block; font-weight: 500; color: var(--muted); }
+  .months input:checked + span { color: var(--teal-dark); box-shadow: inset 0 -2px 0 var(--terracotta); }
+
+  .result { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px 56px; margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--ink); }
+  .label { font-size: 1.1rem; color: var(--muted); margin: 0 0 6px; }
+  .date { font-family: var(--font-display); font-size: clamp(4rem, 9vw, 8.5rem); line-height: 0.95; color: var(--teal); margin: 0; white-space: nowrap; }
+  .note { color: var(--muted); margin: 12px 0 0; }
+  .next p { color: var(--muted); margin: 0 0 14px; max-width: 24ch; }
+  .next .btn { white-space: nowrap; }
+  .fine { font-size: 0.85rem; color: var(--muted); margin: 28px 0 0; max-width: 70ch; }
+
+  @media (max-width: 760px) {
+    .calc { padding: 12vw 16px 16vw; }
+    .goals { flex-direction: column; gap: 10px; }
+    .result { grid-template-columns: 1fr; }
+    .date { white-space: normal; }
+  }
+</style>

@@ -12,9 +12,11 @@
   --ink: #1f2624;
   --muted: #5b6664;
   --line: #ebe6e0;
+  --rule: #e9ecea; /* ledger grid */
+  --graphite: #6f7573; /* handwritten notes */
 
   --font-display: 'DM Serif Display', Georgia, serif;
-  --font-body: 'Manrope Variable', 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-body: 'Jost Variable', 'Jost', system-ui, -apple-system, sans-serif;
 
   --radius: 18px;
   --max: 1120px;
@@ -25,10 +27,13 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  background: var(--paper);
+  background-color: var(--paper);
+  /* faint ledger grid */
+  background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px), linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: calc(100vw / 8) calc(100vw / 8);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   line-height: 1.65;
 }
 img { max-width: 100%; height: auto; display: block; }
@@ -62,8 +67,8 @@ p { margin: 0 0 1em; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5em;
-  padding: 0.85em 1.5em; border-radius: 999px; border: 2px solid transparent;
-  font: 600 1rem/1.2 var(--font-body); text-decoration: none; cursor: pointer;
+  padding: 0.85em 1.5em; border-radius: 6px; border: 2px solid transparent;
+  font: 500 1.05rem/1.2 var(--font-body); text-decoration: none; cursor: pointer;
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 .btn--primary { background: var(--terracotta-dark); color: #fff; }

@@ -1,0 +1,93 @@
+---
+// Type-led hero: the Calm Money wordmark with the ring as the O, surrounded by
+// Pete's handwritten margin notes. Notes are transparent PNGs used as CSS masks,
+// so their colour comes from the palette (graphite, or terracotta for key notes).
+import Logo from './Logo.astro';
+
+const notes = [
+  { file: 'subscription', ar: 4.005, cls: 'subs' },
+  { file: 'control-balance', ar: 3.751, cls: 'control' },
+  { file: '250-mo', ar: 1.156, cls: 'monthly' },
+  { file: 'apr-first', ar: 6.982, cls: 'apr' },
+  { file: 'life-goals', ar: 1.71, cls: 'life' },
+  { file: 'financial-security', ar: 3.714, cls: 'secure' },
+  { file: 'build-wealth', ar: 2.838, cls: 'wealth' },
+  { file: 'breathing-space', ar: 7.223, cls: 'breathe key' },
+  { file: 'peace', ar: 4.055, cls: 'peace key' },
+];
+---
+<section class="hero">
+  <p class="kicker">The course for feeling in control of your money</p>
+  <h1>
+    <span class="sr-only">Calm Money</span>
+    <span class="word" aria-hidden="true">Calm</span>
+    <span class="word" aria-hidden="true">M<span class="slot"><Logo size={100} title="" /></span>ney</span>
+  </h1>
+  <p class="byline">A course by Pete Komolafe</p>
+
+  {notes.map((n) => (
+    <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />
+  ))}
+  <a class="arrow" href="#calculator" aria-label="Find your date">
+    <svg viewBox="0 0 60 90" aria-hidden="true"><path d="M30 4 C 22 26, 38 44, 29 80 M16 66 C 22 72, 26 78, 29 82 C 33 76, 38 71, 45 66" /></svg>
+  </a>
+</section>
+
+<script>
+  // Size the ring to exactly the font's cap height (never larger), keeping the O's own side spacing.
+  const fit = () => {
+    const slot = document.querySelector<HTMLElement>('.hero .slot');
+    if (!slot) return;
+    const svg = slot.querySelector<SVGElement>('svg')!;
+    const cs = getComputedStyle(slot.parentElement!);
+    const ctx = document.createElement('canvas').getContext('2d')!;
+    ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const cap = ctx.measureText('H').actualBoundingBoxAscent;
+    const o = ctx.measureText('O');
+    const slotW = cap + (o.width - (o.actualBoundingBoxLeft + o.actualBoundingBoxRight));
+    const svgS = cap / 0.822; // the ring's outer diameter is 82.2% of its viewBox
+    Object.assign(slot.style, { width: `${slotW}px`, height: `${cap}px` });
+    Object.assign(svg.style, { width: `${svgS}px`, height: `${svgS}px`, left: `${(slotW - svgS) / 2}px`, bottom: `${-(svgS - cap) / 2}px` });
+    slot.classList.add('ready');
+  };
+  document.fonts.ready.then(fit);
+  window.addEventListener('resize', fit);
+</script>
+
+<style>
+  .hero { position: relative; text-align: center; padding: 3vw 0 8vw; overflow: hidden; }
+  .kicker { font-family: var(--font-display); font-size: clamp(1.25rem, 2.4vw, 2.1rem); margin: 0 0 1.4vw; padding: 0 16px; text-wrap: balance; }
+  h1 { margin: 0; font-family: var(--font-body); font-weight: 450; color: var(--teal); letter-spacing: 0; }
+  .word { display: block; text-transform: uppercase; font-size: 23vw; line-height: 0.9; }
+  /* Placeholder width until the script measures the font; ring hidden until sized */
+  .slot { display: inline-block; position: relative; width: 0.75em; height: 0.7em; }
+  .slot :global(svg) { position: absolute; visibility: hidden; }
+  .slot.ready :global(svg) { visibility: visible; }
+  .byline { font-family: var(--font-display); font-size: clamp(1.1rem, 1.8vw, 1.6rem); margin: 2.4vw 0 0; }
+
+  .note { position: absolute; aspect-ratio: var(--ar); background: var(--graphite); pointer-events: none;
+          -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }
+  .note.key { background: var(--terracotta); }
+  .subs    { width: 14vw;  left: 5%;    top: 17%; rotate: -5deg; }
+  .control { width: 13vw;  right: 6%;   top: 1%;  rotate: 3deg; }
+  .monthly { width: 6.5vw; right: 6%;   top: 17%; rotate: 3deg; }
+  .apr     { width: 17vw;  left: 1.5%;  top: 37%; rotate: -3deg; }
+  .life    { width: 8vw;   right: 5%;   top: 36%; rotate: -4deg; }
+  .secure  { width: 14vw;  left: 4%;    bottom: 11%; rotate: -2deg; }
+  .wealth  { width: 12vw;  left: 17%;   bottom: 3%;  rotate: 3deg; }
+  .breathe { width: 20vw;  right: 5%;   bottom: 11%; rotate: -3deg; }
+  .peace   { width: 13.5vw; right: 9%;  bottom: 5%;  rotate: -3deg; }
+
+  .arrow { position: absolute; left: 50%; bottom: 1vw; width: 3.2vw; min-width: 28px; translate: -50% 0; }
+  .arrow svg { display: block; width: 100%; fill: none; stroke: var(--terracotta); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  @media (max-width: 760px) {
+    .word { font-size: 24vw; }
+    .kicker { margin-bottom: 4vw; }
+    .hero { padding-bottom: 22vw; }
+    .subs, .control, .monthly, .apr, .life, .secure, .wealth { display: none; }
+    .breathe { width: 46vw; right: 4%; bottom: 11%; }
+    .peace { width: 27vw; right: 13%; bottom: 2.5%; }
+    .arrow { width: 7vw; left: 22%; bottom: 3vw; }
+  }
+</style>
