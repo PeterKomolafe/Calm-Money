@@ -79,7 +79,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
       {stages.map((s, i) => (
         <img class:list={{ on: i === 0 }} src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} data-frame={i} />
       ))}
-      <p class="frame-cap" data-live>{stages[0].caption}</p>
+      <p class="frame-cap" data-live data-proxy="#story [data-chapter].on figcaption">{stages[0].caption}</p>
     </div>
   </div>
 
@@ -103,7 +103,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
       chapters.forEach((c, j) => c.classList.toggle('on', j === i));
       frames.forEach((f, j) => f.classList.toggle('on', j === i));
       // Read the caption from the chapter so copy edits carry over
-      cap.textContent = chapters[i].querySelector('figcaption')?.textContent ?? '';
+      if (document.activeElement !== cap) cap.textContent = chapters[i].querySelector('figcaption')?.textContent ?? ''; // never mid-edit
     };
     // A chapter takes over once its number reaches the middle of the photo
     const frame = story.querySelector<HTMLElement>('.frame')!;
