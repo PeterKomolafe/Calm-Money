@@ -38,7 +38,10 @@ const faqs = [
 const isPlaceholder = (a: string) => a.includes('[');
 ---
 <section class="faq" id="faq">
-  <h2>Common questions.</h2>
+  <div class="head">
+    <h2>Common questions.</h2>
+    <img class="qmark" src="/images/question-mark.png" width="481" height="700" alt="" aria-hidden="true" loading="lazy" />
+  </div>
   <div class="list">
     {faqs.map((f) => (
       <details name="faq">
@@ -59,6 +62,10 @@ const isPlaceholder = (a: string) => a.includes('[');
 
 <style>
   .faq { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
+  /* The question mark sits beside the heading, as supplied, sized to the heading so it never meets the list */
+  .head { display: flex; align-items: flex-end; gap: clamp(12px, 2vw, 24px); margin-bottom: 32px; }
+  .head h2 { margin: 0; }
+  .qmark { width: clamp(52px, 7vw, 96px); height: auto; pointer-events: none; }
   h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 32px; }
 
   /* No rules between questions: they would fight the page grid. Spacing separates them instead */
