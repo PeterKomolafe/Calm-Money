@@ -17,7 +17,7 @@ const notes = [
 ];
 ---
 <section class="hero">
-  <p class="kicker">The course for feeling in control of your money</p>
+  <p class="kicker"><span>You earn well.</span> <span>Now build the system that gets you investing.</span></p>
   <h1>
     <span class="sr-only">Calm Money</span>
     <span class="word" aria-hidden="true">Calm</span>
@@ -87,6 +87,7 @@ const notes = [
   @media (max-width: 760px) {
     .word { font-size: 19.2vw; }
     .kicker { margin-bottom: 4vw; }
+    .kicker span { display: block; } /* one sentence per line on phones */
     .hero { padding-bottom: 22vw; }
     .subs, .control, .monthly, .apr, .life, .secure, .wealth { display: none; }
     .breathe { width: 46vw; right: 4%; bottom: 11%; }
