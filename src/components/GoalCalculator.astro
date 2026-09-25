@@ -11,6 +11,8 @@
     <label><input type="radio" name="goal" value="secure" /><span><span class="full">Get financially secure</span><span class="short" aria-hidden="true">Secure</span></span></label>
     <label><input type="radio" name="goal" value="wealth" /><span><span class="full">Build wealth</span><span class="short" aria-hidden="true">Wealth</span></span></label>
   </fieldset>
+  <!-- £50 roll tucked behind the card's top-right corner (a nod to the £50 in Peter's story). Bank of England consent needed before launch -->
+  <img class="roll" src="/images/banknote/fifty-roll.png" width="524" height="800" alt="" aria-hidden="true" loading="lazy" />
   <div class="card">
   <p class="sentence" data-panel="debt">
     I owe <span class="in">£<input data-k="owe" inputmode="decimal" value="8,500" aria-label="Total debt in pounds" /></span>
@@ -200,7 +202,11 @@
     --card-accent: #e6a89c;   /* blush, 4.7:1 */
     padding: var(--section-gap) 32px 0; /* each section adds the shared gap above itself */
   }
-  .wrap { position: relative; max-width: 920px; margin: 0 auto; } /* about the width of the MONEY wordmark */
+  .wrap { position: relative; max-width: 920px; margin: 0 auto; }
+  .calc { overflow-x: clip; } /* the roll may reach past the edge on narrow screens */
+  /* Behind the card (z-index 0 against the card's 1), sticking out past its top-right corner */
+  .roll { position: absolute; z-index: 0; right: -52px; top: -34px; width: 136px; height: auto; rotate: 22deg; pointer-events: none;
+    filter: drop-shadow(0 2px 3px rgb(31 38 36 / 0.12)) drop-shadow(0 12px 18px rgb(31 38 36 / 0.14)); } /* about the width of the MONEY wordmark */
   .card {
     position: relative;
     z-index: 1; /* above unselected tabs, below the selected one */
@@ -259,6 +265,8 @@
   .big :global(b) { font-weight: 600; color: var(--teal-dark); }
   /* Desktop: each sentence of the turn on its own line; phones wrap naturally */
   @media (max-width: 760px) { .bridge :global(.wide-only) { display: none; } }
+  /* Tablets: the card nearly fills the width, so keep the roll inside the screen */
+  @media (max-width: 1100px) { .roll { right: -8px; top: -40px; width: 110px; } }
   .bridge :global(.underlined) { position: relative; display: inline-block; white-space: nowrap; }
   .bridge :global(.underlined svg) { position: absolute; left: -2%; top: 112%; width: 104%; height: 0.42em; overflow: visible; pointer-events: none; }
   .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
@@ -268,6 +276,7 @@
     .bridge { padding-inline: 12px; }
     .bridge :global(.underlined path) { stroke-width: 3; }
     .calc { padding: var(--section-gap) 16px 0; }
+    .roll { display: none; } /* no room beside the tabs on phones */
     .card { border-radius: 20px; padding: 28px 20px; }
     h2 { padding: 0 12px; }
     .goals { padding: 0 12px; gap: 4px; }
