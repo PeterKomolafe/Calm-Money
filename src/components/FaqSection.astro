@@ -41,13 +41,21 @@ const isPlaceholder = (a: string) => a.includes('[');
   <h2>Common questions.</h2>
   <div class="list">
     {faqs.map((f) => (
-      <details>
+      <details name="faq">
         <summary>{f.q}</summary>
         <p class:list={{ placeholder: isPlaceholder(f.a) }}>{f.a}</p>
       </details>
     ))}
   </div>
 </section>
+
+<script>
+  // One answer open at a time. The name attribute does this in current browsers; this covers older ones
+  const items = [...document.querySelectorAll<HTMLDetailsElement>('.faq details')];
+  items.forEach((d) => d.addEventListener('toggle', () => {
+    if (d.open) items.forEach((o) => { if (o !== d) o.open = false; });
+  }));
+</script>
 
 <style>
   .faq { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
