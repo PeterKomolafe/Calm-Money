@@ -12,7 +12,8 @@
     <label><input type="radio" name="goal" value="wealth" /><span><span class="full">Build wealth</span><span class="short" aria-hidden="true">Wealth</span></span></label>
   </fieldset>
   <!-- £50 roll tucked behind the card's top-right corner (a nod to the £50 in Peter's story). Bank of England consent needed before launch -->
-  <img class="roll" src="/images/banknote/fifty-roll.png" width="524" height="800" alt="" aria-hidden="true" loading="lazy" />
+  <div class="card-stack">
+  <img class="roll" src="/images/banknote/fifty-roll.png" width="684" height="1000" alt="" aria-hidden="true" loading="lazy" />
   <div class="card">
   <p class="sentence" data-panel="debt">
     I owe <span class="in">£<input data-k="owe" inputmode="decimal" value="8,500" aria-label="Total debt in pounds" /></span>
@@ -47,6 +48,7 @@
   <p class="fine" data-panel="debt">Assumes a fixed interest rate and no new borrowing. An estimate, not financial advice.</p>
   <p class="fine" data-panel="secure" hidden>Based on your essential monthly costs. An estimate, not financial advice.</p>
   <p class="fine" data-panel="wealth" hidden>Counts the money you put in, not investment growth. The value of investments can go down as well as up and you may get back less than you put in. This is not financial advice.</p>
+  </div>
   </div>
   </div>
 
@@ -204,9 +206,10 @@
   }
   .wrap { position: relative; max-width: 920px; margin: 0 auto; }
   .calc { overflow-x: clip; } /* the roll may reach past the edge on narrow screens */
-  /* Behind the card (z-index 0 against the card's 1), sticking out past its top-right corner */
-  .roll { position: absolute; z-index: 0; right: -52px; top: -34px; width: 136px; height: auto; rotate: 22deg; pointer-events: none;
-    filter: drop-shadow(0 2px 3px rgb(31 38 36 / 0.12)) drop-shadow(0 12px 18px rgb(31 38 36 / 0.14)); } /* about the width of the MONEY wordmark */
+  /* Behind the card (z-index 0 against the card's 1): centred on the card's top edge so only the top half shows.
+     The photo's own shadow is kept, so no extra shadow here. */
+  .card-stack { position: relative; }
+  .roll { position: absolute; z-index: 0; top: 0; right: -96px; width: 300px; height: auto; translate: 0 -50%; pointer-events: none; }
   .card {
     position: relative;
     z-index: 1; /* above unselected tabs, below the selected one */
@@ -266,7 +269,7 @@
   /* Desktop: each sentence of the turn on its own line; phones wrap naturally */
   @media (max-width: 760px) { .bridge :global(.wide-only) { display: none; } }
   /* Tablets: the card nearly fills the width, so keep the roll inside the screen */
-  @media (max-width: 1100px) { .roll { right: -8px; top: -40px; width: 110px; } }
+  @media (max-width: 1100px) { .roll { right: 0; width: 210px; } }
   .bridge :global(.underlined) { position: relative; display: inline-block; white-space: nowrap; }
   .bridge :global(.underlined svg) { position: absolute; left: -2%; top: 112%; width: 104%; height: 0.42em; overflow: visible; pointer-events: none; }
   .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
