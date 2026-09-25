@@ -57,9 +57,9 @@ const isPlaceholder = (a: string) => a.includes('[');
   .faq { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 32px; }
 
-  .list { border-top: 1px solid rgb(31 38 36 / 0.14); }
-  details { border-bottom: 1px solid rgb(31 38 36 / 0.14); }
-  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 22px 0; font-size: 1.2rem; font-weight: 500; color: var(--ink); }
+  /* No rules between questions: they would fight the page grid. Spacing separates them instead */
+  .list { display: grid; gap: 4px; }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 18px 0; font-size: 1.2rem; font-weight: 500; color: var(--ink); }
   summary::-webkit-details-marker { display: none; }
   /* A plus that turns into a minus */
   summary::after { content: ''; flex: none; width: 14px; height: 14px; background:
