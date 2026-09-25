@@ -1,0 +1,37 @@
+---
+// The Calm Money ring, redrawn as SVG from the brand mark.
+// Butt-ended arcs form the ring; circles on top recreate the rounded overlaps.
+interface Props { size?: number; class?: string; title?: string }
+const { size = 40, class: className, title = 'Calm Money' } = Astro.props;
+
+const c = 50, r = 34.6, w = 13;
+const pt = (deg: number) => {
+  const a = (deg * Math.PI) / 180;
+  return [c + r * Math.cos(a), c + r * Math.sin(a)];
+};
+const arc = (from: number, to: number) => {
+  const [x1, y1] = pt(from);
+  const [x2, y2] = pt(to);
+  const large = to - from > 180 ? 1 : 0;
+  return `M ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2}`;
+};
+// Angles in degrees, clockwise from 3 o'clock, measured from the original mark
+const segments = [
+  { from: -72, to: 72, color: 'var(--teal)' },
+  { from: 72, to: 119, color: 'var(--sage)' },
+  { from: 119, to: 171, color: 'var(--blush)' },
+  { from: 171, to: 231, color: 'var(--terracotta)' },
+  { from: 231, to: 288, color: 'var(--cream-deep)' },
+];
+const caps = [
+  { at: 72, color: 'var(--sage)' },
+  { at: 119, color: 'var(--blush)' },
+  { at: 171, color: 'var(--terracotta)' },
+  { at: 231, color: 'var(--cream-deep)' },
+  { at: -72, color: 'var(--teal)' },
+];
+---
+<svg class={className} width={size} height={size} viewBox="0 0 100 100" role="img" aria-label={title}>
+  {segments.map((s) => <path d={arc(s.from, s.to)} fill="none" stroke={s.color} stroke-width={w} />)}
+  {caps.map((k) => { const [x, y] = pt(k.at); return <circle cx={x} cy={y} r={w / 2} fill={k.color} />; })}
+</svg>

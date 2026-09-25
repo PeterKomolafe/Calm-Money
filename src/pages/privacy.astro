@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+---
+<Base title="Privacy and disclaimer">
+  <section class="section">
+    <div class="container prose">
+      <h1>Privacy and disclaimer</h1>
+      <p><strong>Draft: have this reviewed before launch.</strong></p>
+      <h2>What we collect</h2>
+      <p>When you sign up we collect your first name and email address so we can send you the guide and occasional emails about money coaching. You can unsubscribe at any time using the link in every email.</p>
+      <h2>Who processes it</h2>
+      <p>Your details are stored by our email provider. We do not sell your data. Add the provider's name and a link to its privacy policy here.</p>
+      <h2>Your rights</h2>
+      <p>You can ask to see, correct or delete your data by emailing <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      <h2>Disclaimer</h2>
+      <p>{site.disclaimer}</p>
+    </div>
+  </section>
+</Base>

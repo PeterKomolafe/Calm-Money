@@ -1,0 +1,96 @@
+# Decap CMS: edit site content at /admin.
+# Login uses GitHub via Netlify's OAuth provider (see README for one-time setup).
+backend:
+  name: github
+  repo: PeterKomolafe/Calm-Money
+  branch: main
+
+# Changes open as drafts you can review before publishing
+publish_mode: editorial_workflow
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: settings
+    label: Site settings
+    files:
+      - name: site
+        label: Homepage, guide and about
+        file: src/data/site.json
+        fields:
+          - { name: name, label: Site name, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: owner, label: Owner, widget: string }
+          - { name: email, label: Contact email, widget: string }
+          - { name: youtube_url, label: YouTube URL, widget: string, required: false }
+          - { name: instagram_url, label: Instagram URL, widget: string, required: false }
+          - name: hero
+            label: Homepage hero
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small line above heading, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: text }
+              - { name: primary_cta, label: Main button, widget: string }
+              - { name: secondary_cta, label: Second button, widget: string }
+          - name: lead_magnet
+            label: Free guide
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: summary, label: Summary, widget: text }
+              - { name: bullets, label: What's inside, widget: list, field: { name: item, label: Point, widget: string } }
+              - { name: button_label, label: Button label, widget: string }
+              - { name: download_url, label: Direct download link (optional), widget: string, required: false }
+          - name: about
+            label: About
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Story, widget: text }
+              - { name: photo, label: Photo, widget: image, required: false }
+          - { name: disclaimer, label: Regulatory disclaimer, widget: text }
+
+  - name: offers
+    label: Offers
+    folder: src/content/offers
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: summary, label: Summary, widget: text }
+      - { name: price, label: Price, widget: string, hint: "e.g. £150 or From £495" }
+      - { name: cta_label, label: Button label, widget: string, default: Book now }
+      - { name: cta_url, label: Checkout or booking link, widget: string, hint: "Stripe Payment Link, Calendly, etc." }
+      - { name: featured, label: Highlight as most popular, widget: boolean, default: false }
+      - { name: order, label: Display order, widget: number, default: 0 }
+      - { name: includes, label: What's included, widget: list, field: { name: item, label: Item, widget: string } }
+      - { name: draft, label: Hide from site, widget: boolean, default: false }
+      - { name: body, label: Extra notes (not shown yet), widget: markdown, required: false }
+
+  - name: testimonials
+    label: Testimonials
+    folder: src/content/testimonials
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name
+    fields:
+      - { name: name, label: Client name (or initials), widget: string }
+      - { name: role, label: Descriptor, widget: string, required: false, hint: "e.g. Teacher, London" }
+      - { name: quote, label: Quote, widget: text }
+      - { name: permission_confirmed, label: Client gave written permission, widget: boolean, default: false, hint: "Only shown on the site when ticked" }
+      - { name: order, label: Display order, widget: number, default: 0 }
+
+  - name: posts
+    label: Blog posts
+    folder: src/content/posts
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Short description, widget: text }
+      - { name: date, label: Publish date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { name: image, label: Cover image, widget: image, required: false }
+      - { name: draft, label: Draft, widget: boolean, default: false }
+      - { name: body, label: Body, widget: markdown }

@@ -1,0 +1,36 @@
+---
+import Logo from './Logo.astro';
+import site from '../data/site.json';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container grid">
+    <div>
+      <a class="brand" href="/"><Logo size={30} /> {site.name}</a>
+      <p class="small">{site.tagline}</p>
+    </div>
+    <ul>
+      <li><a href="/free-guide">Free guide</a></li>
+      <li><a href="/work-with-me">Work with me</a></li>
+      <li><a href="/blog">Blog</a></li>
+      {site.youtube_url && <li><a href={site.youtube_url} rel="noopener">YouTube</a></li>}
+      {site.instagram_url && <li><a href={site.instagram_url} rel="noopener">Instagram</a></li>}
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href={`mailto:${site.email}`}>Contact</a></li>
+    </ul>
+  </div>
+  <div class="container">
+    <p class="disclaimer">{site.disclaimer}</p>
+    <p class="small">&copy; {year} {site.owner}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--teal-dark); color: #dfe7e5; padding: 56px 0 32px; font-size: 0.95rem; }
+  .site-footer a { color: #fff; }
+  .grid { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-size: 1.25rem; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, auto); gap: 8px 40px; }
+  .disclaimer { border-top: 1px solid rgb(255 255 255 / 0.15); padding-top: 24px; max-width: 80ch; }
+  .small { font-size: 0.85rem; opacity: 0.8; }
+</style>

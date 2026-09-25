@@ -1,0 +1,26 @@
+{
+  "name": "calm-money",
+  "version": "1.0.0",
+  "description": "Calm Money website",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeterKomolafe/Calm-Money.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PeterKomolafe/Calm-Money/issues"
+  },
+  "homepage": "https://github.com/PeterKomolafe/Calm-Money#readme",
+  "dependencies": {
+    "@astrojs/netlify": "^8.2.6",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5"
+  },
+  "private": true,
+  "type": "module"
+}

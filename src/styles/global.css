@@ -1,0 +1,92 @@
+/* Brand palette sampled from the Calm Money mark */
+:root {
+  --teal: #557170;
+  --teal-dark: #3e5553;
+  --sage: #7d9d90;
+  --blush: #e6a89c;
+  --terracotta: #b5695a;
+  --terracotta-dark: #9a5547;
+  --cream: #f5e8d8;
+  --cream-deep: #ebd9c3;
+  --paper: #fbf6f0;
+  --ink: #26302f;
+  --muted: #5b6664;
+  --line: #e4d8ca;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --radius: 18px;
+  --max: 1120px;
+  --gutter: clamp(16px, 4vw, 32px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--teal); }
+a:hover { color: var(--teal-dark); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--teal-dark);
+  margin: 0 0 0.5em;
+}
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); }
+h3 { font-size: 1.35rem; }
+p { margin: 0 0 1em; }
+
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.section { padding: clamp(56px, 9vw, 104px) 0; }
+.section--cream { background: var(--cream); }
+.section--teal { background: var(--teal); color: #fff; }
+.section--teal h2, .section--teal h3 { color: #fff; }
+.eyebrow {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--terracotta); margin-bottom: 0.75rem;
+}
+.lead { font-size: 1.2rem; color: var(--muted); max-width: 40ch; }
+.narrow { max-width: 720px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5em;
+  padding: 0.85em 1.5em; border-radius: 999px; border: 2px solid transparent;
+  font: 600 1rem/1.2 var(--font-body); text-decoration: none; cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.btn--primary { background: var(--terracotta); color: #fff; }
+.btn--primary:hover { background: var(--terracotta-dark); color: #fff; }
+.btn--ghost { border-color: var(--teal); color: var(--teal); background: transparent; }
+.btn--ghost:hover { background: var(--teal); color: #fff; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.card {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(24px, 3vw, 36px);
+}
+
+.ticks { list-style: none; padding: 0; margin: 0 0 1.5em; }
+.ticks li { position: relative; padding-left: 1.8em; margin-bottom: 0.5em; }
+.ticks li::before {
+  content: ''; position: absolute; left: 0; top: 0.45em; width: 1em; height: 1em;
+  border-radius: 50%; border: 3px solid var(--sage);
+}
+
+.prose { max-width: 68ch; }
+.prose h2 { margin-top: 1.6em; }
+.prose img { border-radius: var(--radius); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--terracotta); outline-offset: 3px; }
