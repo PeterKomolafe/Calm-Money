@@ -54,6 +54,8 @@
 
   <!-- Bridge: turns the visitor's own result into the case for a system -->
   <div class="bridge" aria-live="polite">
+    <!-- Peter's hand-drawn arrow, as in the hero, leading from the card down to what the result means -->
+    <span class="down" style="--src: url(/images/notes/arrow.png)" aria-hidden="true"></span>
     <p class="big" data-bridge></p>
     <p class="turn" data-turn></p>
   </div>
@@ -264,6 +266,10 @@
 
   .bridge { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; container-type: inline-size; }
   .bridge p { margin: 0; text-wrap: pretty; }
+  /* Centred in the gap between the card and the text */
+  .bridge { position: relative; }
+  .down { position: absolute; left: 50%; top: calc(var(--section-gap) / 2); translate: -50% -50%; width: clamp(18px, 1.9vw, 27px); aspect-ratio: 0.414;
+    background: var(--terracotta); -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; pointer-events: none; }
   /* The setup explains the maths at reading size; the turn below is the statement */
   .big { font-weight: 450; font-size: clamp(1.15rem, 1.7vw, 1.5rem); line-height: 1.45; color: var(--muted); max-width: 36em; }
   .big :global(b) { font-weight: 500; color: var(--ink); }
