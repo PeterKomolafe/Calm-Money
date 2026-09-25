@@ -77,11 +77,12 @@ collections:
     identifier_field: name
     fields:
       - { name: name, label: Name as agreed (full name, first name or initials), widget: string }
-      - { name: descriptor, label: Descriptor, widget: string, required: false, hint: "e.g. Member since 2026" }
       - { name: goal, label: Goal they came in with, widget: select, options: [{ label: Get debt free, value: debt }, { label: Get financially secure, value: secure }, { label: Build wealth, value: wealth }], required: false }
-      - { name: before, label: "Before (Q12: how they felt before joining)", widget: text, required: false }
-      - { name: now, label: "Now (Q12: how they feel now)", widget: text }
-      - { name: moment, label: "A specific change (Q6 or Q10)", widget: text, required: false }
+      - { name: headline, label: "Headline quote (Q12: how they feel about money now)", widget: text }
+      - { name: before, label: "Before joining (Q1)", widget: text, required: false }
+      - { name: tipped, label: "What tipped it (Q2)", widget: text, required: false }
+      - { name: doubt, label: "The doubt, and how it looks now (Q3 and Q4)", widget: text, required: false }
+      - { name: doing_now, label: "Doing now (Q10)", widget: text, required: false }
       - { name: placeholder, label: Placeholder, widget: boolean, default: false }
       - { name: permission_confirmed, label: Member gave written permission, widget: boolean, default: false, hint: "Only shown on the site when ticked" }
       - { name: order, label: Display order, widget: number, default: 0 }

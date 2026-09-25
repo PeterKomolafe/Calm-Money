@@ -18,7 +18,7 @@ Without `EMAIL_PROVIDER` set, the signup form logs to the console in dev instead
 | --- | --- | --- |
 | Hero, free guide, about, disclaimer | `src/data/site.json` | Site settings |
 | Offers (price, checkout link) | `src/content/offers/*.md` | Offers |
-| Testimonials | `src/content/testimonials/*.md` | Testimonials: Before/Now from questionnaire Q12, specific change from Q6 or Q10. Shown only with permission ticked; placeholders show until removed |
+| Testimonials | `src/content/testimonials/*.md` | Testimonials: headline from questionnaire Q12, then Q1, Q2, Q3+Q4 and Q10. Shown only with permission ticked; placeholders show until removed |
 | Blog posts | `src/content/posts/*.md` | Blog posts |
 | Colours and fonts | `src/styles/global.css` (`:root` tokens) | No |
 | Signup endpoint | `src/pages/api/subscribe.ts` | No |

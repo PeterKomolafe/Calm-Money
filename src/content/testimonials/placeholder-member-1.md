@@ -1,9 +1,10 @@
 ---
 name: "[Member 1 name, as agreed]"
-descriptor: "[Member since …]"
-before: "[Q12: how they felt about money before joining, in their words]"
-now: "[Q12: how they feel about money now]"
-moment: "[Q6 or Q10: one specific thing they do differently now]"
+headline: "[Q12: how they feel about money now, their strongest line]"
+before: "[Q1: their situation in the weeks before joining]"
+tipped: "[Q2: the moment they decided to join]"
+doubt: "[Q3 and Q4: their doubt, and how it looks now]"
+doing_now: "[Q10: one thing they do now that they didn't before]"
 placeholder: true
 order: 1
 ---

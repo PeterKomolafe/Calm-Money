@@ -34,12 +34,13 @@ const testimonials = defineCollection({
   schema: z.object({
     // As the member agreed to be named: full name, first name or initials
     name: z.string(),
-    descriptor: z.string().optional(),
     // The goal they came in with, matching the calculator goals
     goal: z.enum(['debt', 'secure', 'wealth']).optional(),
-    before: z.string().optional(), // questionnaire Q12: how they felt before joining
-    now: z.string(), // Q12: how they feel now
-    moment: z.string().optional(), // Q6 or Q10: a specific change
+    headline: z.string(), // questionnaire Q12: how they feel about money now
+    before: z.string().optional(), // Q1: their situation in the weeks before joining
+    tipped: z.string().optional(), // Q2: the moment they decided to join
+    doubt: z.string().optional(), // Q3 and Q4: their doubts, and how they look now
+    doing_now: z.string().optional(), // Q10: one thing they do now that they didn't before
     // Placeholders show until real answers arrive; remove them before launch
     placeholder: z.boolean().default(false),
     // Only publish testimonials the member has given written permission to use
