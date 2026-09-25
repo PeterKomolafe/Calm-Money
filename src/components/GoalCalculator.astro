@@ -198,7 +198,7 @@
     --on-card-muted: #bbb8ad; /* 4.7:1 */
     --on-card-quiet: #9ea098; /* large text only */
     --card-accent: #e6a89c;   /* blush, 4.7:1 */
-    padding: 4vw 32px 0; /* the system section below provides the gap */
+    padding: var(--section-gap) 32px 0; /* each section adds the shared gap above itself */
   }
   .wrap { position: relative; max-width: 920px; margin: 0 auto; } /* about the width of the MONEY wordmark */
   .card {
@@ -253,7 +253,7 @@
   .note { color: var(--on-card-muted); margin: 12px 0 0; }
   .fine { font-size: 0.85rem; color: var(--on-card-muted); margin: 28px 0 0; }
 
-  .bridge { max-width: 920px; margin: 0 auto; padding: clamp(64px, 9vw, 120px) 28px 0; }
+  .bridge { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   .bridge p { margin: 0; text-wrap: pretty; }
   .big { font-weight: 450; letter-spacing: -0.02em; font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.2; }
   .big :global(b) { font-weight: 600; color: var(--teal-dark); }
@@ -267,7 +267,7 @@
   @media (max-width: 760px) {
     .bridge { padding-inline: 12px; }
     .bridge :global(.underlined path) { stroke-width: 3; }
-    .calc { padding: 8vw 16px 0; }
+    .calc { padding: var(--section-gap) 16px 0; }
     .card { border-radius: 20px; padding: 28px 20px; }
     h2 { padding: 0 12px; }
     .goals { padding: 0 12px; gap: 4px; }
