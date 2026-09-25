@@ -2,9 +2,9 @@
 import Logo from './Logo.astro';
 import site from '../data/site.json';
 
-// TODO: these sections are not built yet; the anchors are placeholders
+// TODO: #how and #pricing sections are not built yet; those anchors are placeholders
 const links = [
-  { href: '/#course', label: 'The course' },
+  { href: '/#programme', label: 'The programme' },
   { href: '/#how', label: 'How it works' },
   { href: '/#pricing', label: 'Pricing' },
 ];
@@ -14,7 +14,7 @@ const links = [
   <nav aria-label="Main">
     {links.map((l) => <a href={l.href}>{l.label}</a>)}
   </nav>
-  <a class="join" href="/#pricing">Join the course<span class="from">from £297</span></a>
+  <a class="join" href="/#pricing">Join the programme<span class="from">from £297</span></a>
 </header>
 
 <style>
