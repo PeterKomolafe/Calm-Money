@@ -3,7 +3,7 @@
 // every placeholder is worded differently so each can be edited on its own.
 const stages = [
   {
-    img: 'family', w: 1200, h: 825,
+    img: 'family', pos: '50% 40%', w: 1200, h: 825,
     alt: 'Peter as a baby, held by his parents',
     caption: 'With my parents',
     title: '[Where it started]',
@@ -11,7 +11,7 @@ const stages = [
     placeholder: true,
   },
   {
-    img: 'packed-lunch', w: 1200, h: 900,
+    img: 'packed-lunch', pos: '68% 30%', w: 1200, h: 900,
     alt: 'Peter on the set of Steph’s Packed Lunch',
     caption: 'On Steph’s Packed Lunch, Channel 4',
     title: '[The turning point]',
@@ -19,7 +19,7 @@ const stages = [
     placeholder: true,
   },
   {
-    img: 'lorraine', w: 1200, h: 1200,
+    img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200,
     alt: 'Peter being interviewed by Lorraine Kelly on Lorraine',
     caption: 'On Lorraine, ITV, May 2022',
     title: '[Taking it public]',
@@ -27,7 +27,7 @@ const stages = [
     placeholder: true,
   },
   {
-    img: 'downing-street', w: 900, h: 1200,
+    img: 'downing-street', pos: '30% 50%', w: 900, h: 1200,
     alt: 'Peter outside 10 Downing Street',
     caption: '10 Downing Street',
     title: '[Why you were at Downing Street]',
@@ -35,7 +35,7 @@ const stages = [
     placeholder: true,
   },
   {
-    img: 'stage', w: 414, h: 414,
+    img: 'stage', pos: '55% 40%', w: 414, h: 414,
     alt: 'Peter speaking on stage at an awards event',
     caption: '[Event name]',
     title: '[Why Calm Money exists]',
@@ -50,51 +50,90 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   <h2>Why I built Calm Money.</h2>
   <p class="lede">A programme by Peter Komolafe. This is how it came to be.</p>
 
-  <ol class="stages">
-    {stages.map((s, i) => (
-      <li class:list={['stage', { placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`}>
-        <figure>
-          <img src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
-          <figcaption>{s.caption}</figcaption>
-        </figure>
-        <div class="words">
+  <div class="grid">
+    <ol class="chapters">
+      {stages.map((s, i) => (
+        <li class:list={['chapter', { on: i === 0, placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`} data-chapter={i}>
+          <figure class="inline">
+            <img src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+            <figcaption>{s.caption}</figcaption>
+          </figure>
           <span class="step">{String(i + 1).padStart(2, '0')}</span>
           <h3>{s.title}</h3>
           <p>{s.text}</p>
           {s.placeholder && <span class="tag">Placeholder</span>}
-        </div>
-      </li>
-    ))}
-  </ol>
+        </li>
+      ))}
+    </ol>
+
+    <!-- On wider screens the photo stays in view and changes as each chapter passes -->
+    <div class="frame" aria-hidden="true">
+      {stages.map((s, i) => (
+        <img class:list={{ on: i === 0 }} src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} data-frame={i} />
+      ))}
+      <p class="frame-cap" data-live>{stages[0].caption}</p>
+    </div>
+  </div>
 </section>
+
+<script>
+  const story = document.querySelector<HTMLElement>('#story'); // by id: member-story cards also use .story
+  if (story) {
+    const chapters = [...story.querySelectorAll<HTMLElement>('[data-chapter]')];
+    const frames = [...story.querySelectorAll<HTMLElement>('[data-frame]')];
+    const cap = story.querySelector<HTMLElement>('.frame-cap')!;
+    const show = (i: number) => {
+      chapters.forEach((c, j) => c.classList.toggle('on', j === i));
+      frames.forEach((f, j) => f.classList.toggle('on', j === i));
+      // Read the caption from the chapter so copy edits carry over
+      cap.textContent = chapters[i].querySelector('figcaption')?.textContent ?? '';
+    };
+    // The chapter crossing the middle of the screen chooses the photo
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && show(chapters.indexOf(e.target as HTMLElement))),
+      { rootMargin: '-45% 0px -45% 0px' },
+    );
+    chapters.forEach((c) => io.observe(c));
+  }
+</script>
 
 <style>
   .story { max-width: 1080px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
-  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 56px; }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 24px; }
 
-  .stages { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(56px, 8vw, 104px); }
-  /* Photo and words alternate sides down the page */
-  .stage { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
-  .stage:nth-child(even) figure { order: 2; }
+  .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); }
+  .chapters { list-style: none; margin: 0; padding: 0; }
+  /* Each chapter gets most of a screen, so the photo changes one stage at a time */
+  .chapter { min-height: 64vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.5; transition: opacity 0.4s; }
+  .chapter.on { opacity: 1; }
+  .chapter .inline { display: none; }
 
-  figure { margin: 0; }
-  img { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); }
-  figcaption { margin-top: 14px; font-size: 0.9rem; color: var(--muted); }
+  .frame { position: sticky; top: calc(50vh - min(34vh, 290px)); height: min(68vh, 580px); margin-top: 18vh; }
+  .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); opacity: 0; transition: opacity 0.5s; }
+  .frame img.on { opacity: 1; }
+  .frame-cap { position: absolute; left: 0; top: calc(100% + 14px); margin: 0; font-size: 0.9rem; color: var(--muted); }
 
   .step { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
   .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.1); }
-  h3 { margin: 12px 0 12px; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); }
-  .words p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
+  h3 { margin: 12px 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); text-wrap: balance; }
+  .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
-  .placeholder h3, .placeholder .words p, .placeholder figcaption { color: #8a918f; font-style: italic; }
-  .tag { display: inline-block; margin-top: 14px; padding: 2px 8px; border: 1px dashed var(--terracotta-dark); border-radius: 6px; font-size: 0.8rem; color: var(--terracotta-dark); }
+  .placeholder h3, .placeholder p, .placeholder figcaption { color: #8a918f; font-style: italic; }
+  .tag { align-self: flex-start; margin-top: 14px; padding: 2px 8px; border: 1px dashed var(--terracotta-dark); border-radius: 6px; font-size: 0.8rem; color: var(--terracotta-dark); }
 
-  @media (max-width: 760px) {
+  /* Phones and narrow tablets: no sticky frame, each chapter shows its own photo */
+  @media (max-width: 800px) {
     .story { padding-inline: 12px; }
-    .stage { grid-template-columns: 1fr; gap: 20px; }
-    .stage:nth-child(even) figure { order: 0; }
-    img { max-height: 440px; }
+    .grid { grid-template-columns: 1fr; }
+    .frame { display: none; }
+    .chapter { min-height: 0; opacity: 1; margin-top: 48px; }
+    .chapter .inline { display: block; margin: 0 0 18px; }
+    .inline img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); }
+    .inline figcaption { margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chapter, .frame img { transition: none; }
   }
 </style>
