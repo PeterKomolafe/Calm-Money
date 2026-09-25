@@ -1,6 +1,6 @@
 ---
 // Type-led hero: the Calm Money wordmark with the ring as the O, surrounded by
-// Pete's handwritten margin notes. Notes are transparent PNGs used as CSS masks,
+// Peter's handwritten margin notes. Notes are transparent PNGs used as CSS masks,
 // so their colour comes from the palette (graphite, or terracotta for key notes).
 import Logo from './Logo.astro';
 
@@ -23,7 +23,7 @@ const notes = [
     <span class="word" aria-hidden="true">Calm</span>
     <span class="word" aria-hidden="true">M<span class="slot"><Logo size={100} title="" /></span>ney</span>
   </h1>
-  <p class="byline">A course by Pete Komolafe</p>
+  <p class="byline">A course by Peter Komolafe</p>
 
   {notes.map((n) => (
     <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />

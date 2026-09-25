@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import site from '../data/site.json';
 const offers = (await getCollection('offers', (o) => !o.data.draft)).sort((a, b) => a.data.order - b.data.order);
 ---
-<Base title="Work with me" description="Money coaching options with Pete Komolafe.">
+<Base title="Work with me" description="Money coaching options with Peter Komolafe.">
   <section class="section">
     <div class="container">
       <p class="eyebrow">Work with me</p>
