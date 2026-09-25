@@ -4,7 +4,6 @@ const stages = [
   {
     img: 'early-years', pos: '45% 30%', w: 1075, h: 1165,
     alt: 'Peter as a baby, held up by a woman, with a young boy beside them',
-    caption: '[Who is in this photo]',
     title: 'Fostered from three months old',
     text: 'Fostered at three months old, I grew up without money. I still remember how my friends’ dinners always smelled better than ours. I had no idea the scarcity mindset forming in those moments would go on to hurt my finances as an adult. At eight, I was told I was going to Nigeria for a two-week holiday. It lasted ten years.\nI returned from Nigeria in 1998 with £50 in my pocket and, not understanding how money worked, ended up homeless and sleeping on the streets. By 2001 I was in debt, and I stayed there for over a decade.',
     placeholder: false,
@@ -12,7 +11,6 @@ const stages = [
   {
     img: 'office', pos: '35% 40%', w: 1199, h: 1200,
     alt: 'Peter at his desk in an office, in a shirt and tie',
-    caption: '[Where you were working]',
     title: 'Canary Wharf',
     text: 'In 2006, I found a job as a bank cashier and worked my way through retail and corporate banking before reaching wealth management in Canary Wharf in 2012. For the first time, I was earning good money, and I still felt stuck. I understood everyday financial products but knew nothing about investing, and my childhood scarcity had me overspending and living for the moment.\nThen a manager showed me I was earning enough to buy my first property. That conversation sparked the biggest mindset shift of my life. I set proper goals, stopped spending aimlessly, cleared my debts, bought the house and started investing.',
     placeholder: false,
@@ -20,7 +18,6 @@ const stages = [
   {
     img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200,
     alt: 'Peter being interviewed by Lorraine Kelly on Lorraine',
-    caption: 'On Lorraine, ITV, May 2022',
     title: 'Having the conversations I wish someone had with me',
     text: 'In 2020 I started a YouTube channel, which led to my bestselling book with HarperCollins, The Money Basics: How to Become Your Own Financial Hero, in 2023. I’ve appeared on shows including Lorraine, Steph’s Packed Lunch, Secret Spenders: Beat the Price Rises, Family Budget Switch Up and Jeremy Vine, and as a financial expert on BBC News, Sky News, Channel 5 News and the BBC World Service.',
     placeholder: false,
@@ -28,7 +25,6 @@ const stages = [
   {
     img: 'downing-street', pos: '30% 50%', w: 900, h: 1200,
     alt: 'Peter outside 10 Downing Street',
-    caption: '10 Downing Street',
     title: 'Advocating for financial education from primary school',
     text: 'Having ended up homeless because no one taught me how money worked, I took that story to Number 10 to push for financial education from primary school. From September 2028, children in England as young as five will learn the fundamentals of money in school.',
     placeholder: false,
@@ -36,7 +32,6 @@ const stages = [
   {
     img: 'stage', pos: '36% 40%', w: 1400, h: 933,
     alt: 'Peter speaking on stage at an awards event',
-    caption: '[Event name]',
     title: 'Why Calm Money exists',
     text: 'I’ve come a long way from noticing whose dinner smelled better. But the biggest lesson from that journey is one no textbook taught me: you can understand money and still be controlled by it. One conversation shifted my mindset, but it was the action I took afterwards that changed my life. It took years to realise how many people are stuck where I was, earning, trying, and still not moving forward. Calm Money is my answer to that. A place to stop overthinking your money and start taking the steps that move you forward, so you don’t have to wait as long as I did.',
     placeholder: false,
@@ -64,7 +59,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
         <li class:list={['chapter', { on: i === 0, placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`} data-chapter={i}>
           <figure class="inline">
             <img src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
-            <figcaption>{s.caption}</figcaption>
           </figure>
           <span class="step">{String(i + 1).padStart(2, '0')}</span>
           <h3>{s.title}</h3>
@@ -79,7 +73,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
       {stages.map((s, i) => (
         <img class:list={{ on: i === 0 }} src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} data-frame={i} />
       ))}
-      <p class="frame-cap" data-live data-proxy="#story [data-chapter].on figcaption">{stages[0].caption}</p>
     </div>
   </div>
 
@@ -98,12 +91,9 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   if (story) {
     const chapters = [...story.querySelectorAll<HTMLElement>('[data-chapter]')];
     const frames = [...story.querySelectorAll<HTMLElement>('[data-frame]')];
-    const cap = story.querySelector<HTMLElement>('.frame-cap')!;
     const show = (i: number) => {
       chapters.forEach((c, j) => c.classList.toggle('on', j === i));
       frames.forEach((f, j) => f.classList.toggle('on', j === i));
-      // Read the caption from the chapter so copy edits carry over
-      if (document.activeElement !== cap) cap.textContent = chapters[i].querySelector('figcaption')?.textContent ?? ''; // never mid-edit
     };
     // A chapter takes over once its number reaches the middle of the photo
     const frame = story.querySelector<HTMLElement>('.frame')!;
@@ -140,7 +130,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .frame { position: sticky; top: calc(50vh - min(34vh, 290px)); height: min(68vh, 580px); margin-top: 18vh; }
   .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); opacity: 0; transition: opacity 0.5s; }
   .frame img.on { opacity: 1; }
-  .frame-cap { position: absolute; left: 0; top: calc(100% + 14px); margin: 0; font-size: 0.9rem; color: var(--muted); }
 
   .step { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
   .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.1); }
@@ -155,7 +144,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .featured img { display: block; width: auto; max-width: 100%; }
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
-  .placeholder h3, .placeholder p, .placeholder figcaption { color: #8a918f; font-style: italic; }
+  .placeholder h3, .placeholder p { color: #8a918f; font-style: italic; }
   .tag { align-self: flex-start; margin-top: 14px; padding: 2px 8px; border: 1px dashed var(--terracotta-dark); border-radius: 6px; font-size: 0.8rem; color: var(--terracotta-dark); }
 
   /* Phones and narrow tablets: no sticky frame, each chapter shows its own photo */
@@ -166,7 +155,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     .chapter { min-height: 0; opacity: 1; margin-top: 48px; }
     .chapter .inline { display: block; margin: 0 0 18px; }
     .inline img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); }
-    .inline figcaption { margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
   }
   @media (prefers-reduced-motion: reduce) {
     .chapter, .frame img { transition: none; }
