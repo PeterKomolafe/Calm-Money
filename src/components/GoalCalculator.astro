@@ -5,10 +5,9 @@ const ctaHref = '/#course'; // TODO: point at the course section once it exists
 ---
 <section class="calc" id="calculator" data-goal="debt">
   <div class="card">
-  <h2>When will you get there?</h2>
+  <h2 id="goal-heading">What’s your goal?</h2>
 
-  <fieldset class="goals">
-    <legend class="sr-only">Choose your goal</legend>
+  <fieldset class="goals" aria-labelledby="goal-heading">
     <label><input type="radio" name="goal" value="debt" checked /><span>Get debt free</span></label>
     <label><input type="radio" name="goal" value="secure" /><span>Get financially secure</span></label>
     <label><input type="radio" name="goal" value="wealth" /><span>Build wealth</span></label>
