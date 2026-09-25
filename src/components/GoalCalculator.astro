@@ -9,7 +9,6 @@
   <fieldset class="goals" aria-labelledby="goal-heading">
     <label><input type="radio" name="goal" value="debt" checked /><span><span class="full">Get debt free</span><span class="short" aria-hidden="true">Debt free</span></span></label>
     <label><input type="radio" name="goal" value="secure" /><span><span class="full">Get financially secure</span><span class="short" aria-hidden="true">Secure</span></span></label>
-    <label><input type="radio" name="goal" value="house" /><span><span class="full">Save a house deposit</span><span class="short" aria-hidden="true">House</span></span></label>
     <label><input type="radio" name="goal" value="wealth" /><span><span class="full">Build wealth</span><span class="short" aria-hidden="true">Wealth</span></span></label>
   </fieldset>
   <div class="card">
@@ -30,11 +29,6 @@
       <label><input type="radio" name="months" value="6" /><span>6 months</span></label>
     </fieldset>
   </div>
-  <p class="sentence" data-panel="house" hidden>
-    I'm saving <span class="in">£<input data-k="target" inputmode="decimal" value="25,000" aria-label="House deposit target in pounds" /></span> for a house deposit.
-    I have <span class="in">£<input data-k="saved" inputmode="decimal" value="3,000" aria-label="Deposit saved so far in pounds" /></span> saved,
-    and I can put <span class="in">£<input data-k="add" inputmode="decimal" value="400" aria-label="Amount towards the deposit each month, in pounds" /></span> a month towards it.
-  </p>
   <p class="sentence" data-panel="wealth" hidden>
     I have <span class="in">£<input data-k="invested" inputmode="decimal" value="1,500" aria-label="Amount you have invested so far, in pounds" /></span> invested,
     and I can invest <span class="in">£<input data-k="add" inputmode="decimal" value="250" aria-label="Amount you can invest each month, in pounds" /></span> a month.
@@ -50,7 +44,6 @@
 
   <p class="fine" data-panel="debt">Assumes a fixed interest rate and no new borrowing. An estimate, not financial advice.</p>
   <p class="fine" data-panel="secure" hidden>Based on your essential monthly costs. An estimate, not financial advice.</p>
-  <p class="fine" data-panel="house" hidden>Counts what you save, before any interest or government bonus. An estimate, not financial advice.</p>
   <p class="fine" data-panel="wealth" hidden>Counts the money you put in, not investment growth. The value of investments can go down as well as up and you may get back less than you put in. This is not financial advice.</p>
   </div>
   </div>
@@ -120,16 +113,6 @@
       if (n > MAX_MONTHS) return { label, date: 'Over 50 years', note: 'Try a higher monthly amount.' };
       return { label, date: inMonths(n), note: `Your target is ${gbp(target)}. That's ${span(n)} away.`, months: n, monthly: add };
     },
-    house() {
-      const label = 'Your house deposit is ready in';
-      const target = num('house', 'target'), saved = num('house', 'saved'), add = num('house', 'add');
-      if (target <= 0) return { label, date: '\u00a0', note: 'Add your deposit target to see your date.' };
-      if (saved >= target) return { label, date: 'Already there', note: 'You have your deposit saved.' };
-      if (add <= 0) return { label, date: 'Not yet', note: 'Add something each month to get a date.' };
-      const n = Math.ceil((target - saved) / add);
-      if (n > MAX_MONTHS) return { label, date: 'Over 50 years', note: 'Try a higher monthly amount.' };
-      return { label, date: inMonths(n), note: `${gbp(target - saved)} to go. That's ${span(n)} away.`, months: n, monthly: add };
-    },
     wealth() {
       const label = 'Your first £10,000 invested in';
       const invested = num('wealth', 'invested'), add = num('wealth', 'add');
@@ -145,7 +128,6 @@
   const habit: Record<string, (amount: string) => string> = {
     debt: (a) => `putting <b>${a}</b> towards your debt`,
     secure: (a) => `saving <b>${a}</b>`,
-    house: (a) => `putting <b>${a}</b> towards your deposit`,
     wealth: (a) => `investing <b>${a}</b>`,
   };
 

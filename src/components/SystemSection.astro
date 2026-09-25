@@ -29,7 +29,7 @@ const lift = (m: (typeof modules)[number]) => {
 };
 
 // Which module builds each calculator goal
-const goalModule = { debt: 3, secure: 4, house: 4, wealth: 5 };
+const goalModule = { debt: 3, secure: 4, wealth: 5 };
 
 // Visibility rules for the lifted state, one set per module
 const css = modules
@@ -78,7 +78,6 @@ const css = modules
   const yours: Record<string, string> = {
     debt: 'Where your debt-free date gets built',
     secure: 'Where your breathing space gets built',
-    house: 'Where your deposit habit gets built',
     wealth: 'Where your first £10,000 invested gets built',
   };
   const show = (goal: string) => {
