@@ -149,9 +149,9 @@
     wealth: (a) => `investing <b>${a}</b>`,
   };
 
-  // A loose pen loop drawn around the "A system..." sentence, like a coach circling the answer
-  const LOOP = '<svg viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true"><path d="M258 17 C 186 9, 66 11, 26 25 C -4 38, 14 72, 140 75 C 250 78, 304 60, 292 36 C 284 22, 240 15, 196 19" /></svg>';
-  const circled = (text: string) => `<span class="circled">${text}${LOOP}</span>`;
+  // A hand-drawn pen underline under the "A system..." sentence, with a short return stroke
+  const UNDERLINE = '<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 11 C 70 5, 160 15, 297 7 M150 18 C 200 14, 250 15, 284 13" /></svg>';
+  const underlined = (text: string) => `<span class="underlined">${text}${UNDERLINE}</span>`;
 
   const update = () => {
     const goal = root.dataset.goal!;
@@ -164,13 +164,13 @@
     if (months && monthly) {
       const m = `${months} month${months > 1 ? 's' : ''}`;
       bridge.innerHTML = `${date} depends on ${habit[goal](gbp(monthly))} <b>every month for ${m}</b>, without missing one.`;
-      turn.innerHTML = `Willpower won’t carry you for ${m}. ${circled('A system will.')}`;
+      turn.innerHTML = `Willpower won’t carry you for ${m}. ${underlined('A system will.')}`;
     } else if (date === 'Already there') {
       bridge.textContent = 'You’re already there.';
-      turn.innerHTML = circled('A system is what keeps you there.');
+      turn.innerHTML = underlined('A system is what keeps you there.');
     } else {
       bridge.textContent = 'Right now, there’s no date to aim for.';
-      turn.innerHTML = circled('A system is how you get one.');
+      turn.innerHTML = underlined('A system is how you get one.');
     }
     // Lets the system section highlight the module for this goal
     document.dispatchEvent(new CustomEvent('calm:goal', { detail: { goal } }));
@@ -281,10 +281,10 @@
   .bridge p { margin: 0; text-wrap: balance; }
   .big { font-weight: 450; letter-spacing: -0.02em; font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.2; }
   .big :global(b) { font-weight: 600; color: var(--teal-dark); }
-  .bridge :global(.circled) { position: relative; display: inline-block; white-space: nowrap; }
-  .bridge :global(.circled svg) { position: absolute; left: -6%; top: -16%; width: 112%; height: 136%; overflow: visible; pointer-events: none; }
-  .bridge :global(.circled path) { fill: none; stroke: var(--terracotta); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-  .bridge .turn { font-family: var(--font-display); font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.45; color: var(--teal); margin-top: 0.5em; } /* room for the pen loop */
+  .bridge :global(.underlined) { position: relative; display: inline-block; white-space: nowrap; }
+  .bridge :global(.underlined svg) { position: absolute; left: -1%; top: 88%; width: 102%; height: 0.36em; overflow: visible; pointer-events: none; }
+  .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .bridge .turn { font-family: var(--font-display); font-size: clamp(1.6rem, 3.1vw, 2.75rem); line-height: 1.3; color: var(--teal); margin-top: 0.55em; } /* room for the pen underline */
 
   @media (max-width: 760px) {
     .bridge { padding-inline: 12px; }
