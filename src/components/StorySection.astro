@@ -1,46 +1,45 @@
 ---
-// Peter's story in stages, one photo per stage. Stage copy is placeholder until Peter writes it;
-// every placeholder is worded differently so each can be edited on its own.
+// Peter's story in stages, one photo per stage. A line break in `text` starts a new paragraph.
 const stages = [
   {
     img: 'early-years', pos: '45% 30%', w: 1075, h: 1165,
     alt: 'Peter as a baby, held up by a woman, with a young boy beside them',
     caption: '[Who is in this photo]',
-    title: '[Where it started]',
-    text: '[Your early story: what money looked like growing up, and what you learned about it early on.]',
-    placeholder: true,
+    title: 'Fostered from three months old',
+    text: 'Fostered at three months old, I grew up without money. I still remember how my friends’ dinners always smelled better than ours. I had no idea the scarcity mindset forming in those moments would go on to hurt my finances as an adult. At eight, I was told I was going to Nigeria for a two-week holiday. It lasted ten years.\nI returned from Nigeria in 1998 with £50 in my pocket and, not understanding how money worked, ended up homeless and sleeping on the streets. By 2001 I was in debt, and I stayed there for over a decade.',
+    placeholder: false,
   },
   {
     img: 'office', pos: '35% 40%', w: 1199, h: 1200,
     alt: 'Peter at his desk in an office, in a shirt and tie',
     caption: '[Where you were working]',
-    title: '[The turning point]',
-    text: '[The moment your own relationship with money changed, and what you did about it.]',
-    placeholder: true,
+    title: 'Canary Wharf',
+    text: 'In 2006, I found a job as a bank cashier and worked my way through retail and corporate banking before reaching wealth management in Canary Wharf in 2012. For the first time, I was earning good money, and I still felt stuck. I understood everyday financial products but knew nothing about investing, and my childhood scarcity had me overspending and living for the moment.\nThen a manager showed me I was earning enough to buy my first property. That conversation sparked the biggest mindset shift of my life. I set proper goals, stopped spending aimlessly, cleared my debts, bought the house and started investing.',
+    placeholder: false,
   },
   {
     img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200,
     alt: 'Peter being interviewed by Lorraine Kelly on Lorraine',
     caption: 'On Lorraine, ITV, May 2022',
-    title: '[Taking it public]',
-    text: '[How talking about money on TV and YouTube began, and what people kept asking you.]',
-    placeholder: true,
+    title: 'Having the conversations I wish someone had with me',
+    text: 'In 2020 I started a YouTube channel, which led to my bestselling book with HarperCollins, The Money Basics: How to Become Your Own Financial Hero, in 2023. I’ve appeared on shows including Lorraine, Steph’s Packed Lunch, Secret Spenders: Beat the Price Rises, Family Budget Switch Up and Jeremy Vine, and as a financial expert on BBC News, Sky News, Channel 5 News and the BBC World Service.',
+    placeholder: false,
   },
   {
     img: 'downing-street', pos: '30% 50%', w: 900, h: 1200,
     alt: 'Peter outside 10 Downing Street',
     caption: '10 Downing Street',
-    title: '[Why you were at Downing Street]',
-    text: '[What took you to Downing Street, and what it meant for the work.]',
-    placeholder: true,
+    title: 'Advocating for financial education from primary school',
+    text: 'Having ended up homeless because no one taught me how money worked, I took that story to Number 10 to push for financial education from primary school. From September 2028, children in England as young as five will learn the fundamentals of money in school.',
+    placeholder: false,
   },
   {
     img: 'stage', pos: '36% 40%', w: 1400, h: 933,
     alt: 'Peter speaking on stage at an awards event',
     caption: '[Event name]',
-    title: '[Why Calm Money exists]',
-    text: '[Why you built Calm Money, and who it is for.]',
-    placeholder: true,
+    title: 'Why Calm Money exists',
+    text: 'I’ve come a long way from noticing whose dinner smelled better. But the biggest lesson from that journey is one no textbook taught me: you can understand money and still be controlled by it. One conversation shifted my mindset, but it was the action I took afterwards that changed my life. It took years to realise how many people are stuck where I was, earning, trying, and still not moving forward. Calm Money is my answer to that. A place to stop overthinking your money and start taking the steps that move you forward, so you don’t have to wait as long as I did.',
+    placeholder: false,
   },
 ];
 // Each stage's marker takes the next ring colour, in the logo's order
@@ -69,7 +68,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
           </figure>
           <span class="step">{String(i + 1).padStart(2, '0')}</span>
           <h3>{s.title}</h3>
-          <p>{s.text}</p>
+          {s.text.split('\n').map((para) => <p>{para}</p>)}
           {s.placeholder && <span class="tag">Placeholder</span>}
         </li>
       ))}
@@ -147,6 +146,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.1); }
   h3 { margin: 12px 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); text-wrap: balance; }
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
+  .chapter p + p { margin-top: 14px; }
 
   /* Press logos: one centred band closing the story, in their own colours */
   .featured { margin-top: clamp(56px, 8vw, 96px); text-align: center; }
