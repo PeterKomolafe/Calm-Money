@@ -4,6 +4,7 @@
 ---
 <section class="calc" id="calculator" data-goal="debt">
   <div class="wrap">
+  <h2 id="goal-heading">What’s your goal?</h2>
   <!-- Goals as ledger index tabs on the card's top edge; short labels on phones -->
   <fieldset class="goals" aria-labelledby="goal-heading">
     <label><input type="radio" name="goal" value="debt" checked /><span><span class="full">Get debt free</span><span class="short" aria-hidden="true">Debt free</span></span></label>
@@ -12,8 +13,6 @@
     <label><input type="radio" name="goal" value="wealth" /><span><span class="full">Build wealth</span><span class="short" aria-hidden="true">Wealth</span></span></label>
   </fieldset>
   <div class="card">
-  <h2 id="goal-heading">What’s your goal?</h2>
-
   <p class="sentence" data-panel="debt">
     I owe <span class="in">£<input data-k="owe" inputmode="decimal" value="8,500" aria-label="Total debt in pounds" /></span>
     at an average of <span class="in"><input data-k="apr" inputmode="decimal" value="22" aria-label="Average interest rate, APR percent" />%</span> APR,
@@ -203,7 +202,8 @@
   }
 
   /* Question and date share the wordmark's typeface and weight */
-  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2rem, 6cqi, 3rem); line-height: 1; color: var(--on-card); margin: 0 0 28px; }
+  /* The question sits on the page above the tabs, aligned with the first tab */
+  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2rem, 3.4vw, 3rem); line-height: 1; color: var(--ink); margin: 0 0 24px; padding: 0 28px; }
 
   fieldset { border: 0; margin: 0; padding: 0; }
   fieldset label { position: relative; cursor: pointer; }
@@ -245,6 +245,7 @@
   @media (max-width: 760px) {
     .calc { padding: 8vw 16px 16vw; }
     .card { border-radius: 20px; padding: 28px 20px; }
+    h2 { padding: 0 12px; }
     .goals { padding: 0 12px; gap: 4px; }
     .goals label { flex: 1 1 0; }
     .goals > label > span { padding: 11px 6px 17px; font-size: 0.95rem; text-align: center; }
