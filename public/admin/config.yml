@@ -76,10 +76,14 @@ collections:
     slug: "{{slug}}"
     identifier_field: name
     fields:
-      - { name: name, label: Client name (or initials), widget: string }
-      - { name: role, label: Descriptor, widget: string, required: false, hint: "e.g. Teacher, London" }
-      - { name: quote, label: Quote, widget: text }
-      - { name: permission_confirmed, label: Client gave written permission, widget: boolean, default: false, hint: "Only shown on the site when ticked" }
+      - { name: name, label: Name as agreed (full name, first name or initials), widget: string }
+      - { name: descriptor, label: Descriptor, widget: string, required: false, hint: "e.g. Member since 2026" }
+      - { name: goal, label: Goal they came in with, widget: select, options: [{ label: Get debt free, value: debt }, { label: Get financially secure, value: secure }, { label: Build wealth, value: wealth }], required: false }
+      - { name: before, label: "Before (Q12: how they felt before joining)", widget: text, required: false }
+      - { name: now, label: "Now (Q12: how they feel now)", widget: text }
+      - { name: moment, label: "A specific change (Q6 or Q10)", widget: text, required: false }
+      - { name: placeholder, label: Placeholder, widget: boolean, default: false }
+      - { name: permission_confirmed, label: Member gave written permission, widget: boolean, default: false, hint: "Only shown on the site when ticked" }
       - { name: order, label: Display order, widget: number, default: 0 }
 
   - name: posts

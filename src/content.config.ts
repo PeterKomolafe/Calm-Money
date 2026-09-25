@@ -32,10 +32,17 @@ const offers = defineCollection({
 const testimonials = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
   schema: z.object({
+    // As the member agreed to be named: full name, first name or initials
     name: z.string(),
-    role: z.string().optional(),
-    quote: z.string(),
-    // Only publish testimonials the client has given written permission to use
+    descriptor: z.string().optional(),
+    // The goal they came in with, matching the calculator goals
+    goal: z.enum(['debt', 'secure', 'wealth']).optional(),
+    before: z.string().optional(), // questionnaire Q12: how they felt before joining
+    now: z.string(), // Q12: how they feel now
+    moment: z.string().optional(), // Q6 or Q10: a specific change
+    // Placeholders show until real answers arrive; remove them before launch
+    placeholder: z.boolean().default(false),
+    // Only publish testimonials the member has given written permission to use
     permission_confirmed: z.boolean().default(false),
     order: z.number().default(0),
   }),

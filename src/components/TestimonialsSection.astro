@@ -1,0 +1,81 @@
+---
+// Member stories laid out like a ledger: who, how they felt before, how they feel now.
+// Content comes from the questionnaire (Q12 before/now, Q6 or Q10 for the specific change).
+// Only entries with written permission, or placeholders awaiting answers, are shown.
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('testimonials', (t) => t.data.permission_confirmed || t.data.placeholder))
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Each goal borrows the ring colour of the module that builds it
+const goals = {
+  debt: { label: 'Came to get debt free', color: 'var(--blush)' },
+  secure: { label: 'Came to get financially secure', color: 'var(--sage)' },
+  wealth: { label: 'Came to build wealth', color: 'var(--teal)' },
+};
+---
+{entries.length > 0 && (
+  <section class="testimonials" id="results">
+    <h2>In their words.</h2>
+    <p class="lede">Members on where they started, and where they are now.</p>
+
+    <div class="ledger" role="list">
+      <div class="head" aria-hidden="true"><span>Member</span><span>Before</span><span>Now</span></div>
+      {entries.map(({ data: t }) => (
+        <figure class:list={['row', { placeholder: t.placeholder, 'no-before': !t.before }]} role="listitem">
+          <figcaption class="who">
+            <span class="name">{t.name}</span>
+            {t.descriptor && <span class="desc">{t.descriptor}</span>}
+            {t.goal && <span class="goal"><i style={`background:${goals[t.goal].color}`} />{goals[t.goal].label}</span>}
+            {t.placeholder && <span class="tag">Placeholder</span>}
+          </figcaption>
+          {t.before && (
+            <blockquote class="before"><span class="label">Before</span><p>“{t.before}”</p></blockquote>
+          )}
+          <blockquote class="now"><span class="label">Now</span><p>“{t.now}”</p></blockquote>
+          {t.moment && <p class="moment">“{t.moment}”</p>}
+        </figure>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .testimonials { max-width: 920px; margin: 0 auto; padding: clamp(40px, 5vw, 64px) 28px clamp(80px, 10vw, 140px); }
+  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 48px; }
+
+  /* Ledger: a ruled header row, then one ruled row per member */
+  .ledger { border-top: 1.5px solid var(--ink); }
+  .head, .row { display: grid; grid-template-columns: 220px 1fr 1fr; gap: 12px 40px; }
+  .head { padding: 10px 0; border-bottom: 1px solid var(--ink); font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+  .row { margin: 0; padding: 32px 0; border-bottom: 1px solid rgb(31 38 36 / 0.14); }
+  /* No 'before' answer (e.g. quotes from before the questionnaire): keep the quote under Now */
+  .row.no-before .now { grid-column: 3; }
+
+  .who { display: flex; flex-direction: column; gap: 6px; }
+  .name { font-weight: 500; font-size: 1.1rem; color: var(--ink); }
+  .desc { font-size: 0.95rem; color: var(--muted); }
+  .goal { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
+  .goal i { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.08); }
+
+  blockquote { margin: 0; }
+  blockquote p { margin: 0; font-family: var(--font-display); font-size: clamp(1.2rem, 1.9vw, 1.45rem); line-height: 1.35; }
+  .before p { color: var(--muted); }
+  .now p { color: var(--teal-dark); }
+  .label { display: none; font-size: 0.9rem; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+  .moment { grid-column: 2 / 4; margin: 4px 0 0; color: var(--muted); font-size: 1.05rem; }
+
+  /* Placeholders are obviously unfinished so they can't be mistaken for real members */
+  .placeholder blockquote p, .placeholder .moment, .placeholder .name, .placeholder .desc { color: #8a918f; font-style: italic; }
+  .tag { align-self: flex-start; margin-top: 4px; padding: 2px 8px; border: 1px dashed var(--terracotta-dark); border-radius: 6px; font-size: 0.8rem; color: var(--terracotta-dark); }
+
+  @media (max-width: 760px) {
+    .testimonials { padding-inline: 12px; }
+    .head { display: none; }
+    .head, .row { grid-template-columns: 1fr; }
+    .row.no-before .now, .moment { grid-column: auto; }
+    .row.no-before .now { grid-column: 1; }
+    .label { display: block; }
+  }
+</style>
