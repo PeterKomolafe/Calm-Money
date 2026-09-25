@@ -19,7 +19,7 @@ const stages = [
     placeholder: true,
   },
   {
-    img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200,
+    img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200, featured: true,
     alt: 'Peter being interviewed by Lorraine Kelly on Lorraine',
     caption: 'On Lorraine, ITV, May 2022',
     title: '[Taking it public]',
@@ -44,6 +44,12 @@ const stages = [
   },
 ];
 // Each stage's marker takes the next ring colour, in the logo's order
+// Press logos, cropped from Peter's own 'As featured on' strip (display height is set in CSS)
+const featured = [
+  ['channel-4', 'Channel 4', 38, 51], ['sky-news', 'Sky News', 138, 38], ['itv', 'ITV', 79, 42],
+  ['lorraine', 'Lorraine', 144, 37], ['stephs-packed-lunch', 'Steph’s Packed Lunch', 57, 56], ['bbc', 'BBC', 145, 45],
+  ['channel-5', 'Channel 5', 40, 56], ['the-times', 'The Times', 88, 37], ['metro', 'Metro', 121, 39],
+] as const;
 const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sage)', 'var(--teal)'];
 ---
 <section class="story" id="story">
@@ -61,6 +67,16 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
           <span class="step">{String(i + 1).padStart(2, '0')}</span>
           <h3>{s.title}</h3>
           <p>{s.text}</p>
+          {s.featured && (
+            <div class="featured">
+              <p class="featured-label">As featured on</p>
+              <ul>
+                {featured.map(([file, name, w, h]) => (
+                  <li><img class:list={{ square: w / h < 1.2 }} src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" /></li>
+                ))}
+              </ul>
+            </div>
+          )}
           {s.placeholder && <span class="tag">Placeholder</span>}
         </li>
       ))}
@@ -129,6 +145,14 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.1); }
   h3 { margin: 12px 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); text-wrap: balance; }
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
+
+  /* Press logos under chapter 3, kept small and quiet so they support the story */
+  .featured { margin-top: 26px; }
+  .featured .featured-label { margin: 0 0 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); font-style: normal; }
+  .featured ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+  .featured img { display: block; height: 26px; width: auto; }
+  /* Square marks look smaller than wordmarks at the same height, so give them more */
+  .featured img.square { height: 34px; }
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
   .placeholder h3, .placeholder p, .placeholder figcaption { color: #8a918f; font-style: italic; }
