@@ -27,8 +27,6 @@ const notes = [
   {notes.map((n) => (
     <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />
   ))}
-  <!-- Bank of England £5 as supplied. Reproducing it needs the Bank of England's consent before launch -->
-  <img class="banknote" src="/images/banknote/five-pound.png" width="1000" height="776" alt="" aria-hidden="true" />
   <a class="arrow" href="#calculator" aria-label="Find your date"><span class="note key arrow-ink" style="--src: url(/images/notes/arrow.png); --ar: 0.414" aria-hidden="true" /></a>
 </section>
 
@@ -54,18 +52,6 @@ const notes = [
     slot.classList.add('ready');
   };
   document.fonts.ready.then(fit);
-
-  // The banknote drifts down and turns slightly as the hero scrolls away
-  const note = document.querySelector<HTMLElement>('.hero .banknote');
-  if (note && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let queued = false;
-    const drift = () => {
-      queued = false;
-      const y = Math.min(scrollY, innerHeight);
-      note.style.transform = `translateY(${y * 0.35}px) rotate(${y * 0.012}deg)`;
-    };
-    addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(drift); } }, { passive: true });
-  }
   window.addEventListener('resize', fit);
 </script>
 
@@ -97,8 +83,6 @@ const notes = [
   .peace   { width: 16vw;  right: 5%;   bottom: 8%;  rotate: -3deg; }
 
   /* Peter's hand-drawn arrow, leading down to the calculator */
-  /* Sits under the handwriting, so a note that drifts past it reads like an annotation */
-  .banknote { position: absolute; z-index: 0; right: 2.5%; top: 25%; width: 15vw; height: auto; rotate: -6deg; pointer-events: none; filter: drop-shadow(0 8px 14px rgb(31 38 36 / 0.18)); will-change: transform; }
   .arrow { position: absolute; left: 50%; bottom: 0.6vw; width: 1.9vw; min-width: 18px; translate: -50% 0; }
   .arrow .arrow-ink { position: static; display: block; width: 100%; }
 
@@ -109,7 +93,6 @@ const notes = [
     .hero { padding-bottom: 22vw; }
     .subs, .control, .monthly, .apr, .life, .secure, .wealth { display: none; }
     .peace { width: 44vw; right: 5%; bottom: 5%; }
-    .banknote { display: none; }
     .arrow { width: 7vw; left: 22%; bottom: 3vw; }
   }
 </style>
