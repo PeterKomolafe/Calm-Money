@@ -19,6 +19,10 @@
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body: 'Jost Variable', 'Jost', system-ui, -apple-system, sans-serif;
 
+  /* Stacked shadows (contact, near, far) that make a card look lifted off the page */
+  --lift: inset 0 1px 0 rgb(255 255 255 / 0.10), 0 1px 1px rgb(31 38 36 / 0.10), 0 3px 6px rgb(31 38 36 / 0.10),
+    0 12px 24px -4px rgb(31 38 36 / 0.16), 0 32px 56px -12px rgb(31 38 36 / 0.24), 0 64px 96px -32px rgb(31 38 36 / 0.30);
+
   --radius: 18px;
   --max: 1120px;
   --gutter: clamp(16px, 4vw, 32px);
