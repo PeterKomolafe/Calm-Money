@@ -70,6 +70,7 @@ body::before {
   pointer-events: none;
   background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px), linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
   background-size: calc(100vw / 8) calc(100vw / 8);
+  opacity: 0.5; /* half strength: present, but it shouldn't compete with the content */
 }
 
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
