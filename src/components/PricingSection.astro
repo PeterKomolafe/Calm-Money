@@ -1,7 +1,8 @@
 ---
+import WaitlistPopup from './WaitlistPopup.astro';
 // Three ways to join. Price and button sit at the top of each card so they line up
 // whatever the length of the list below. The top tier runs in intakes: its button joins the waitlist.
-// Replace each href with its checkout or waitlist link.
+// Replace the first two hrefs with their checkout links; the third opens the waitlist pop-up.
 const tiers = [
   {
     name: 'At your pace',
@@ -44,7 +45,7 @@ const tiers = [
       { title: '2 meetups a year', items: ['Two in-person meet-ups during your 12 months. A chance to step away from the screen, meet the people on the same journey as you, and take stock of how far you’ve come'] },
     ],
     cta: 'Join the waitlist',
-    href: '#pricing',
+    href: '#waitlist', // opens the waitlist pop-up
     apply: true,
   },
 ];
@@ -79,6 +80,7 @@ const tiers = [
       </article>
     ))}
   </div>
+  <WaitlistPopup />
   <p class="guarantee">Both coaching options come with a 30-day money-back guarantee. <a href="#guarantee">See how it works</a>.</p>
 </section>
 

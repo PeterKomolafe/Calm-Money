@@ -26,6 +26,10 @@ collections:
           - { name: youtube_url, label: YouTube URL, widget: string, required: false }
           - { name: instagram_url, label: Instagram URL, widget: string, required: false }
           - { name: disclaimer, label: Regulatory disclaimer, widget: text }
+          - { name: description, label: Description for search and sharing, widget: text }
+          - { name: company, label: Company name, widget: string }
+          - { name: klaviyo_public_key, label: Klaviyo public API key (Site ID), widget: string, required: false, hint: "6 characters, from Settings, Account, API keys in Klaviyo. Never the private key starting pk_" }
+          - { name: klaviyo_waitlist_list_id, label: Klaviyo list ID for the full support waitlist, widget: string, required: false }
 
   - name: testimonials
     label: Testimonials
