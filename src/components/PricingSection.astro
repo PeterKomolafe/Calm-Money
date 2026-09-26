@@ -56,19 +56,32 @@ const tiers = [
         <p class="price">{t.price}</p>
         <a class:list={['btn', t.apply ? 'btn--light' : 'btn--primary']} href={t.href}>{t.cta}</a>
 
-        <p class="intro">{t.intro}</p>
-        <ul>
-          {t.groups.map((g) => (
-            <li>
-              <strong class:list={{ "one-line": g.oneLine }}>{g.title}</strong>
-              <span>{g.items.join('. ')}.</span>
-            </li>
-          ))}
-        </ul>
+        <!-- Phones: the list opens with "See what's included". Wider screens: always open -->
+        <details class="inc" open>
+          <summary>See what’s included</summary>
+          <p class="intro">{t.intro}</p>
+          <ul>
+            {t.groups.map((g) => (
+              <li>
+                <strong class:list={{ "one-line": g.oneLine }}>{g.title}</strong>
+                <span>{g.items.join('. ')}.</span>
+              </li>
+            ))}
+          </ul>
+        </details>
       </article>
     ))}
   </div>
 </section>
+
+<script>
+  // Phones start with each list closed; wider screens keep them open
+  const lists = [...document.querySelectorAll<HTMLDetailsElement>('#pricing details.inc')];
+  const phone = matchMedia('(max-width: 760px)');
+  const fit = () => lists.forEach((d) => { d.open = !phone.matches; });
+  fit();
+  phone.addEventListener('change', fit);
+</script>
 
 <style>
   .pricing { max-width: 1160px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
@@ -100,6 +113,8 @@ const tiers = [
   .btn--light { background: var(--cream); color: var(--ink); }
   .btn--light:hover { background: #fff; color: var(--ink); }
 
+  .inc summary { display: none; }
+
   @media (max-width: 1000px) {
     .tiers { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
   }
@@ -108,5 +123,20 @@ const tiers = [
     h2 { font-size: 32px; }
     li strong { font-size: min(19px, 6.25cqi); } /* the one-line lesson count still fits on the smallest phones */
     .pricing { padding-inline: 20px; }
+
+    .inc { margin-top: 18px; border-top: 1px solid rgb(31 38 36 / 0.12); }
+    .full .inc { border-top-color: rgb(245 232 216 / 0.18); }
+    .inc summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px 0 4px; font-weight: 500; }
+    .inc summary::-webkit-details-marker { display: none; }
+    .inc summary::after { content: ''; width: 14px; height: 14px; background:
+        linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,
+        linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
+    .inc[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
+    .full .inc summary::after { background:
+        linear-gradient(var(--blush), var(--blush)) center / 100% 2px no-repeat,
+        linear-gradient(var(--blush), var(--blush)) center / 2px 100% no-repeat; }
+    .full .inc[open] summary::after { background: linear-gradient(var(--blush), var(--blush)) center / 100% 2px no-repeat; }
+    .inc summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+    .inc .intro { border-top: 0; padding-top: 8px; margin-top: 0; }
   }
 </style>

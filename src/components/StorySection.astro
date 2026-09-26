@@ -46,7 +46,7 @@ const featured = [
 ] as const;
 // Size each logo by area so wide wordmarks and square marks look equally heavy; Steph's gets 10% more
 const logoHeight = (file: string, w: number, h: number) =>
-  Math.round(Math.max(18, Math.min(40, Math.sqrt(1900 / (w / h)))) * (file === 'stephs-packed-lunch' ? 1.1 : 1));
+  Math.round(Math.max(14, Math.min(30, Math.sqrt(1100 / (w / h)))) * (file === 'stephs-packed-lunch' ? 1.1 : 1));
 const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sage)', 'var(--teal)'];
 ---
 <section class="story" id="story">
@@ -57,12 +57,31 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     <ol class="chapters">
       {stages.map((s, i) => (
         <li class:list={['chapter', { on: i === 0, placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`} data-chapter={i}>
-          <figure class="inline">
-            <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
-          </figure>
-          <span class="step">{String(i + 1).padStart(2, '0')}</span>
-          <h3>{s.title}</h3>
-          {s.text.split('\n').map((para) => <p>{para}</p>)}
+          {i === 0 ? (
+            <>
+              <figure class="inline">
+                <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+              </figure>
+              <span class="step">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{s.title}</h3>
+              {s.text.split('\n').map((para) => <p>{para}</p>)}
+            </>
+          ) : (
+            // Phones: a headline row with a small photo that opens on tap. Wider screens: always open
+            <details class="more" open>
+              <summary>
+                <img class="thumb" src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+                <span class="head">
+                  <span class="step">{String(i + 1).padStart(2, '0')}</span>
+                  <h3>{s.title}</h3>
+                </span>
+              </summary>
+              <figure class="inline">
+                <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+              </figure>
+              {s.text.split('\n').map((para) => <p>{para}</p>)}
+            </details>
+          )}
           {s.placeholder && <span class="tag">Placeholder</span>}
         </li>
       ))}
@@ -80,7 +99,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     <p class="featured-label">As featured on</p>
     <ul>
       {featured.map(([file, name, w, h]) => (
-        <li><img src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" style={`height: ${logoHeight(file, w, h)}px`} /></li>
+        <li><img src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" style={`--h: ${logoHeight(file, w, h)}px`} /></li>
       ))}
     </ul>
   </div>
@@ -113,6 +132,23 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     addEventListener('scroll', queue, { passive: true });
     addEventListener('resize', queue);
     update();
+
+    // Phones collapse chapters 2 to 5, one open at a time. Wider screens keep every chapter open
+    const more = [...story.querySelectorAll<HTMLDetailsElement>('details.more')];
+    const phone = matchMedia('(max-width: 800px)');
+    const fit = () => more.forEach((d) => {
+      const sum = d.querySelector('summary')!;
+      if (phone.matches) { d.name = 'story'; d.open = false; sum.removeAttribute('tabindex'); }
+      else { d.removeAttribute('name'); d.open = true; sum.tabIndex = -1; }
+    });
+    fit();
+    phone.addEventListener('change', fit);
+    more.forEach((d) => {
+      d.querySelector('summary')!.addEventListener('click', (e) => { if (!phone.matches) e.preventDefault(); });
+      d.addEventListener('toggle', () => {
+        if (d.open && phone.matches) more.forEach((o) => { if (o !== d) o.open = false; });
+      });
+    });
   }
 </script>
 
@@ -138,12 +174,18 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
   .chapter p + p { margin-top: 14px; }
 
+  /* Chapters 2 to 5: on wider screens the summary is just the number and heading */
+  .more summary { list-style: none; cursor: default; }
+  .more summary::-webkit-details-marker { display: none; }
+  .more .head { display: block; }
+  .more .thumb { display: none; }
+
   /* Press logos: one centred band closing the story, in their own colours */
   .story-cta { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
   .featured { margin-top: clamp(56px, 8vw, 96px); text-align: center; }
   .featured-label { margin: 0 0 22px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); }
   .featured ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px clamp(24px, 3.4vw, 44px); }
-  .featured img { display: block; width: auto; max-width: 100%; }
+  .featured img { display: block; width: auto; max-width: 100%; height: var(--h); }
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
   .placeholder h3, .placeholder p { color: #8a918f; font-style: italic; }
@@ -161,6 +203,27 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     .chapter { min-height: 0; opacity: 1; margin-top: 48px; }
     .chapter .inline { display: block; margin: 0 0 18px; }
     .inline img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); }
+
+    /* Chapters 2 to 5 collapse to a row: small photo, number and heading, and a plus */
+    .chapter:has(.more) { margin-top: 0; }
+    .chapter:has(.more) + .chapter:has(.more) .more { border-top: 1px solid rgb(31 38 36 / 0.1); }
+    .chapter:nth-child(2) .more { margin-top: 32px; }
+    .more summary { cursor: pointer; display: grid; grid-template-columns: 64px 1fr 14px; gap: 14px; align-items: center; padding: 12px 0; }
+    .more .thumb { display: block; width: 64px; height: 64px; object-fit: cover; border-radius: 12px; }
+    .more .head { display: grid; gap: 2px; }
+    .more h3 { margin: 0; font-size: 20px; }
+    .more summary::after { content: ''; width: 14px; height: 14px; background:
+        linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,
+        linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
+    .more[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
+    .more summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+    .more .inline { margin: 4px 0 16px; }
+    .more .inline img { max-height: 300px; }
+    .more p:last-child { margin-bottom: 12px; }
+
+    .featured-label { margin-bottom: 16px; }
+    .featured ul { gap: 16px 22px; }
+    .featured img { height: calc(var(--h) * 0.85); }
   }
   @media (prefers-reduced-motion: reduce) {
     .chapter, .frame img { transition: none; }
