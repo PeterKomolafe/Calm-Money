@@ -48,10 +48,9 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     <ol class="chapters">
       {stages.map((s, i) => (
         <li class:list={['chapter', { on: i === 0, placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`} data-chapter={i}>
-          {/* Phones: a headline row with a small photo that opens on tap, one at a time. Wider screens: always open */}
+          {/* Phones: a headline row that opens on tap, one at a time. Wider screens: always open */}
           <details class="more" open>
             <summary>
-              <img class="thumb" src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
               <span class="head">
                 <span class="step">{String(i + 1).padStart(2, '0')}</span>
                 <h3>{s.title}</h3>
@@ -150,8 +149,10 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); opacity: 0; transition: opacity 0.5s; }
   .frame img.on { opacity: 1; }
 
-  .step { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.25); } /* the ring keeps the cream dot visible on the pale page */
+  /* As in the module list: a bar of the chapter's ring colour down the left, and a large serif number */
+  .more { position: relative; padding-left: 24px; }
+  .more::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.18); } /* the outline keeps the cream bar visible */
+  .step { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.4vw, 2rem); line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
   h3 { margin: 12px 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); text-wrap: balance; }
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
   .chapter p + p { margin-top: 14px; }
@@ -160,7 +161,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .more summary { list-style: none; cursor: default; }
   .more summary::-webkit-details-marker { display: none; }
   .more .head { display: block; }
-  .more .thumb { display: none; }
 
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
@@ -181,23 +181,19 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     .chapter .inline { display: block; margin: 0 0 18px; }
     .inline img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); }
 
-    /* Chapters collapse to a row: small photo, number and heading, and a plus */
-    .chapter:has(.more) { margin-top: 0; }
-    .chapter:has(.more) + .chapter:has(.more) .more { border-top: 1px solid rgb(31 38 36 / 0.1); }
-    .chapter:first-child .more { margin-top: 32px; }
-    .more summary { cursor: pointer; display: grid; grid-template-columns: 52px 1fr 14px; gap: 12px; align-items: center; padding: 10px 0; }
-    .more .thumb { display: block; width: 52px; height: 52px; object-fit: cover; border-radius: 10px; }
-    .more .head { display: grid; gap: 2px; }
+    /* Chapters collapse to a row: colour bar, number, heading and a plus, like the module list */
+    .chapter:has(.more) { margin-top: 10px; }
+    .chapter:first-child { margin-top: 32px; }
+    .more { padding-left: 18px; }
+    .more summary { cursor: pointer; display: grid; grid-template-columns: 1fr 14px; gap: 12px; align-items: center; padding: 10px 0; }
+    .more .head { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; align-items: center; }
+    .step { font-size: 26px; }
     .more h3 { margin: 0; font-size: 20px; }
     .more summary::after { content: ''; width: 14px; height: 14px; background:
         linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,
         linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
     .more[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
     .more summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
-    /* Open: the small photo goes, leaving the number and heading styled like chapter 1 */
-    .more[open] summary { grid-template-columns: 1fr 14px; }
-    .more[open] .thumb { display: none; }
-    .more[open] h3 { margin-top: 12px; font-size: 23px; }
     .more .inline { margin: 4px 0 16px; }
     .more .inline img { max-height: 240px; border-radius: 14px; }
     .more .inline img[style*='--mpos'] { object-position: var(--mpos) !important; } /* a phone crop where the shorter photo needs one */
