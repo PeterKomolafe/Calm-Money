@@ -12,7 +12,6 @@ Conversation of Money Ltd is the data controller for your personal information. 
 **Information you give us**
 
 - Your name and email address, when you join our mailing list, buy the programme or contact us.
-- Your date of birth, [only where we ask for it, to confirm you are 18 or over].
 - The answers you give in an application for 12 months of full support, and anything you share with us in coaching sessions, calls or WhatsApp.
 - If you are a member and agree to share a story with us, the answers you give in our member questionnaire. We only publish a story with your written permission.
 
@@ -24,7 +23,7 @@ Conversation of Money Ltd is the data controller for your personal information. 
 **Information we don't collect**
 
 - The figures you enter in the calculator stay in your browser. We don't see or store them.
-- We don't see or store your card or bank details. Payments are handled by our payment processor, [payment processor name].
+- We don't see or store your card or bank details. Payments are handled by Stripe.
 
 We don't ask for special category data, such as health information. If you choose to share something like this with us during coaching, we only use it to support you and keep it confidential.
 
@@ -48,9 +47,9 @@ We never sell your personal information, and we don't share it with other compan
 We share it only with the service providers who help us run Calm Money, and only as much as they need. They may only use it on our instructions. They are:
 
 - **Klaviyo**, for our emails.
-- **[Payment processor name]**, to take payments.
-- **[Programme platform name]**, which hosts the programme.
+- **Stripe**, to take payments.
 - **Netlify**, which hosts this website.
+- **The hosting provider for our programme platform.** The platform is built for us, and your information on it stays under our control.
 - **Meta (Facebook)**, for advertising measurement and remarketing, only if you've consented.
 
 We may also share information:
@@ -61,7 +60,7 @@ We may also share information:
 
 ## International transfers
 
-Some of our providers, including Klaviyo and Meta, store information outside the UK, mainly in the United States. When this happens, we make sure appropriate safeguards are in place, such as the UK International Data Transfer Agreement or the UK Extension to the EU-US Data Privacy Framework.
+Some of our providers, including Klaviyo, Stripe and Meta, store information outside the UK, mainly in the United States. When this happens, we make sure appropriate safeguards are in place, such as the UK International Data Transfer Agreement or the UK Extension to the EU-US Data Privacy Framework.
 
 ## How long we keep it
 
