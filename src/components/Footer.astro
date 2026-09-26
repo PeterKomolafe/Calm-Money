@@ -5,14 +5,9 @@ const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
   <div class="inner">
+    <!-- No page links: on a one-page site they only jump back up, and the final card above already goes to pricing -->
     <div class="top">
       <a class="brand" href="/" aria-label={`${site.name}, home`}><Logo size={36} title="" /></a>
-      <ul>
-        <li><a href="/#programme">The programme</a></li>
-        <li><a href="/#pricing">Pricing</a></li>
-        <li><a href="/#faq">Questions</a></li>
-        {site.youtube_url && <li><a href={site.youtube_url} rel="noopener">YouTube</a></li>}
-      </ul>
     </div>
     <p class="disclaimer">{site.disclaimer}</p>
     <div class="bottom">
@@ -21,6 +16,7 @@ const year = new Date().getFullYear();
         <li><a href="/privacy">Privacy policy</a></li>
         <!-- Add a /terms page before launch; the refund terms and checkout consent belong there -->
         <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        {site.youtube_url && <li><a href={site.youtube_url} rel="noopener">YouTube</a></li>}
       </ul>
     </div>
   </div>
@@ -32,7 +28,7 @@ const year = new Date().getFullYear();
   .inner { max-width: 1080px; margin: 0 auto; padding: 0 28px; display: grid; gap: 24px; }
   .top, .bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px 28px; flex-wrap: wrap; }
   .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 500; font-size: 1.2rem; color: var(--ink); }
-  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 28px; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
   a { color: var(--ink); text-underline-offset: 4px; }
   .disclaimer { margin: 0; max-width: 90ch; font-size: 13px; line-height: 1.55; }
   .bottom { font-size: 13px; padding-top: 20px; border-top: 1px dashed rgb(31 38 36 / 0.14); }
