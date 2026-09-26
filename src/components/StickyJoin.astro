@@ -1,0 +1,42 @@
+---
+// Phones only: a join button that follows the reader once they're past the calculator.
+// It steps aside whenever another join button or the pricing is on screen, so there's never two.
+---
+<a class="sticky-join btn btn--primary" href="#pricing" aria-hidden="true" tabindex="-1">Join the programme</a>
+
+<script>
+  const btn = document.querySelector<HTMLAnchorElement>('.sticky-join');
+  const start = document.querySelector<HTMLElement>('#calculator');
+  const others = [...document.querySelectorAll<HTMLElement>('.bridge-cta, .story-cta, #pricing, .final, .site-footer')];
+  const phone = matchMedia('(max-width: 760px)');
+  if (btn && start) {
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const inView = (e: HTMLElement) => { const r = e.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+      const show = phone.matches && start.getBoundingClientRect().bottom < 0 && !others.some(inView);
+      btn.classList.toggle('on', show);
+      btn.setAttribute('aria-hidden', String(!show));
+      btn.tabIndex = show ? 0 : -1;
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    document.addEventListener('toggle', queue, true); // opening a chapter or answer moves things
+    update();
+  }
+</script>
+
+<style>
+  .sticky-join { display: none; }
+  @media (max-width: 760px) {
+    .sticky-join {
+      display: inline-flex; position: fixed; z-index: 50; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom));
+      translate: -50% 16px; opacity: 0; visibility: hidden; padding-inline: 1.6em; white-space: nowrap;
+      box-shadow: 0 10px 24px -8px rgb(31 38 36 / 0.45), 0 2px 6px rgb(31 38 36 / 0.18);
+      transition: translate 0.25s, opacity 0.25s, visibility 0s 0.25s;
+    }
+    .sticky-join.on { translate: -50% 0; opacity: 1; visibility: visible; transition: translate 0.25s, opacity 0.25s; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sticky-join, .sticky-join.on { transition: none; } }
+</style>
