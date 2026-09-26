@@ -7,7 +7,7 @@
 <script>
   const btn = document.querySelector<HTMLAnchorElement>('.sticky-join');
   const start = document.querySelector<HTMLElement>('#calculator');
-  const others = [...document.querySelectorAll<HTMLElement>('.bridge-cta, .story-cta, #pricing, .final, .site-footer')];
+  const others = [...document.querySelectorAll<HTMLElement>('.bridge-cta, #pricing, .final, .site-footer')];
   const phone = matchMedia('(max-width: 760px)');
   if (btn && start) {
     let queued = false;
