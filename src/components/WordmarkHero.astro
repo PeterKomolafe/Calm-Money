@@ -5,14 +5,15 @@
 import Logo from './Logo.astro';
 import PressStrip from './PressStrip.astro';
 
-// Left of the wordmark: getting out of the hole. Right: building up. Bottom right: where it leads
+// Left of the wordmark: what gets cleared. Right: what gets built. Bottom right: where it leads
 const notes = [
-  { file: 'overdraft', ar: 4.41, cls: 'overdraft' },
-  { file: 'apr22', ar: 6.0, cls: 'apr' },
-  { file: 'payday', ar: 5.397, cls: 'payday' },
-  { file: 'isa', ar: 3.264, cls: 'isa' },
-  { file: 'ten-k', ar: 2.218, cls: 'tenk' },
-  { file: 'peace6', ar: 4.714, cls: 'peace key' },
+  { file: 'sub42', ar: 3.252, cls: 'sub' },
+  { file: 'apr22', ar: 6.053, cls: 'apr' },
+  { file: 'overdraft', ar: 4.738, cls: 'overdraft' },
+  { file: 'payday', ar: 4.075, cls: 'payday' },
+  { file: 'isa', ar: 2.478, cls: 'isa' },
+  { file: 'ten-k', ar: 2.449, cls: 'tenk' },
+  { file: 'peace6', ar: 3.533, cls: 'peace key' },
 ];
 // These sit on the hero's bottom edge, beside the arrow, below the press strip
 const bottomNotes = ['peace key'];
@@ -88,12 +89,13 @@ const bottomNotes = ['peace key'];
   .note { position: absolute; z-index: 1; aspect-ratio: var(--ar); background: var(--graphite); pointer-events: none;
           -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }
   .note.key { background: var(--terracotta); }
-  .overdraft { width: 13vw;  left: 4%;    top: 17%;   rotate: -4deg; }
-  .apr       { width: 17vw;  left: 1.5%;  top: 44%;   rotate: -3deg; }
-  .payday    { width: 15vw;  left: 4%;    top: 74.5%; rotate: -2deg; } /* just below the line of MONEY */
-  .isa       { width: 10.5vw; right: 6%;  top: 17%;   rotate: 3deg; }
-  .tenk      { width: 8vw;   right: 6%;   top: 52%;   rotate: -4deg; }
-  .peace   { width: 16vw;  right: 5%;   bottom: 8%;  rotate: -3deg; }
+  .sub       { width: 15vw;  left: 4%;    top: 14%;   rotate: -4deg; }
+  .apr       { width: 16.5vw; left: 1.5%;  top: 44%;   rotate: -3deg; }
+  .overdraft { width: 14vw;  left: 4%;    top: 74.5%; rotate: -2deg; } /* just below the line of MONEY */
+  .payday    { width: 16vw;  right: 3.5%; top: 19%;   rotate: 3deg; }
+  .isa       { width: 9.5vw; right: 7%;   top: 41%;   rotate: -3deg; }
+  .tenk      { width: 12vw;  right: 5%;   top: 63%;   rotate: 4deg; }
+  .peace   { width: 14vw;  right: 4%;   bottom: 2.5%; rotate: -3deg; }
 
   /* Peter's hand-drawn arrow, leading down to the calculator */
   .arrow { position: absolute; left: 50%; bottom: 0.6vw; width: 1.9vw; min-width: 18px; translate: -50% 0; }
@@ -105,8 +107,8 @@ const bottomNotes = ['peace key'];
     .kicker span { display: block; } /* one sentence per line on phones */
     .hero { padding-bottom: 26vw; } /* room for the arrow and note below the press strip */
     .stage { margin-bottom: -5vw; }
-    .overdraft, .apr, .payday, .isa, .tenk { display: none; }
-    .peace { width: 44vw; right: 5%; bottom: 5%; }
+    .sub, .apr, .overdraft, .payday, .isa, .tenk { display: none; }
+    .peace { width: 36vw; right: 5%; bottom: 5%; }
     .arrow { width: 7vw; left: 22%; bottom: 3vw; }
   }
 </style>
