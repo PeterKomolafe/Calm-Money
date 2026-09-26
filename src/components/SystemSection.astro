@@ -131,9 +131,9 @@ const css = modules
   li .yours { display: none; font-size: 0.95rem; font-weight: 600; color: var(--terracotta-dark); margin-top: 2px; }
 
   @media (max-width: 760px) {
-    .system { padding-inline: 12px; }
+    .system { padding-inline: 20px; }
     .grid { grid-template-columns: 1fr; gap: 32px; }
     .ring { max-width: 280px; margin: 0 auto; }
-    li { padding: 12px 12px; }
+    li { padding: 12px; margin-inline: -12px; } /* text lines up with the gutter; the highlight reaches past it */
   }
 </style>
