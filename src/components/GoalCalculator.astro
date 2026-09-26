@@ -261,7 +261,7 @@
 
   .result { margin-top: 40px; padding-top: 32px; border-top: 1px solid rgb(245 232 216 / 0.22); }
   .label { font-size: 1.1rem; color: var(--on-card-muted); margin: 0 0 6px; }
-  .date { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: clamp(3.4rem, 11.5cqi, 6rem); line-height: 0.95; color: var(--on-card); margin: 0; white-space: nowrap; }
+  .date { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: min(clamp(2.5rem, 8cqi, 4rem), 14.4cqi); line-height: 0.95; color: var(--on-card); margin: 0; white-space: nowrap; } /* 40px on phones, 64px on desktop; the longest date (September 2029) is 6.8em, so 14.4cqi keeps it on one line on the smallest phones */
   .note { color: var(--on-card-muted); margin: 12px 0 0; }
   .fine { font-size: 0.85rem; color: var(--on-card-muted); margin: 28px 0 0; }
 
@@ -302,6 +302,5 @@
     .goals > label > span { padding: 11px 6px 17px; font-size: 0.95rem; text-align: center; }
     .full { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } /* still read by screen readers */
     .short { display: inline; }
-    .date { white-space: normal; }
   }
 </style>
