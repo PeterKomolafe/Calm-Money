@@ -35,8 +35,7 @@ const goalModule = { debt: 3, secure: 4, wealth: 5 };
 const css = modules
   .map((m) => `.system[data-module="${m.n}"] .base-${m.n}{display:none}
 .system[data-module="${m.n}"] .lift-${m.n},.system[data-module="${m.n}"] .endcap-${m.n}{display:inline}
-.system[data-module="${m.n}"] li[data-m="${m.n}"]{background:var(--mint)}
-.system[data-module="${m.n}"] li[data-m="${m.n}"] .yours{display:block}
+.system[data-module="${m.n}"] li[data-m="${m.n}"] .yours{display:inline-block}
 .system[data-module="${m.n}"] .num-${m.n}{fill:var(--ink);font-size:6px}`)
   .join('\n');
 ---
@@ -61,11 +60,11 @@ const css = modules
 
     <ol>
       {modules.slice().sort((a, b) => a.n - b.n).map((m) => (
-        <li data-m={m.n}>
+        <li data-m={m.n} style={`--c:${m.color}`}>
           <details name="modules">
             <summary>
               <span class="n">{String(m.n - 1).padStart(2, '0')}</span>
-              <h3><i style={`background:${m.color}`} />{m.title}</h3>
+              <h3>{m.title}</h3>
             </summary>
             <p class="outcome">{m.outcome}</p>
           </details>
@@ -111,24 +110,26 @@ const css = modules
   .lifted, .endcap { display: none; }
   .num { font: 600 5px var(--font-body); fill: var(--muted); text-anchor: middle; dominant-baseline: central; }
 
-  ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-  li { padding: 14px 18px; border-radius: 14px; transition: background-color 0.2s; }
+  /* Each module is a row with a bar of its ring colour down the left and a large serif number */
+  ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  li { position: relative; padding: 12px 0 12px 20px; }
+  /* The bar carries the same faint outline as the dots, so the cream one still shows on the pale page */
+  li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.18); }
   /* Each module opens like the common questions: title row with a plus that turns into a minus */
-  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 34px 1fr 14px; align-items: center; column-gap: 14px; }
+  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 40px 1fr 14px; align-items: center; column-gap: 14px; }
   summary::-webkit-details-marker { display: none; }
   summary::after { content: ''; width: 14px; height: 14px; background:
       linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,
       linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
   details[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
   summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; border-radius: 4px; }
-  .n { font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
-  h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.3rem; color: var(--ink); display: flex; align-items: center; gap: 12px; }
-  h3 i { width: 12px; height: 12px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.25); }
-  li p { margin: 0 0 0 48px; color: var(--muted); } /* lines up under the title */
+  .n { font-family: var(--font-display); font-weight: 400; font-size: 1.65rem; line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
+  h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.3rem; color: var(--ink); }
+  li p { margin: 0 0 0 54px; color: var(--muted); } /* lines up under the title */
   /* What the module leaves you with */
   li .outcome { color: var(--ink); margin-top: 10px; }
-  /* Darker terracotta keeps this small line readable on mint (4.8:1) */
-  li .yours { display: none; font-size: 0.95rem; font-weight: 600; color: var(--terracotta-dark); margin-top: 2px; }
+  /* The visitor's goal: a mint tag under the module that builds it */
+  li .yours { display: none; margin-top: 12px; padding: 4px 12px; border-radius: 999px; background: var(--mint); font-size: 0.9rem; font-weight: 600; color: var(--teal-dark); }
 
   @media (max-width: 760px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
@@ -139,6 +140,7 @@ const css = modules
     .system { padding-inline: 24px; }
     .grid { grid-template-columns: 1fr; gap: 32px; }
     .ring { max-width: 280px; margin: 0 auto; }
-    li { padding: 12px; margin-inline: -12px; } /* text lines up with the gutter; the highlight reaches past it */
+    li { padding: 10px 0 10px 18px; }
+    .n { font-size: 26px; }
   }
 </style>
