@@ -57,31 +57,20 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     <ol class="chapters">
       {stages.map((s, i) => (
         <li class:list={['chapter', { on: i === 0, placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`} data-chapter={i}>
-          {i === 0 ? (
-            <>
-              <figure class="inline">
-                <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
-              </figure>
-              <span class="step">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{s.title}</h3>
-              {s.text.split('\n').map((para) => <p>{para}</p>)}
-            </>
-          ) : (
-            // Phones: a headline row with a small photo that opens on tap. Wider screens: always open
-            <details class="more" open>
-              <summary>
-                <img class="thumb" src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
-                <span class="head">
-                  <span class="step">{String(i + 1).padStart(2, '0')}</span>
-                  <h3>{s.title}</h3>
-                </span>
-              </summary>
-              <figure class="inline">
-                <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
-              </figure>
-              {s.text.split('\n').map((para) => <p>{para}</p>)}
-            </details>
-          )}
+          {/* Phones: a headline row with a small photo that opens on tap, one at a time. Wider screens: always open */}
+          <details class="more" open>
+            <summary>
+              <img class="thumb" src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+              <span class="head">
+                <span class="step">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{s.title}</h3>
+              </span>
+            </summary>
+            <figure class="inline">
+              <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+            </figure>
+            {s.text.split('\n').map((para) => <p>{para}</p>)}
+          </details>
           {s.placeholder && <span class="tag">Placeholder</span>}
         </li>
       ))}
@@ -133,20 +122,31 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     addEventListener('resize', queue);
     update();
 
-    // Phones collapse chapters 2 to 5, one open at a time. Wider screens keep every chapter open
+    // Phones open with chapter 1 and show one chapter at a time. Wider screens keep every chapter open
     const more = [...story.querySelectorAll<HTMLDetailsElement>('details.more')];
     const phone = matchMedia('(max-width: 800px)');
     const fit = () => more.forEach((d) => {
       const sum = d.querySelector('summary')!;
-      if (phone.matches) { d.name = 'story'; d.open = false; sum.removeAttribute('tabindex'); }
+      if (phone.matches) { d.name = 'story'; d.open = d === more[0]; sum.removeAttribute('tabindex'); }
       else { d.removeAttribute('name'); d.open = true; sum.tabIndex = -1; }
     });
     fit();
     phone.addEventListener('change', fit);
+    // Closing a longer chapter above would pull the tapped row off screen, so hold it where it was tapped
+    let tapped: { el: HTMLElement; top: number } | null = null;
     more.forEach((d) => {
-      d.querySelector('summary')!.addEventListener('click', (e) => { if (!phone.matches) e.preventDefault(); });
+      const sum = d.querySelector<HTMLElement>('summary')!;
+      sum.addEventListener('click', (e) => {
+        if (!phone.matches) e.preventDefault();
+        else tapped = { el: sum, top: sum.getBoundingClientRect().top };
+      });
       d.addEventListener('toggle', () => {
-        if (d.open && phone.matches) more.forEach((o) => { if (o !== d) o.open = false; });
+        if (!phone.matches) return;
+        if (d.open) more.forEach((o) => { if (o !== d) o.open = false; });
+        if (tapped?.el === sum) {
+          const { top } = tapped; tapped = null;
+          requestAnimationFrame(() => scrollBy(0, sum.getBoundingClientRect().top - top));
+        }
       });
     });
   }
@@ -174,7 +174,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
   .chapter p + p { margin-top: 14px; }
 
-  /* Chapters 2 to 5: on wider screens the summary is just the number and heading */
+  /* Chapters: on wider screens the summary is just the number and heading */
   .more summary { list-style: none; cursor: default; }
   .more summary::-webkit-details-marker { display: none; }
   .more .head { display: block; }
@@ -204,10 +204,10 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     .chapter .inline { display: block; margin: 0 0 18px; }
     .inline img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); }
 
-    /* Chapters 2 to 5 collapse to a row: small photo, number and heading, and a plus */
+    /* Chapters collapse to a row: small photo, number and heading, and a plus */
     .chapter:has(.more) { margin-top: 0; }
     .chapter:has(.more) + .chapter:has(.more) .more { border-top: 1px solid rgb(31 38 36 / 0.1); }
-    .chapter:nth-child(2) .more { margin-top: 32px; }
+    .chapter:first-child .more { margin-top: 32px; }
     .more summary { cursor: pointer; display: grid; grid-template-columns: 64px 1fr 14px; gap: 14px; align-items: center; padding: 12px 0; }
     .more .thumb { display: block; width: 64px; height: 64px; object-fit: cover; border-radius: 12px; }
     .more .head { display: grid; gap: 2px; }
