@@ -1,20 +1,20 @@
 ---
-// A slim 'As featured on' strip straight after the hero, so the press credibility lands in the first screens.
+// A slim 'As featured on' strip under Peter's name in the hero, so the press credibility lands in the first screen.
 // The full band still closes the story section.
 import { featured, logoHeight } from '../data/featured';
 ---
-<section class="press" aria-label="As featured on">
+<div class="press" role="group" aria-label="As featured on">
   <p>As featured on</p>
   <ul>
     {featured.map(([file, name, w, h]) => (
       <li><img src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" style={`--h: ${logoHeight(file, w, h)}px`} /></li>
     ))}
   </ul>
-</section>
+</div>
 
 <style>
-  .press { max-width: 1080px; margin: 0 auto; padding: clamp(28px, 4vw, 48px) 28px 0; text-align: center; }
-  p { margin: 0 0 14px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .press { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; padding: 0 28px; text-align: center; }
+  p { margin: 0 0 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px clamp(20px, 2.6vw, 34px); }
   /* Smaller than the band at the end of the story: a quiet signal, not a feature */
   img { display: block; width: auto; height: calc(var(--h) * 0.75); opacity: 0.9; }

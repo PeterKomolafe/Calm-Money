@@ -3,6 +3,7 @@
 // Peter's handwritten margin notes. Notes are transparent PNGs used as CSS masks,
 // so their colour comes from the palette (graphite, or terracotta for key notes).
 import Logo from './Logo.astro';
+import PressStrip from './PressStrip.astro';
 
 const notes = [
   { file: 'subscription', ar: 4.142, cls: 'subs' },
@@ -14,8 +15,12 @@ const notes = [
   { file: 'build-wealth', ar: 3.733, cls: 'wealth' },
   { file: 'peace', ar: 4.775, cls: 'peace key' },
 ];
+// These sit on the hero's bottom edge, beside the arrow, below the press strip
+const bottomNotes = ['wealth', 'peace key'];
 ---
 <section class="hero">
+  <!-- The notes are placed by percentage of this stage, so adding the press strip below leaves them where they were -->
+  <div class="stage">
   <p class="kicker"><span>You earn well.</span> <span>Now build the system that gets you investing.</span></p>
   <h1>
     <span class="sr-only">Calm Money</span>
@@ -24,7 +29,14 @@ const notes = [
   </h1>
   <p class="byline">A programme by Peter Komolafe</p>
 
-  {notes.map((n) => (
+  {notes.filter((n) => !bottomNotes.includes(n.cls)).map((n) => (
+    <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />
+  ))}
+  </div>
+
+  <PressStrip />
+
+  {notes.filter((n) => bottomNotes.includes(n.cls)).map((n) => (
     <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />
   ))}
   <a class="arrow" href="#for-you" aria-label="Is this for you?"><span class="note key arrow-ink" style="--src: url(/images/notes/arrow.png); --ar: 0.414" aria-hidden="true" /></a>
@@ -56,7 +68,9 @@ const notes = [
 </script>
 
 <style>
-  .hero { position: relative; text-align: center; padding: 3vw 0 8vw; overflow: hidden; }
+  .hero { position: relative; text-align: center; padding: 0 0 8vw; overflow: hidden; }
+  /* Same box the notes were placed in before the strip: its bottom padding is overlapped by the strip */
+  .stage { position: relative; padding: 3vw 0 8vw; margin-bottom: -6vw; }
   .kicker { font-family: var(--font-display); font-size: clamp(1.25rem, 2.4vw, 2.1rem); line-height: 1.25; margin: 0 0 1.4vw; padding: 0 16px; text-wrap: balance; }
   h1 { margin: 0; font-family: var(--font-body); font-weight: 450; color: var(--teal); letter-spacing: 0; }
   /* 20% smaller than the first build (23vw), with tighter tracking */
@@ -90,7 +104,8 @@ const notes = [
     .word { font-size: 19.2vw; }
     .kicker { margin-bottom: 4vw; }
     .kicker span { display: block; } /* one sentence per line on phones */
-    .hero { padding-bottom: 22vw; }
+    .hero { padding-bottom: 26vw; } /* room for the arrow and note below the press strip */
+    .stage { margin-bottom: -5vw; }
     .subs, .control, .monthly, .apr, .life, .secure, .wealth { display: none; }
     .peace { width: 44vw; right: 5%; bottom: 5%; }
     .arrow { width: 7vw; left: 22%; bottom: 3vw; }
