@@ -58,7 +58,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
       {stages.map((s, i) => (
         <li class:list={['chapter', { on: i === 0, placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`} data-chapter={i}>
           <figure class="inline">
-            <img src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+            <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
           </figure>
           <span class="step">{String(i + 1).padStart(2, '0')}</span>
           <h3>{s.title}</h3>
@@ -71,7 +71,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     <!-- On wider screens the photo stays in view and changes as each chapter passes -->
     <div class="frame" aria-hidden="true">
       {stages.map((s, i) => (
-        <img class:list={{ on: i === 0 }} src={`/images/story/${s.img}.jpg`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} data-frame={i} />
+        <img class:list={{ on: i === 0 }} src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} data-frame={i} />
       ))}
     </div>
   </div>

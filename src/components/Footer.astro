@@ -6,26 +6,36 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="inner">
     <div class="top">
-      <a class="brand" href="/"><Logo size={24} title="" />{site.name}</a>
+      <a class="brand" href="/" aria-label={`${site.name}, home`}><Logo size={36} title="" /><span>{site.name}</span></a>
       <ul>
+        <li><a href="/#programme">The programme</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/#faq">Questions</a></li>
         {site.youtube_url && <li><a href={site.youtube_url} rel="noopener">YouTube</a></li>}
-        <li><a href="/privacy">Privacy</a></li>
-        <li><a href={`mailto:${site.email}`}>Contact</a></li>
       </ul>
     </div>
     <p class="disclaimer">{site.disclaimer}</p>
-    <p class="small">&copy; {year} {site.owner}</p>
+    <div class="bottom">
+      <p>&copy; {year} {site.company}</p>
+      <ul>
+        <li><a href="/privacy">Privacy policy</a></li>
+        <!-- Add a /terms page before launch; the refund terms and checkout consent belong there -->
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul>
+    </div>
   </div>
 </footer>
 
 <style>
-  .site-footer { background: #fff; border-top: 1px solid var(--ink); padding: 40px 0 32px; font-size: 0.95rem; color: var(--muted); }
-  .inner { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
-  .top { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
-  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 500; font-size: 1.15rem; color: var(--ink); }
-  ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; }
-  a { color: var(--ink); }
-  .disclaimer { max-width: 80ch; }
-  .small { font-size: 0.85rem; margin: 0; }
+  /* Sits on the same ledger page as the rest of the site, separated by space and one rule */
+  .site-footer { padding: 40px 0 36px; border-top: 1px solid rgb(31 38 36 / 0.14); font-size: 0.95rem; color: var(--muted); background: var(--paper, #fff); }
+  .inner { max-width: 1080px; margin: 0 auto; padding: 0 28px; display: grid; gap: 24px; }
+  .top, .bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px 28px; flex-wrap: wrap; }
+  .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 500; font-size: 1.2rem; color: var(--ink); }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 28px; }
+  a { color: var(--ink); text-underline-offset: 4px; }
+  .disclaimer { margin: 0; max-width: 90ch; font-size: 0.9rem; line-height: 1.6; }
+  .bottom { font-size: 0.85rem; padding-top: 20px; border-top: 1px dashed rgb(31 38 36 / 0.14); }
+  .bottom p { margin: 0; }
   @media (max-width: 760px) { .inner { padding: 0 16px; } }
 </style>

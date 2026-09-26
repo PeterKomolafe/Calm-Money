@@ -1,32 +1,11 @@
 {
   "name": "Calm Money",
-  "tagline": "Feel calm and in control of your money.",
+  "tagline": "Build the system that gets you investing",
   "owner": "Peter Komolafe",
   "email": "hello@peterkomolafe.com",
   "youtube_url": "https://www.youtube.com/@conversationofmoney",
   "instagram_url": "",
-  "hero": {
-    "eyebrow": "Money coaching with Peter Komolafe",
-    "heading": "Stop worrying about money. Start deciding with it.",
-    "subheading": "Practical coaching that helps you understand your money, build habits that last and make choices you feel good about.",
-    "primary_cta": "Get the free guide",
-    "secondary_cta": "Work with me"
-  },
-  "lead_magnet": {
-    "title": "The Calm Money Reset",
-    "summary": "A free, step by step guide to seeing exactly where your money goes and building a plan you can stick to.",
-    "bullets": [
-      "A simple way to map your money in under an hour",
-      "The three questions to ask before any big spend",
-      "A weekly check-in routine that takes ten minutes"
-    ],
-    "button_label": "Send me the guide",
-    "download_url": ""
-  },
-  "about": {
-    "heading": "Hi, I'm Peter.",
-    "body": "I host Conversation of Money on YouTube and coach people who want a calmer, clearer relationship with their finances. Replace this with your story: why you do this work, who you help and what changes for them.",
-    "photo": ""
-  },
-  "disclaimer": "Calm Money provides money coaching and education only. It is not regulated financial advice. We do not recommend specific investments or financial products. For regulated advice, speak to a qualified financial adviser authorised by the FCA."
+  "disclaimer": "Calm Money is financial education, not regulated financial advice. Nothing on this page or within the programme constitutes personalised advice under the Financial Services and Markets Act 2000. Always consider your own circumstances, and seek regulated advice where appropriate. The value of investments can go down as well as up, and you may get back less than you invest.",
+  "description": "You earn well. Calm Money is a programme by Peter Komolafe that builds the money system to clear debt, create your safety net and get you investing.",
+  "company": "Conversation of Money Ltd"
 }

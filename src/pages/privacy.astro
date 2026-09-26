@@ -2,19 +2,46 @@
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
 ---
-<Base title="Privacy and disclaimer">
-  <section class="section">
-    <div class="container prose">
-      <h1>Privacy and disclaimer</h1>
-      <p><strong>Draft: have this reviewed before launch.</strong></p>
-      <h2>What we collect</h2>
-      <p>When you sign up we collect your first name and email address so we can send you the guide and occasional emails about money coaching. You can unsubscribe at any time using the link in every email.</p>
-      <h2>Who processes it</h2>
-      <p>Your details are stored by our email provider. We do not sell your data. Add the provider's name and a link to its privacy policy here.</p>
-      <h2>Your rights</h2>
-      <p>You can ask to see, correct or delete your data by emailing <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
-      <h2>Disclaimer</h2>
-      <p>{site.disclaimer}</p>
-    </div>
+<Base title="Privacy policy" description="How Calm Money handles your personal information.">
+  <section class="privacy">
+    <h1>Privacy policy</h1>
+    <p class="draft"><strong>Draft for review.</strong> Have this checked before launch, and add your email platform, payment provider and analytics tool where marked.</p>
+
+    <h2>Who we are</h2>
+    <p>Calm Money is run by {site.company}. If you have any questions about your information, email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+    <h2>What we collect</h2>
+    <ul>
+      <li><strong>If you join our mailing list:</strong> your name and email address.</li>
+      <li><strong>If you buy or apply for the programme:</strong> your name, email address and the details you give in your application. Payments are handled by [payment provider]; we never see or store your card details.</li>
+      <li><strong>When you use this website:</strong> basic, anonymous information about how the site is used, through [analytics tool].</li>
+      <li><strong>The calculator:</strong> the figures you type in stay in your browser. We don’t store or see them.</li>
+    </ul>
+
+    <h2>How we use it</h2>
+    <p>To deliver the programme you’ve bought, to reply to you, and, if you’ve agreed, to send you emails about money and Calm Money. Every email has a link to unsubscribe.</p>
+
+    <h2>Who we share it with</h2>
+    <p>Only the services that help us run Calm Money: [email platform], [payment provider], [programme platform] and [analytics tool]. We never sell your information.</p>
+
+    <h2>How long we keep it</h2>
+    <p>For as long as you’re a member or on our mailing list, and afterwards only as long as the law requires, for example for tax records.</p>
+
+    <h2>Your rights</h2>
+    <p>You can ask to see, correct or delete your information, or object to how we use it, by emailing <a href={`mailto:${site.email}`}>{site.email}</a>. You can also complain to the Information Commissioner’s Office at ico.org.uk.</p>
+
+    <h2>Not financial advice</h2>
+    <p>{site.disclaimer}</p>
   </section>
 </Base>
+
+<style>
+  .privacy { max-width: 720px; margin: 0 auto; padding: var(--section-gap) 28px 0; line-height: 1.65; }
+  h1 { font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; margin: 0 0 24px; }
+  h2 { font-weight: 500; font-size: 1.3rem; margin: 36px 0 8px; }
+  p, li { color: var(--muted); }
+  strong { color: var(--ink); font-weight: 500; }
+  ul { padding-left: 1.2em; display: grid; gap: 8px; }
+  .draft { padding: 12px 16px; background: var(--mint); border-radius: 10px; }
+  @media (max-width: 760px) { .privacy { padding-inline: 16px; } }
+</style>
