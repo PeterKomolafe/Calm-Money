@@ -1,7 +1,7 @@
 ---
 // Three ways to join. Price and button sit at the top of each card so they line up
-// whatever the length of the list below. The top tier is by application.
-// Replace each href with its checkout or application link.
+// whatever the length of the list below. The top tier runs in intakes: its button joins the waitlist.
+// Replace each href with its checkout or waitlist link.
 const tiers = [
   {
     name: 'At your pace',
@@ -41,9 +41,9 @@ const tiers = [
       { title: 'Onboarding call', items: ['Start with a one-to-one with Peter. Set your goals, get a professional review of your practical exercises, and map out a timeline for action so you know exactly where you are and what comes next'] },
       { title: '24 live online coaching calls', items: ['Every two weeks', 'Q&As, workshops and professional guests', 'Module amplification sessions'] },
       { title: 'Peter on WhatsApp', items: ['Message Peter directly with your questions and get support when you need it', 'Plus updates on new material and news from the community'] },
-      { title: '2 meetups a year', items: ['Two in-person meet-ups, at month 6 and month 12. A chance to step away from the screen, meet the people on the same journey as you, and take stock of how far you’ve come'] },
+      { title: '2 meetups a year', items: ['Two in-person meet-ups during your 12 months. A chance to step away from the screen, meet the people on the same journey as you, and take stock of how far you’ve come'] },
     ],
-    cta: 'Apply to join',
+    cta: 'Join the waitlist',
     href: '#pricing',
     apply: true,
   },
@@ -61,7 +61,7 @@ const tiers = [
         <p class="for">{t.for}</p>
         <p class="price">{t.price}</p>
         <a class:list={['btn', t.apply ? 'btn--light' : 'btn--primary']} href={t.href}>{t.cta}</a>
-        {t.apply && <p class="next">Tell us about your goals and we’ll let you know if it’s the right fit. No payment is taken unless you’re accepted.</p>}
+        {t.apply && <p class="next">Runs in intakes with limited places. Join the waitlist to hear first when the next intake opens.</p>}
 
         <!-- Phones: the list opens with "See what's included". Wider screens: always open -->
         <details class="inc" open>

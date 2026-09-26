@@ -22,7 +22,7 @@ Calm Money is available in three options. Every option includes the five modules
 
 - **At your pace (£297).** The content library only, worked through at your own pace.
 - **At your pace with coaching (£1,297).** Everything in At your pace, plus four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
-- **12 months of full support (£2,497).** Everything in At your pace, plus, for 12 months from the date you join: an onboarding call with Peter, 24 live online coaching calls (one every two weeks), direct access to Peter on WhatsApp, and two in-person meet-ups in the UK, at around month 6 and month 12. This option is by application. We review every application and may decline one without giving a reason. No payment is taken unless your application is accepted.
+- **12 months of full support (£2,497).** Everything in At your pace, plus, for 12 months from the start of your intake: an onboarding call with Peter, 24 live online coaching calls (one every two weeks), direct access to Peter on WhatsApp, and two in-person meet-ups in the UK during those 12 months. This option runs in intakes with limited places. Joining the waitlist does not reserve a place or commit you to buying. When an intake opens, we review applications and may decline one without giving a reason. No payment is taken unless your application is accepted.
 
 Prices are in pounds sterling and include any VAT that applies. Payment is taken in full at checkout, or in instalments where an instalment option is shown at checkout. If you pay in instalments, you agree to pay each instalment when it falls due, and we may pause your access to coaching and support while a payment is overdue. Payment is processed through our third-party payment processor, Stripe; we do not store your full card details ourselves.
 
@@ -30,7 +30,7 @@ Prices are in pounds sterling and include any VAT that applies. Payment is taken
 
 "Lifetime access" means access to the content library for as long as we continue to run Calm Money. If we ever close the programme, we will give you reasonable notice before your access ends.
 
-Coaching sessions, live calls, WhatsApp access and meet-ups are provided for 12 months from the date you join. Any that you have not used by the end of that period expire. Your access to the content library continues after the 12 months end, and no further payment is taken.
+Coaching sessions, live calls, WhatsApp access and meet-ups are provided for 12 months from the date you join, or, for 12 months of full support, from the start of your intake. Any that you have not used by the end of that period expire. Your access to the content library continues after the 12 months end, and no further payment is taken.
 
 ## 6. Coaching Sessions, Live Calls and Meet-ups
 
