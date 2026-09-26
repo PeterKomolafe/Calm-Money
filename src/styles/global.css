@@ -114,3 +114,10 @@ body::before {
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 :focus-visible { outline: 3px solid var(--terracotta); outline-offset: 3px; }
+
+/* Phones: text runs the full width of its column. Balanced or "pretty" wrapping evens out line lengths,
+   which on a narrow screen leaves short lines and wasted space. Deliberate one-line rules are untouched.
+   The centred hero line keeps its balance, or a single word is left alone on its last line */
+@media (max-width: 800px) {
+  *:not(.kicker, .kicker *) { text-wrap-style: auto !important; }
+}
