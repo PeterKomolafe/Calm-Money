@@ -217,6 +217,10 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
         linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
     .more[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
     .more summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+    /* Open: the small photo goes, leaving the number and heading styled like chapter 1 */
+    .more[open] summary { grid-template-columns: 1fr 14px; }
+    .more[open] .thumb { display: none; }
+    .more[open] h3 { margin-top: 12px; font-size: 23px; }
     .more .inline { margin: 4px 0 16px; }
     .more .inline img { max-height: 300px; }
     .more p:last-child { margin-bottom: 12px; }
