@@ -154,7 +154,7 @@
     if (months && monthly) {
       const m = `${months}\u00a0month${months > 1 ? 's' : ''}`; // non-breaking: keeps '39 months' on one line
       bridge.innerHTML = `${date} depends on ${habit[goal](gbp(monthly))} <b>every month for&nbsp;${m}</b>, without missing one.`;
-      turn.innerHTML = `Willpower won’t carry you for ${m}.<br> ${underlined('A system will.')}`;
+      turn.innerHTML = `Willpower won’t carry you for ${m}.<br class="wide-only"> ${underlined('A system will.')}`;
     } else if (date === 'Already there') {
       bridge.textContent = 'You’re already there.';
       turn.innerHTML = underlined('A system is what keeps you there.');
@@ -276,14 +276,15 @@
   .big { font-weight: 450; font-size: clamp(1.15rem, 1.7vw, 1.5rem); line-height: 1.45; color: var(--muted); max-width: 36em; }
   .big :global(b) { font-weight: 500; color: var(--ink); }
   /* Desktop: each sentence of the turn on its own line; phones wrap naturally */
+  @media (max-width: 760px) { .bridge :global(.wide-only) { display: none; } }
   /* Tablets: the card nearly fills the width, so keep the roll inside the screen */
   @media (max-width: 1100px) { .roll { right: 0; width: 210px; } }
   .bridge :global(.underlined) { position: relative; display: inline-block; white-space: nowrap; }
   .bridge :global(.underlined svg) { position: absolute; left: -2%; top: 104%; width: 104%; height: 0.36em; overflow: visible; pointer-events: none; }
   .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
   .bridge .turn { font-family: var(--font-display); font-size: clamp(1.75rem, 5.3cqi, 3.6rem); line-height: 1.15; color: var(--teal); margin-top: 0.5em; padding-bottom: 0.5em; }
-  /* Sized to the column so "Willpower won't carry you for N months." fits one line: two lines in all, phones included */
-  .bridge .turn { white-space: nowrap; }
+  /* Sized to the column so "Willpower won't carry you for N months." fits one line on wider screens: two lines in all */
+  @media (min-width: 761px) { .bridge .turn { white-space: nowrap; } }
 
   @media (max-width: 760px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
@@ -292,7 +293,6 @@
     .big { font-size: 17px; }
     .bridge, .bridge-cta { padding-inline: 0; } /* the calculator section already sets the gutter */
     .bridge :global(.underlined path) { stroke-width: 3; }
-    .bridge .turn { font-size: 5.3cqi; } /* the longest line (120 months) is 18.7em, so this keeps it on one line at any phone width */
     .calc { padding: var(--section-gap) 20px 0; }
     .roll { display: none; } /* no room beside the tabs on phones */
     .card { border-radius: 20px; padding: 28px 20px; }
