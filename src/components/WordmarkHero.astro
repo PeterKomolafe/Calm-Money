@@ -5,18 +5,17 @@
 import Logo from './Logo.astro';
 import PressStrip from './PressStrip.astro';
 
+// Left of the wordmark: getting out of the hole. Right: building up. Bottom right: where it leads
 const notes = [
-  { file: 'subscription', ar: 4.142, cls: 'subs' },
-  { file: 'balance-control', ar: 6.027, cls: 'control' },
-  { file: '250-mo', ar: 1.448, cls: 'monthly' },
-  { file: 'apr-first', ar: 7.117, cls: 'apr' },
-  { file: 'life-goals', ar: 2.798, cls: 'life' },
-  { file: 'financial-security', ar: 3.715, cls: 'secure' },
-  { file: 'build-wealth', ar: 3.733, cls: 'wealth' },
-  { file: 'peace', ar: 4.775, cls: 'peace key' },
+  { file: 'overdraft', ar: 4.41, cls: 'overdraft' },
+  { file: 'apr22', ar: 6.0, cls: 'apr' },
+  { file: 'payday', ar: 5.397, cls: 'payday' },
+  { file: 'isa', ar: 3.264, cls: 'isa' },
+  { file: 'ten-k', ar: 2.218, cls: 'tenk' },
+  { file: 'peace6', ar: 4.714, cls: 'peace key' },
 ];
 // These sit on the hero's bottom edge, beside the arrow, below the press strip
-const bottomNotes = ['wealth', 'peace key'];
+const bottomNotes = ['peace key'];
 ---
 <section class="hero">
   <!-- The notes are placed by percentage of this stage, so adding the press strip below leaves them where they were -->
@@ -89,13 +88,11 @@ const bottomNotes = ['wealth', 'peace key'];
   .note { position: absolute; z-index: 1; aspect-ratio: var(--ar); background: var(--graphite); pointer-events: none;
           -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }
   .note.key { background: var(--terracotta); }
-  .subs    { width: 15vw;  left: 4%;    top: 17%; rotate: -5deg; }
-  .control { width: 15vw;  right: 5%;   top: 2%;  rotate: 3deg; }
-  .monthly { width: 6.5vw; right: 6%;   top: 17%; rotate: 3deg; }
-  .apr     { width: 19vw;  left: 1.5%;  top: 44%; rotate: -3deg; }
-  .life    { width: 8vw;   right: 5%;   top: 52%; rotate: -4deg; }
-  .secure  { width: 14vw;  left: 4%;    top: 74.5%;  rotate: -2deg; } /* just below the line of MONEY */
-  .wealth  { width: 12vw;  left: 27%;   bottom: 3%;  rotate: 3deg; }
+  .overdraft { width: 13vw;  left: 4%;    top: 17%;   rotate: -4deg; }
+  .apr       { width: 17vw;  left: 1.5%;  top: 44%;   rotate: -3deg; }
+  .payday    { width: 15vw;  left: 4%;    top: 74.5%; rotate: -2deg; } /* just below the line of MONEY */
+  .isa       { width: 10.5vw; right: 6%;  top: 17%;   rotate: 3deg; }
+  .tenk      { width: 8vw;   right: 6%;   top: 52%;   rotate: -4deg; }
   .peace   { width: 16vw;  right: 5%;   bottom: 8%;  rotate: -3deg; }
 
   /* Peter's hand-drawn arrow, leading down to the calculator */
@@ -108,7 +105,7 @@ const bottomNotes = ['wealth', 'peace key'];
     .kicker span { display: block; } /* one sentence per line on phones */
     .hero { padding-bottom: 26vw; } /* room for the arrow and note below the press strip */
     .stage { margin-bottom: -5vw; }
-    .subs, .control, .monthly, .apr, .life, .secure, .wealth { display: none; }
+    .overdraft, .apr, .payday, .isa, .tenk { display: none; }
     .peace { width: 44vw; right: 5%; bottom: 5%; }
     .arrow { width: 7vw; left: 22%; bottom: 3vw; }
   }
