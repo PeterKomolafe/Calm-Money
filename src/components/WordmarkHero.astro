@@ -75,8 +75,8 @@ const bottomNotes = ['peace key'];
   h1 { margin: 0; font-family: var(--font-body); font-weight: 450; color: var(--teal); letter-spacing: 0; }
   /* The cards' lift, applied to the letters and ring: near, mid and far shadows, sized in em so they scale with the wordmark */
   .word { filter: drop-shadow(0 0.012em 0.016em rgb(31 38 36 / 0.10)) drop-shadow(0 0.04em 0.07em rgb(31 38 36 / 0.12)) drop-shadow(0 0.11em 0.16em rgb(31 38 36 / 0.14)); }
-  /* 20% smaller than the first build (23vw), with tighter tracking */
-  .word { display: block; text-transform: uppercase; font-size: 18.4vw; line-height: 0.9; letter-spacing: -0.04em; padding-right: 0.04em; /* re-centre: tracking also trims after the last letter */ }
+  /* About a third smaller than the first build (23vw), with tighter tracking */
+  .word { display: block; text-transform: uppercase; font-size: 15.6vw; line-height: 0.9; letter-spacing: -0.04em; padding-right: 0.04em; /* re-centre: tracking also trims after the last letter */ }
   /* Placeholder width until the script measures the font; ring hidden until sized */
   .slot { display: inline-block; position: relative; width: 0.75em; height: 0.7em; }
   .slot :global(svg) { position: absolute; visibility: hidden; }
@@ -89,12 +89,12 @@ const bottomNotes = ['peace key'];
   .note { position: absolute; z-index: 1; aspect-ratio: var(--ar); background: var(--graphite); pointer-events: none;
           -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }
   .note.key { background: var(--terracotta); }
-  .sub       { width: 15vw;  left: 4%;    top: 14%;   rotate: -4deg; }
-  .apr       { width: 16.5vw; left: 1.5%;  top: 44%;   rotate: -3deg; }
-  .overdraft { width: 14vw;  left: 4%;    top: 74.5%; rotate: -2deg; } /* just below the line of MONEY */
-  .payday    { width: 16vw;  right: 3.5%; top: 19%;   rotate: 3deg; }
-  .isa       { width: 9.5vw; right: 7%;   top: 41%;   rotate: -3deg; }
-  .tenk      { width: 12vw;  right: 5%;   top: 63%;   rotate: 4deg; }
+  .sub       { width: 15vw;  left: 7%;    top: 19%;   rotate: -4deg; }
+  .apr       { width: 16.5vw; left: 5%;    top: 45%;   rotate: -3deg; }
+  .overdraft { width: 14vw;  left: 7%;    top: 74.5%; rotate: -2deg; } /* just below the line of MONEY */ /* just below the line of MONEY */
+  .payday    { width: 16vw;  right: 6%;   top: 20%;   rotate: 3deg; }
+  .isa       { width: 9.5vw; right: 10%;  top: 44%;   rotate: -3deg; }
+  .tenk      { width: 12vw;  right: 8%;   top: 66%;   rotate: 4deg; }
   .peace   { width: 14vw;  right: 4%;   bottom: 2.5%; rotate: -3deg; }
 
   /* Peter's hand-drawn arrow, leading down to the calculator */
@@ -102,7 +102,7 @@ const bottomNotes = ['peace key'];
   .arrow .arrow-ink { position: static; display: block; width: 100%; }
 
   @media (max-width: 760px) {
-    .word { font-size: 19.2vw; }
+    .word { font-size: 17vw; }
     .kicker { margin-bottom: 4vw; }
     .kicker span { display: block; } /* one sentence per line on phones */
     .hero { padding-bottom: 26vw; } /* room for the arrow and note below the press strip */
