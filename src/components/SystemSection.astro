@@ -62,9 +62,13 @@ const css = modules
     <ol>
       {modules.slice().sort((a, b) => a.n - b.n).map((m) => (
         <li data-m={m.n}>
-          <span class="n">{String(m.n - 1).padStart(2, '0')}</span>
-          <h3><i style={`background:${m.color}`} />{m.title}</h3>
-          <p class="outcome">{m.outcome}</p>
+          <details name="modules">
+            <summary>
+              <span class="n">{String(m.n - 1).padStart(2, '0')}</span>
+              <h3><i style={`background:${m.color}`} />{m.title}</h3>
+            </summary>
+            <p class="outcome">{m.outcome}</p>
+          </details>
           <p class="yours" data-yours></p>
         </li>
       ))}
@@ -80,9 +84,17 @@ const css = modules
     secure: 'Where your breathing space gets built',
     wealth: 'Where your first £10,000 invested gets built',
   };
+  const modules = [...section.querySelectorAll<HTMLDetailsElement>('li details')];
+  // One module open at a time (the name attribute does this in current browsers; this covers older ones)
+  modules.forEach((d) => d.addEventListener('toggle', () => {
+    if (d.open) modules.forEach((o) => { if (o !== d) o.open = false; });
+  }));
   const show = (goal: string) => {
     section.dataset.module = String(map[goal]);
     section.querySelectorAll<HTMLElement>('[data-yours]').forEach((el) => (el.textContent = yours[goal]));
+    // The module that builds the visitor's goal opens with the highlight
+    const d = section.querySelector<HTMLDetailsElement>(`li[data-m="${map[goal]}"] details`);
+    if (d) d.open = true;
   };
   document.addEventListener('calm:goal', (e) => show((e as CustomEvent<{ goal: string }>).detail.goal));
   // The calculator may have announced its first goal before this script ran
@@ -100,13 +112,21 @@ const css = modules
   .num { font: 600 5px var(--font-body); fill: var(--muted); text-anchor: middle; dominant-baseline: central; }
 
   ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-  li { display: grid; grid-template-columns: 34px 1fr; gap: 4px 14px; padding: 14px 18px; border-radius: 14px; transition: background-color 0.2s; }
-  .n { font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+  li { padding: 14px 18px; border-radius: 14px; transition: background-color 0.2s; }
+  /* Each module opens like the common questions: title row with a plus that turns into a minus */
+  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 34px 1fr 14px; align-items: center; column-gap: 14px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: ''; width: 14px; height: 14px; background:
+      linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,
+      linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
+  details[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
+  summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; border-radius: 4px; }
+  .n { font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
   h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.3rem; color: var(--ink); display: flex; align-items: center; gap: 12px; }
   h3 i { width: 12px; height: 12px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.08); }
-  li p { grid-column: 2; margin: 0; color: var(--muted); }
+  li p { margin: 0 0 0 48px; color: var(--muted); } /* lines up under the title */
   /* What the module leaves you with */
-  li .outcome { color: var(--ink); margin-top: 4px; }
+  li .outcome { color: var(--ink); margin-top: 10px; }
   /* Darker terracotta keeps this small line readable on mint (4.8:1) */
   li .yours { display: none; font-size: 0.95rem; font-weight: 600; color: var(--terracotta-dark); margin-top: 2px; }
 
