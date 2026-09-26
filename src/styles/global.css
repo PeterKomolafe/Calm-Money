@@ -24,7 +24,7 @@
     0 12px 24px -4px rgb(31 38 36 / 0.16), 0 32px 56px -12px rgb(31 38 36 / 0.24), 0 64px 96px -32px rgb(31 38 36 / 0.30);
 
   /* The one gap between every page section */
-  --section-gap: clamp(64px, 10vw, 144px);
+  --section-gap: clamp(96px, 10vw, 144px); /* 96px on phones: 64 left sections running into each other */
 
   --radius: 18px;
   --max: 1120px;
@@ -71,6 +71,10 @@ body::before {
   background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px), linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
   background-size: calc(100vw / 8) calc(100vw / 8);
   opacity: 0.5; /* half strength: present, but it shouldn't compete with the content */
+}
+/* Phones: 4 squares across rather than 8, so the grid is as calm as on desktop */
+@media (max-width: 760px) {
+  body::before { background-size: 25vw 25vw; }
 }
 
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }

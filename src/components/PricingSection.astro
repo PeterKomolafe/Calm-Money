@@ -136,9 +136,11 @@ const tiers = [
   }
   @media (max-width: 760px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
-    h2 { font-size: 32px; }
+    h2 { font-size: 32px; margin-bottom: 20px; }
+    .lede { font-size: 18px; line-height: 1.55; }
     li strong { font-size: min(19px, 6.25cqi); } /* the one-line lesson count still fits on the smallest phones */
-    .pricing { padding-inline: 20px; }
+    .pricing { padding-inline: 24px; }
+    .tier { padding: 28px; }
 
     .inc { margin-top: 18px; border-top: 1px solid rgb(31 38 36 / 0.12); }
     .full .inc { border-top-color: rgb(245 232 216 / 0.18); }
