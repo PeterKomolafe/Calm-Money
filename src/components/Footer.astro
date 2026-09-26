@@ -14,8 +14,7 @@ const year = new Date().getFullYear();
       <p>&copy; {year} {site.company}</p>
       <ul>
         <li><a href="/privacy">Privacy policy</a></li>
-        <!-- Add a /terms page before launch; the refund terms and checkout consent belong there -->
-        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a href="/terms">Terms and conditions</a></li>
         {site.youtube_url && <li><a href={site.youtube_url} rel="noopener">YouTube</a></li>}
       </ul>
     </div>

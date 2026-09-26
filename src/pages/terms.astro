@@ -1,0 +1,25 @@
+---
+// Terms and conditions, from src/legal/terms.md
+import Base from '../layouts/Base.astro';
+import { Content } from '../legal/terms.md';
+---
+<Base title="Terms and conditions" description="The terms that govern your access to and use of Calm Money, provided by Conversation of Money Ltd.">
+  <article class="legal">
+    <h1>Terms and Conditions</h1>
+    <p class="updated">Updated 13 July 2026</p>
+    <Content />
+  </article>
+</Base>
+
+<style>
+  .legal { max-width: 720px; margin: 0 auto; padding: var(--section-gap) 28px 0; line-height: 1.65; }
+  h1 { font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; margin: 0 0 12px; }
+  .updated { color: var(--muted); margin: 0 0 32px; }
+  .legal :global(h2) { font-family: var(--font-body); font-weight: 500; font-size: 1.3rem; color: var(--ink); margin: 40px 0 10px; }
+  .legal :global(h3) { font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; color: var(--ink); margin: 28px 0 8px; }
+  .legal :global(p), .legal :global(li) { color: var(--muted); }
+  .legal :global(strong) { color: var(--ink); font-weight: 500; }
+  .legal :global(ul) { padding-left: 1.2em; display: grid; gap: 6px; }
+  .legal :global(a) { color: var(--teal-dark); text-underline-offset: 3px; }
+  @media (max-width: 760px) { .legal { padding-inline: 20px; } }
+</style>
