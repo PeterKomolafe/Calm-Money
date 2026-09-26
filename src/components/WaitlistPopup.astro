@@ -24,7 +24,7 @@ import site from '../data/site.json';
       <!-- Left empty by people; bots fill it in -->
       <label class="trap" aria-hidden="true">Leave this empty <input name="company" type="text" tabindex="-1" autocomplete="off" /></label>
       <p class="error" role="alert" hidden></p>
-      <button class="btn btn--primary" type="submit">Join the waitlist</button>
+      <button class="btn btn--light" type="submit">Join the waitlist</button>
       <p class="consent">We’ll email you when the next intake opens, plus occasional updates from Peter. Unsubscribe any time. <a href="/privacy">Privacy policy</a>.</p>
     </form>
   </div>
@@ -32,7 +32,7 @@ import site from '../data/site.json';
   <div class="step" data-step="done" hidden>
     <h2>You’re on the list.</h2>
     <p class="intro">We’ll email you as soon as the next intake opens. If our first email doesn’t arrive, check your spam or promotions folder.</p>
-    <button class="btn btn--primary" type="button" data-close>Back to the page</button>
+    <button class="btn btn--light" type="button" data-close>Back to the page</button>
   </div>
 </dialog>
 
@@ -105,31 +105,34 @@ import site from '../data/site.json';
 
 <style>
   .waitlist { width: min(460px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 36px 32px 28px; border: 0; border-radius: 22px;
-    background: var(--cream); color: var(--ink); box-shadow: var(--lift); overflow: auto; }
+    /* The deep teal of the full support card it opens from */
+    background: linear-gradient(180deg, #3d5453, #34494a 40%); color: var(--cream); box-shadow: var(--lift); overflow: auto; }
   .waitlist::backdrop { background: rgb(31 38 36 / 0.45); }
   .waitlist[open] { animation: rise 0.25s ease-out; }
   @keyframes rise { from { opacity: 0; translate: 0 12px; } }
 
-  /* A terracotta cross, drawn like the plus signs elsewhere */
+  /* A blush cross, like the plus signs on the teal card */
   .close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
-  .close::before, .close::after { content: ''; position: absolute; left: 10px; top: 17px; width: 16px; height: 2px; background: var(--terracotta-dark); rotate: 45deg; }
+  .close::before, .close::after { content: ''; position: absolute; left: 10px; top: 17px; width: 16px; height: 2px; background: var(--blush); rotate: 45deg; }
   .close::after { rotate: -45deg; }
-  .close:hover { background: rgb(31 38 36 / 0.06); }
-  .close:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+  .close:hover { background: rgb(245 232 216 / 0.10); }
+  .close:focus-visible { outline: 2px solid var(--blush); outline-offset: 2px; }
 
-  .eyebrow { margin: 0 0 8px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); }
-  h2 { margin: 0 0 10px; font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.15; color: var(--teal-dark); }
-  .intro { margin: 0 0 22px; color: var(--muted); line-height: 1.55; }
+  .eyebrow { margin: 0 0 8px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blush); }
+  h2 { margin: 0 0 10px; font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.15; color: var(--cream); }
+  .intro { margin: 0 0 22px; color: #d6d1c6; line-height: 1.55; }
 
   form { display: grid; gap: 14px; }
   label { display: grid; gap: 6px; font-weight: 500; font-size: 0.95rem; }
-  input { font: inherit; font-weight: 400; padding: 12px 14px; border: 1px solid rgb(31 38 36 / 0.22); border-radius: 10px; background: #fff; color: var(--ink); font-size: 17px; /* 16px or more so iPhones don't zoom */ }
-  input:focus { outline: 2px solid var(--teal); outline-offset: 1px; border-color: transparent; }
+  input { font: inherit; font-weight: 400; padding: 12px 14px; border: 1px solid transparent; border-radius: 10px; background: #fff; color: var(--ink); font-size: 17px; /* 16px or more so iPhones don't zoom */ }
+  input:focus { outline: 2px solid var(--blush); outline-offset: 2px; }
   .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-  .error { margin: 0; color: var(--terracotta-dark); font-weight: 500; }
+  .error { margin: 0; color: var(--blush); font-weight: 500; }
   .btn { justify-self: stretch; justify-content: center; margin-top: 4px; }
+  .btn--light { background: var(--cream); color: var(--ink); }
+  .btn--light:hover { background: #fff; color: var(--ink); }
   .btn:disabled { opacity: 0.7; cursor: progress; }
-  .consent { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .consent { margin: 0; font-size: 13px; line-height: 1.5; color: #bbb8ad; }
   .consent a { color: inherit; text-underline-offset: 3px; }
 
   @media (max-width: 760px) {
