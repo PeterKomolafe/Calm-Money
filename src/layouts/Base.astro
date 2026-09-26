@@ -2,6 +2,9 @@
 import '@fontsource/dm-serif-display/latin-400.css';
 import '@fontsource-variable/jost/wght.css';
 import '../styles/global.css';
+// The two fonts the first screen needs, fetched straight away rather than after the CSS is read
+import jostLatin from '@fontsource-variable/jost/files/jost-latin-wght-normal.woff2?url';
+import dmSerifLatin from '@fontsource/dm-serif-display/files/dm-serif-display-latin-400-normal.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import site from '../data/site.json';
@@ -16,6 +19,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href={jostLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={dmSerifLatin} as="font" type="font/woff2" crossorigin />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
