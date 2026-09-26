@@ -16,11 +16,11 @@ const arc = (from: number, to: number, dx = 0, dy = 0) => {
 // Same geometry as the logo. Each module owns one segment and the round cap at its start;
 // `prev` is the module whose end meets that start (it needs its own cap when this one lifts).
 const modules = [
-  { n: 1, title: 'Reset', outcome: 'You’ll know where every pound goes and what you’re working towards.', from: 231, to: 288, color: 'var(--cream)', prev: 2 },
-  { n: 2, title: 'Giving Your Money Structure', outcome: 'You’ll have a budget built around how you spend, that runs without willpower.', from: 171, to: 231, color: 'var(--terracotta)', prev: 3 },
+  { n: 1, title: 'Reset', outcome: 'We begin at ground zero, uncovering what matters most to you, what drives you, and how to use the way you’re wired as a superpower to propel you forward.', from: 231, to: 288, color: 'var(--cream)', prev: 2 },
+  { n: 2, title: 'Giving Your Money Structure', outcome: 'Get the structure that brings control and confidence to your day-to-day finances, and becomes the foundation of your system.', from: 171, to: 231, color: 'var(--terracotta)', prev: 3 },
   { n: 3, title: 'Breaking the Debt Cycle', outcome: 'You’ll have an order to pay things off and a date to be debt free.', from: 119, to: 171, color: 'var(--blush)', prev: 4 },
-  { n: 4, title: 'Creating Financial Stability', outcome: 'You’ll have an emergency fund that gives you real breathing space.', from: 72, to: 119, color: 'var(--sage)', prev: 5 },
-  { n: 5, title: 'From Stability to Investing', outcome: 'You’ll understand pensions and ISAs well enough to start investing with confidence.', from: -72, to: 72, color: 'var(--teal)', prev: 1 },
+  { n: 4, title: 'Creating Financial Stability', outcome: 'Peace of mind becomes real here. Your financial buffer gives you the freedom to enjoy today and the security to build for tomorrow.', from: 72, to: 119, color: 'var(--sage)', prev: 5 },
+  { n: 5, title: 'From Stability to Investing', outcome: 'Learn what you need to know about investing, how to do it safely, avoid the mistakes that cost people most and stay consistent for the long term.', from: -72, to: 72, color: 'var(--teal)', prev: 1 },
 ];
 const byN = Object.fromEntries(modules.map((m) => [m.n, m]));
 const lift = (m: (typeof modules)[number]) => {
@@ -56,13 +56,13 @@ const css = modules
       {modules.map((m) => { const [x, y] = pt(m.from); return <circle class={`base-${m.n}`} cx={x} cy={y} r={w / 2} fill={m.color} />; })}
       {modules.map((m) => { const p = byN[m.prev]; const [x, y] = pt(m.from); return <circle class={`endcap endcap-${m.n}`} cx={x} cy={y} r={w / 2} fill={p.color} />; })}
       {modules.map((m) => { const [dx, dy] = lift(m); return <path class={`lifted lift-${m.n}`} d={arc(m.from, m.to, dx, dy)} fill="none" stroke={m.color} stroke-width={w} stroke-linecap="round" filter="url(#lift-shadow)" />; })}
-      {modules.map((m) => { const [x, y] = pt((m.from + m.to) / 2, 52); /* clear of a lifted segment's outer edge (46.6) */ return <text class={`num num-${m.n}`} x={x} y={y}>{m.n}</text>; })}
+      {modules.map((m) => { const [x, y] = pt((m.from + m.to) / 2, 52); /* clear of a lifted segment's outer edge (46.6) */ return <text class={`num num-${m.n}`} x={x} y={y}>{m.n - 1}</text>; })}
     </svg>
 
     <ol>
       {modules.slice().sort((a, b) => a.n - b.n).map((m) => (
         <li data-m={m.n}>
-          <span class="n">{String(m.n).padStart(2, '0')}</span>
+          <span class="n">{String(m.n - 1).padStart(2, '0')}</span>
           <h3><i style={`background:${m.color}`} />{m.title}</h3>
           <p class="outcome">{m.outcome}</p>
           <p class="yours" data-yours></p>

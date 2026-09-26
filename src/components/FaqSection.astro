@@ -4,27 +4,27 @@
 const faqs = [
   {
     q: 'How much time does it take?',
-    a: 'The five modules are 64 short lessons, about 2.5 hours in total, so most people fit them around work. The real time goes into the practical exercises, applying each module to your own money. [How many hours a week members typically spend.]',
+    a: 'The five modules are 64 short lessons, about 2.5 hours in total, so most people fit them around work. The real time goes into the practical exercises, applying each module to your own money.',
   },
   {
     q: 'Is this financial advice?',
-    a: 'No. Calm Money is financial education. It teaches you how money works and helps you build your own system, but it does not recommend specific investments or products for you. For regulated advice, speak to a financial adviser authorised by the FCA.',
+    a: 'No. Calm Money is financial education. It teaches you how money works and helps you build your own system, it does not recommend specific investments or products for you. For regulated advice, speak to a financial adviser authorised by the FCA.',
   },
   {
     q: 'I’m in debt. Is this still for me?',
-    a: 'Yes. Module 3, Breaking the Debt Cycle, gives you a clear plan to pay it off, and the programme shows you how to balance clearing debt with building savings and, later, investing.',
+    a: 'Yes. Module 2, Breaking the Debt Cycle, gives you a clear plan to pay it off, and the programme shows you how to balance clearing debt with building savings and, later, investing.',
   },
   {
     q: 'I’m self-employed. Does it still work?',
-    a: '[How the programme handles irregular income, tax and pensions for the self-employed.]',
+    a: 'Yes, and it’s especially effective if your income is irregular. When your earnings depend on you, it’s easy to swing between feast and famine. We give you a system to stabilise your finances and end that cycle.',
   },
   {
     q: 'What’s the difference between the three options?',
-    a: 'Every option includes all five modules, the money personality test and lifetime access to the content library. At your pace with coaching adds four coaching sessions, one every quarter. 12 months of full support adds an onboarding call, 24 live coaching calls, WhatsApp access to Peter and two in-person meet-ups.',
+    a: 'Whichever option you choose, you get all five modules, the money personality test and lifetime access to the content library.\nAt your pace with coaching adds four quarterly coaching sessions with Peter, helping you put what you learn into practice and keeping you accountable to the goals you set in Module 0.\n12 months of full support adds an onboarding call, 24 live coaching calls, WhatsApp access to Peter and two in-person meet-ups.',
   },
   {
     q: 'Where are the meet-ups?',
-    a: '[Where the meet-ups at months 6 and 12 take place, and who covers travel.]',
+    a: 'Our in-person meet-ups are in the UK, with dates announced well in advance so you can plan around them and secure your spot.',
   },
   {
     q: 'Can I pay in instalments?',
@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     q: 'What if it’s not right for me?',
-    a: '[Refund terms.]',
+    a: 'Our coaching options are built around action, so our guarantee is too. If you’ve taken the first steps and still feel it isn’t right for you, let us know within 30 days of joining and we’ll give you a full refund.\nAt your pace with coaching: complete Module 0 and attend your first coaching session.\n12 months of full support: complete Module 0 and attend your onboarding call.\nNo awkward conversations, no pressure.\nThe At your pace option gives you instant access to all the content, so it isn’t eligible for a refund once you’ve started.',
   },
 ];
 const isPlaceholder = (a: string) => a.includes('[');
@@ -44,7 +44,7 @@ const isPlaceholder = (a: string) => a.includes('[');
     {faqs.map((f) => (
       <details name="faq">
         <summary>{f.q}</summary>
-        <p class:list={{ placeholder: isPlaceholder(f.a) }}>{f.a}</p>
+        {f.a.split('\n').map((para) => <p class:list={{ placeholder: isPlaceholder(para) }}>{para}</p>)}
       </details>
     ))}
   </div>
@@ -76,6 +76,7 @@ const isPlaceholder = (a: string) => a.includes('[');
       linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; transition: rotate 0.2s; }
   details[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
   summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+  details p + p { margin-top: -12px; }
   details p { margin: 0 0 24px; max-width: min(62ch, 58%); color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
   details p.placeholder { color: #8a918f; font-style: italic; }
 
