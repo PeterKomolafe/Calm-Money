@@ -114,7 +114,7 @@ const css = modules
   ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
   li { position: relative; padding: 12px 0 12px 20px; }
   /* The bar carries the same faint outline as the dots, so the cream one still shows on the pale page */
-  li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.18); }
+  li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--c); box-shadow: inset 0 0 0 0.5px rgb(31 38 36 / 0.22); }
   /* Each module opens like the common questions: title row with a plus that turns into a minus */
   summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 40px 1fr 14px; align-items: center; column-gap: 14px; }
   summary::-webkit-details-marker { display: none; }
