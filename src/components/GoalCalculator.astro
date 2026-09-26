@@ -292,7 +292,9 @@
     .big { font-size: 17px; }
     .bridge, .bridge-cta { padding-inline: 0; } /* the calculator section already sets the gutter */
     .bridge :global(.underlined path) { stroke-width: 3; }
-    .bridge .turn { font-size: 5.3cqi; } /* the longest line (120 months) is 18.7em, so this keeps it on one line at any phone width */
+    /* The statement breaks out of the 20px gutter to run almost edge to edge, 8px from each side.
+       The longest line (120 months) is 18.7em, so it is sized to that full width */
+    .bridge .turn { margin-inline: -12px; font-size: calc((100vw - 16px) / 18.8); }
     .calc { padding: var(--section-gap) 20px 0; }
     .roll { display: none; } /* no room beside the tabs on phones */
     .card { border-radius: 20px; padding: 28px 20px; }
