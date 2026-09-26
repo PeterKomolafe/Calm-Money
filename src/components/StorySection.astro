@@ -1,5 +1,4 @@
 ---
-import { featured, logoHeight } from '../data/featured';
 // Peter's story in stages, one photo per stage. A line break in `text` starts a new paragraph.
 const stages = [
   {
@@ -76,14 +75,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     </div>
   </div>
 
-  <div class="featured">
-    <p class="featured-label">As featured on</p>
-    <ul>
-      {featured.map(([file, name, w, h]) => (
-        <li><img src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" style={`--h: ${logoHeight(file, w, h)}px`} /></li>
-      ))}
-    </ul>
-  </div>
   <div class="story-cta"><a class="btn btn--primary" href="#pricing">Join the programme</a></div>
 </section>
 
@@ -172,12 +163,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .more .head { display: block; }
   .more .thumb { display: none; }
 
-  /* Press logos: one centred band closing the story, in their own colours */
   .story-cta { margin-top: clamp(40px, 5vw, 56px); text-align: center; }
-  .featured { margin-top: clamp(56px, 8vw, 96px); text-align: center; }
-  .featured-label { margin: 0 0 22px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); }
-  .featured ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px clamp(24px, 3.4vw, 44px); }
-  .featured img { display: block; width: auto; max-width: 100%; height: var(--h); }
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
   .placeholder h3, .placeholder p { color: #8a918f; font-style: italic; }
@@ -218,9 +204,6 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     .more .inline img[style*='--mpos'] { object-position: var(--mpos) !important; } /* a phone crop where the shorter photo needs one */
     .more p:last-child { margin-bottom: 12px; }
 
-    .featured-label { margin-bottom: 16px; }
-    .featured ul { gap: 16px 22px; }
-    .featured img { height: calc(var(--h) * 0.85); }
   }
   @media (prefers-reduced-motion: reduce) {
     .chapter, .frame img { transition: none; }
