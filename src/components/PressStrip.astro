@@ -1,0 +1,28 @@
+---
+// A slim 'As featured on' strip straight after the hero, so the press credibility lands in the first screens.
+// The full band still closes the story section.
+import { featured, logoHeight } from '../data/featured';
+---
+<section class="press" aria-label="As featured on">
+  <p>As featured on</p>
+  <ul>
+    {featured.map(([file, name, w, h]) => (
+      <li><img src={`/images/featured/${file}.png`} width={w} height={h} alt={name} loading="lazy" style={`--h: ${logoHeight(file, w, h)}px`} /></li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .press { max-width: 1080px; margin: 0 auto; padding: clamp(28px, 4vw, 48px) 28px 0; text-align: center; }
+  p { margin: 0 0 14px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px clamp(20px, 2.6vw, 34px); }
+  /* Smaller than the band at the end of the story: a quiet signal, not a feature */
+  img { display: block; width: auto; height: calc(var(--h) * 0.75); opacity: 0.9; }
+  @media (max-width: 760px) {
+    .press { padding-inline: 20px; }
+    /* Five across, so the nine logos sit as 5 and 4 rather than leaving one or two alone on a row */
+    ul { gap: 14px 0; }
+    li { flex: 0 0 20%; display: flex; justify-content: center; }
+    img { height: calc(var(--h) * 0.65); max-width: 90%; object-fit: contain; }
+  }
+</style>

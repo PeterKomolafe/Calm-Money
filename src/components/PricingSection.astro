@@ -5,6 +5,7 @@
 const tiers = [
   {
     name: 'At your pace',
+    for: 'For self-starters who want the full system to work through on their own.',
     price: '£297',
     intro: 'What’s included',
     groups: [
@@ -18,6 +19,8 @@ const tiers = [
   },
   {
     name: 'At your pace with coaching',
+    for: 'For people who want a check-in every quarter to stay on track.',
+    recommended: true,
     price: '£1,297',
     intro: 'Everything in At your pace, plus',
     groups: [
@@ -31,6 +34,7 @@ const tiers = [
   },
   {
     name: '12 months of full support',
+    for: 'For people who want Peter in their corner all year.',
     price: '£2,497',
     intro: 'Everything in At your pace, plus',
     groups: [
@@ -52,9 +56,12 @@ const tiers = [
   <div class="tiers">
     {tiers.map((t) => (
       <article class:list={['tier', { full: t.apply }]}>
+        {t.recommended && <span class="badge">Recommended</span>}
         <h3>{t.name}</h3>
+        <p class="for">{t.for}</p>
         <p class="price">{t.price}</p>
         <a class:list={['btn', t.apply ? 'btn--light' : 'btn--primary']} href={t.href}>{t.cta}</a>
+        {t.apply && <p class="next">Tell us about your goals and we’ll let you know if it’s the right fit. No payment is taken unless you’re accepted.</p>}
 
         <!-- Phones: the list opens with "See what's included". Wider screens: always open -->
         <details class="inc" open>
@@ -72,6 +79,7 @@ const tiers = [
       </article>
     ))}
   </div>
+  <p class="guarantee">Both coaching options come with a 30-day money-back guarantee. <a href="#guarantee">See how it works</a>.</p>
 </section>
 
 <script>
@@ -89,10 +97,16 @@ const tiers = [
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
 
   .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
-  .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); container-type: inline-size; }
+  .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); container-type: inline-size; position: relative; }
 
   h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; color: var(--ink); }
-  .price { margin: 10px 0 22px; font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
+  /* Sits on the card's top edge so it takes no room: prices and buttons stay level across the three cards */
+  .badge { position: absolute; top: 0; left: clamp(24px, 2.6vw, 32px); translate: 0 -50%; padding: 4px 12px; border-radius: 999px; background: var(--terracotta-dark); color: #fff; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.02em; }
+  .for { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
+  .next { margin: 14px 0 0; font-size: 0.9rem; line-height: 1.5; color: #bbb8ad; }
+  .guarantee { margin: 28px 0 0; text-align: center; color: var(--muted); font-size: 1.05rem; }
+  .guarantee a { color: var(--terracotta-dark); text-underline-offset: 4px; }
+  .price { margin: 14px 0 22px; font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
   .btn { align-self: flex-start; padding-inline: 1.4em; }
 
   .intro { margin: 26px 0 12px; padding-top: 20px; border-top: 1px solid rgb(31 38 36 / 0.12); font-size: 0.95rem; font-weight: 600; color: var(--muted); }
@@ -107,7 +121,7 @@ const tiers = [
   /* The most supported option uses the calculator's deep-teal card */
   .full { background: linear-gradient(180deg, #3d5453, #34494a 40%); color: #f5e8d8; }
   .full h3, .full .price, .full strong { color: #f5e8d8; }
-  .full .intro, .full li span { color: #bbb8ad; }
+  .full .intro, .full li span, .full .for { color: #bbb8ad; }
   .full .intro { border-top-color: rgb(245 232 216 / 0.18); }
   .full li::before { background: var(--blush); }
   .btn--light { background: var(--cream); color: var(--ink); }

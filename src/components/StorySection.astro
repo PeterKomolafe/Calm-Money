@@ -1,4 +1,5 @@
 ---
+import { featured, logoHeight } from '../data/featured';
 // Peter's story in stages, one photo per stage. A line break in `text` starts a new paragraph.
 const stages = [
   {
@@ -38,15 +39,6 @@ const stages = [
   },
 ];
 // Each stage's marker takes the next ring colour, in the logo's order
-// Press logos, cropped from Peter's own 'As featured on' strip
-const featured = [
-  ['channel-4', 'Channel 4', 38, 51], ['sky-news', 'Sky News', 138, 38], ['itv', 'ITV', 79, 42],
-  ['lorraine', 'Lorraine', 144, 37], ['stephs-packed-lunch', 'Steph’s Packed Lunch', 57, 56], ['bbc', 'BBC', 145, 45],
-  ['channel-5', 'Channel 5', 40, 56], ['the-times', 'The Times', 88, 37], ['metro', 'Metro', 121, 39],
-] as const;
-// Size each logo by area so wide wordmarks and square marks look equally heavy; Steph's gets 10% more
-const logoHeight = (file: string, w: number, h: number) =>
-  Math.round(Math.max(14, Math.min(30, Math.sqrt(1100 / (w / h)))) * (file === 'stephs-packed-lunch' ? 1.1 : 1));
 const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sage)', 'var(--teal)'];
 ---
 <section class="story" id="story">
@@ -169,7 +161,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
   .frame img.on { opacity: 1; }
 
   .step { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.1); }
+  .step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.25); } /* the ring keeps the cream dot visible on the pale page */
   h3 { margin: 12px 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); text-wrap: balance; }
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
   .chapter p + p { margin-top: 14px; }
