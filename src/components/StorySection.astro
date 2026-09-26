@@ -23,7 +23,7 @@ const stages = [
     placeholder: false,
   },
   {
-    img: 'downing-street', pos: '30% 50%', w: 900, h: 1200,
+    img: 'downing-street', pos: '30% 50%', mpos: '30% 29%', w: 900, h: 1200, // mpos: on phones the shorter crop keeps the door number and head in view
     alt: 'Peter outside 10 Downing Street',
     title: 'Advocating for financial education',
     text: 'Having ended up homeless because no one taught me how money worked, I took that story to Number 10 to push for financial education from primary school. From September 2028, children in England as young as five will learn the fundamentals of money in school.',
@@ -67,7 +67,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
               </span>
             </summary>
             <figure class="inline">
-              <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}`} />
+              <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}${'mpos' in s ? `; --mpos: ${s.mpos}` : ''}`} />
             </figure>
             {s.text.split('\n').map((para) => <p>{para}</p>)}
           </details>
@@ -223,6 +223,7 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     .more[open] h3 { margin-top: 12px; font-size: 23px; }
     .more .inline { margin: 4px 0 16px; }
     .more .inline img { max-height: 240px; border-radius: 14px; }
+    .more .inline img[style*='--mpos'] { object-position: var(--mpos) !important; } /* a phone crop where the shorter photo needs one */
     .more p:last-child { margin-bottom: 12px; }
 
     .featured-label { margin-bottom: 16px; }
