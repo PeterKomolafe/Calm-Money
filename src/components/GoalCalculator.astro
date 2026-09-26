@@ -287,6 +287,10 @@
   @media (min-width: 761px) { .bridge .turn { white-space: nowrap; } }
 
   @media (max-width: 760px) {
+    /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
+    h2 { font-size: 32px; }
+    .sentence { font-size: 19px; line-height: 1.75; } /* inputs inherit this; above 16px so iPhones don't zoom on tap */
+    .big { font-size: 17px; }
     .bridge, .bridge-cta { padding-inline: 0; } /* the calculator section already sets the gutter */
     .bridge :global(.underlined path) { stroke-width: 3; }
     .calc { padding: var(--section-gap) 20px 0; }

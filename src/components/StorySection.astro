@@ -151,6 +151,10 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
 
   /* Phones and narrow tablets: no sticky frame, each chapter shows its own photo */
   @media (max-width: 800px) {
+    /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
+    h2 { font-size: 32px; }
+    h3 { font-size: 23px; }
+    .chapter p { font-size: 17px; }
     .story { padding-inline: 20px; }
     .grid { grid-template-columns: 1fr; }
     .frame { display: none; }

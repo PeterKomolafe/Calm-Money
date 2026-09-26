@@ -104,6 +104,9 @@ const tiers = [
     .tiers { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
   }
   @media (max-width: 760px) {
+    /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
+    h2 { font-size: 32px; }
+    li strong { font-size: min(19px, 6.25cqi); } /* the one-line lesson count still fits on the smallest phones */
     .pricing { padding-inline: 20px; }
   }
 </style>

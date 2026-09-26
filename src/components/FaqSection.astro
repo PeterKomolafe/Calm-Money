@@ -85,7 +85,10 @@ const isPlaceholder = (a: string) => a.includes('[');
     details p { max-width: 62ch; }
   }
   @media (max-width: 760px) {
+    /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
+    h2 { font-size: 32px; }
+    details p { font-size: 17px; }
     .faq { padding-inline: 20px; }
-    summary { font-size: 1.1rem; padding: 18px 0; }
+    summary { font-size: 19px; padding: 18px 0; }
   }
 </style>
