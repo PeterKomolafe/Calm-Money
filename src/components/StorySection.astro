@@ -103,15 +103,19 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     addEventListener('resize', queue);
     update();
 
-    // Phones open with chapter 1 and show one chapter at a time. Wider screens keep every chapter open
+    // Phones open with chapter 1. A tap opens one chapter and closes the rest; reading on also opens chapters
+    // by themselves (see below). Wider screens keep every chapter open
     const more = [...story.querySelectorAll<HTMLDetailsElement>('details.more')];
     const phone = matchMedia('(max-width: 800px)');
+    const handled = new Set<HTMLDetailsElement>(); // opened or closed once already: never auto-open again
+    const timers = new Map<HTMLDetailsElement, number>(); // pending automatic opens
     const fit = () => more.forEach((d) => {
       const sum = d.querySelector('summary')!;
-      if (phone.matches) { d.name = 'story'; d.open = d === more[0]; sum.removeAttribute('tabindex'); }
-      else { d.removeAttribute('name'); d.open = true; sum.tabIndex = -1; }
+      if (phone.matches) { d.open = d === more[0]; sum.removeAttribute('tabindex'); }
+      else { d.open = true; sum.tabIndex = -1; }
     });
     fit();
+    handled.add(more[0]);
     phone.addEventListener('change', fit);
     // Closing a longer chapter above would pull the tapped row off screen, so hold it where it was tapped
     let tapped: { el: HTMLElement; top: number } | null = null;
@@ -119,17 +123,27 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
       const sum = d.querySelector<HTMLElement>('summary')!;
       sum.addEventListener('click', (e) => {
         if (!phone.matches) e.preventDefault();
-        else tapped = { el: sum, top: sum.getBoundingClientRect().top };
+        else { tapped = { el: sum, top: sum.getBoundingClientRect().top }; handled.add(d); timers.forEach(clearTimeout); }
       });
       d.addEventListener('toggle', () => {
-        if (!phone.matches) return;
+        if (!phone.matches || tapped?.el !== sum) return; // automatic opens leave the others as they are
         if (d.open) more.forEach((o) => { if (o !== d) o.open = false; });
-        if (tapped?.el === sum) {
-          const { top } = tapped; tapped = null;
-          requestAnimationFrame(() => scrollBy(0, sum.getBoundingClientRect().top - top));
-        }
+        const { top } = tapped; tapped = null;
+        requestAnimationFrame(() => scrollBy(0, sum.getBoundingClientRect().top - top));
       });
     });
+
+    // Reading on: a closed chapter opens by itself once its row has rested in the middle of the screen for
+    // half a second, so a quick skim past leaves it closed. Nothing above closes, so the page never jumps
+    const watch = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        const d = en.target.closest<HTMLDetailsElement>('details.more')!;
+        clearTimeout(timers.get(d));
+        if (!en.isIntersecting || !phone.matches || d.open || handled.has(d)) return;
+        timers.set(d, window.setTimeout(() => { if (!d.open && !handled.has(d)) { handled.add(d); d.open = true; } }, 500));
+      });
+    }, { rootMargin: '-45% 0px -54% 0px' }); // a thin line just above the middle: one row at a time
+    more.forEach((d) => watch.observe(d.querySelector('summary')!));
   }
 </script>
 
