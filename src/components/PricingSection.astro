@@ -2,7 +2,7 @@
 import WaitlistPopup from './WaitlistPopup.astro';
 // Three ways to join. Price and button sit at the top of each card so they line up
 // whatever the length of the list below. The top tier runs in intakes: its button joins the waitlist.
-// Replace the first two hrefs with their checkout links; the third opens the waitlist pop-up.
+// The first two buttons start checkout (netlify/functions); the third opens the waitlist pop-up.
 const tiers = [
   {
     name: 'At your pace',
@@ -16,7 +16,7 @@ const tiers = [
       { title: 'Lifetime access', items: ['The content library is yours to come back to, for good'] },
     ],
     cta: 'Start at your pace',
-    href: '#pricing',
+    href: '/pay/at-your-pace', // Stripe Checkout (netlify/functions/at-your-pace.mjs)
   },
   {
     name: 'At your pace with coaching',
