@@ -70,7 +70,7 @@ body::before {
   pointer-events: none;
   background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px), linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
   background-size: calc(100vw / 8) calc(100vw / 8);
-  opacity: 0.5; /* half strength: present, but it shouldn't compete with the content */
+  opacity: 0.6; /* softened: present, but it shouldn't compete with the content */
 }
 /* Phones: 4 squares across rather than 8, so the grid is as calm as on desktop */
 @media (max-width: 760px) {
