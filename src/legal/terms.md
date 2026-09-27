@@ -24,7 +24,7 @@ Calm Money is available in three options. Every option includes the five modules
 - **At your pace with coaching (£1,297).** Everything in At your pace, plus four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
 - **12 months of full support (£2,497).** Everything in At your pace, plus, for 12 months from the start of your intake: an onboarding call with Peter, 24 live online coaching calls (one every two weeks), direct access to Peter on WhatsApp, and two in-person meet-ups in the UK during those 12 months. This option runs in intakes with limited places. Joining the waitlist does not reserve a place or commit you to buying. When an intake opens, we review applications and may decline one without giving a reason. No payment is taken unless your application is accepted.
 
-Prices are in pounds sterling and include any VAT that applies. Payment is taken in full at checkout, or in instalments where an instalment option is shown at checkout. If you pay in instalments, you agree to pay each instalment when it falls due, and we may pause your access to coaching and support while a payment is overdue. Payment is processed through our third-party payment processor, Stripe; we do not store your full card details ourselves.
+Prices are in pounds sterling and include any VAT that applies. Payment is taken in full at checkout, or in instalments where an instalment option is shown at checkout. At your pace with coaching can be paid as £697 at checkout followed by two monthly payments of £300, £1,297 in total, with no interest or other charges. If you pay in instalments, you agree to pay each instalment when it falls due, and we may pause your access to coaching and support while a payment is overdue. Payment is processed through our third-party payment processor, Stripe; we do not store your full card details ourselves.
 
 ## 5. Lifetime Access and the Support Period
 
@@ -50,6 +50,8 @@ Meet-ups take place in the UK. You are responsible for your own travel, accommod
 - **12 months of full support:** you have completed Module 0 and attended your onboarding call.
 
 **At your pace.** Because At your pace gives you instant access to all the content, it is not eligible for a refund once your access has started.
+
+If you are paying in instalments and receive a refund under the guarantee, we refund what you have paid and cancel any payments still to come.
 
 To ask for a refund, email us at the address in Section 14. This does not affect your statutory rights.
 
