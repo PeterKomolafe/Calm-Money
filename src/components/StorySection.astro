@@ -103,47 +103,52 @@ const colours = ['var(--cream)', 'var(--terracotta)', 'var(--blush)', 'var(--sag
     addEventListener('resize', queue);
     update();
 
-    // Phones open with chapter 1. A tap opens one chapter and closes the rest; reading on also opens chapters
-    // by themselves (see below). Wider screens keep every chapter open
+    // Phones: one chapter open at a time, following the reader. Wider screens keep every chapter open
     const more = [...story.querySelectorAll<HTMLDetailsElement>('details.more')];
+    const sums = more.map((d) => d.querySelector<HTMLElement>('summary')!);
     const phone = matchMedia('(max-width: 800px)');
-    const handled = new Set<HTMLDetailsElement>(); // opened or closed once already: never auto-open again
-    const timers = new Map<HTMLDetailsElement, number>(); // pending automatic opens
-    const fit = () => more.forEach((d) => {
-      const sum = d.querySelector('summary')!;
-      if (phone.matches) { d.open = d === more[0]; sum.removeAttribute('tabindex'); }
-      else { d.open = true; sum.tabIndex = -1; }
-    });
+    let active = 0;
+    // Open one chapter and close the rest, holding that chapter's row where it is on screen, so a chapter
+    // closing above never moves the text under the reader's eyes
+    const openOnly = (i: number) => {
+      const before = sums[i].getBoundingClientRect().top;
+      more.forEach((d, j) => { d.open = j === i; });
+      const shift = sums[i].getBoundingClientRect().top - before;
+      if (shift) scrollBy(0, shift);
+    };
+    const fit = () => {
+      sums.forEach((sum) => (phone.matches ? sum.removeAttribute('tabindex') : (sum.tabIndex = -1)));
+      if (phone.matches) { active = 0; more.forEach((d, j) => (d.open = j === 0)); }
+      else more.forEach((d) => (d.open = true));
+    };
     fit();
-    handled.add(more[0]);
     phone.addEventListener('change', fit);
-    // Closing a longer chapter above would pull the tapped row off screen, so hold it where it was tapped
-    let tapped: { el: HTMLElement; top: number } | null = null;
-    more.forEach((d) => {
-      const sum = d.querySelector<HTMLElement>('summary')!;
-      sum.addEventListener('click', (e) => {
-        if (!phone.matches) e.preventDefault();
-        else { tapped = { el: sum, top: sum.getBoundingClientRect().top }; handled.add(d); timers.forEach(clearTimeout); }
-      });
-      d.addEventListener('toggle', () => {
-        if (!phone.matches || tapped?.el !== sum) return; // automatic opens leave the others as they are
-        if (d.open) more.forEach((o) => { if (o !== d) o.open = false; });
-        const { top } = tapped; tapped = null;
-        requestAnimationFrame(() => scrollBy(0, sum.getBoundingClientRect().top - top));
-      });
-    });
 
-    // Reading on: a closed chapter opens by itself once its row has rested in the middle of the screen for
-    // half a second, so a quick skim past leaves it closed. Nothing above closes, so the page never jumps
-    const watch = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        const d = en.target.closest<HTMLDetailsElement>('details.more')!;
-        clearTimeout(timers.get(d));
-        if (!en.isIntersecting || !phone.matches || d.open || handled.has(d)) return;
-        timers.set(d, window.setTimeout(() => { if (!d.open && !handled.has(d)) { handled.add(d); d.open = true; } }, 500));
-      });
-    }, { rootMargin: '-45% 0px -54% 0px' }); // a thin line just above the middle: one row at a time
-    more.forEach((d) => watch.observe(d.querySelector('summary')!));
+    // A tap opens that chapter (closing the rest) and brings it up to the reading position, or closes it
+    sums.forEach((sum, i) => sum.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!phone.matches) return;
+      if (more[i].open) { more[i].open = false; return; }
+      active = i;
+      openOnly(i);
+      scrollBy(0, sum.getBoundingClientRect().top - innerHeight * 0.2);
+    }));
+
+    // Reading on: the next chapter takes over once its row passes 40% down the screen; going back up, the
+    // previous one returns once the current row drops below 60%. The gap between the two stops flicker
+    let ticking = false;
+    const follow = () => {
+      ticking = false;
+      if (!phone.matches) return;
+      const vh = innerHeight;
+      let next = active;
+      while (next + 1 < more.length && sums[next + 1].getBoundingClientRect().top <= vh * 0.4) next++;
+      while (next > 0 && sums[next].getBoundingClientRect().top > vh * 0.6) next--;
+      if (next === active) return;
+      active = next;
+      openOnly(next);
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(follow); } }, { passive: true });
   }
 </script>
 
