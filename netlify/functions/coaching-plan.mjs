@@ -20,6 +20,9 @@ export const oneMonthFrom = (date) => {
   return Math.floor(d.getTime() / 1000);
 };
 
+// The terms tickbox wording, shared with coaching-full.mjs
+export const CONSENT = 'I agree to the Terms and Conditions. I want my access to the Calm Money content library to start straight away, and I understand that once it starts I lose my right to cancel it within 14 days. If my coaching starts within 14 days and I then cancel, I will pay for the sessions already provided.';
+
 export const checkoutForm = (origin, now = Date.now()) => {
   const anchor = oneMonthFrom(now); // first £300 is taken a month after checkout
   const f = new URLSearchParams();
@@ -42,20 +45,20 @@ export const checkoutForm = (origin, now = Date.now()) => {
   f.set('metadata[anchor]', String(anchor));
   // The terms tickbox (needs the Terms of service URL set in Stripe's public business details)
   f.set('consent_collection[terms_of_service]', 'required');
-  f.set('custom_text[terms_of_service_acceptance][message]',
-    'I agree to the Terms and Conditions. I want my access to the Calm Money content library to start straight away, and I understand that once it starts I lose my right to cancel it within 14 days. If my coaching starts within 14 days and I then cancel, I will pay for the sessions already provided.');
+  f.set('custom_text[terms_of_service_acceptance][message]', CONSENT);
   f.set('success_url', `${origin}/thank-you/with-coaching/?session_id={CHECKOUT_SESSION_ID}`);
-  f.set('cancel_url', `${origin}/#pricing`);
+  f.set('cancel_url', `${origin}/join/coaching/`);
   return f;
 };
 
-export default async (req) => {
+// Creates the Checkout session and sends the buyer to it (shared with coaching-full.mjs)
+export const startCheckout = async (form) => {
   const key = process.env.STRIPE_SECRET_KEY;
-  if (!key) return new Response('The payment plan isn’t set up yet. Please email hello@peterkomolafe.com.', { status: 503 });
+  if (!key) return new Response('Checkout isn’t set up yet. Please email hello@peterkomolafe.com.', { status: 503 });
   const res = await fetch('https://api.stripe.com/v1/checkout/sessions', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: checkoutForm(new URL(req.url).origin),
+    body: form,
   });
   const session = await res.json();
   if (!res.ok) {
@@ -64,5 +67,7 @@ export default async (req) => {
   }
   return Response.redirect(session.url, 303);
 };
+
+export default (req) => startCheckout(checkoutForm(new URL(req.url).origin));
 
 export const config = { path: '/pay/coaching-plan' };

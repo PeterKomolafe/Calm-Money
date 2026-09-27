@@ -8,5 +8,6 @@ export default defineConfig({
   site: 'https://calm-money.netlify.app',
   output: 'static',
   adapter: netlify(),
-  integrations: [sitemap()],
+  // Checkout steps and thank-you pages stay out of the sitemap (they are noindex too)
+  integrations: [sitemap({ filter: (page) => !/\/(join|thank-you)\//.test(new URL(page).pathname) })],
 });

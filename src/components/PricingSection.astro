@@ -22,7 +22,7 @@ const tiers = [
     name: 'At your pace with coaching',
     for: 'For people who want a check-in every quarter to stay on track.',
     recommended: true,
-    plan: '/pay/coaching-plan', // £697 today, then 2 monthly payments of £300 (netlify/functions/coaching-plan.mjs)
+    plan: true, // pay in full or in three payments, chosen on /join/coaching/
     price: '£1,297',
     intro: 'Everything in At your pace, plus',
     groups: [
@@ -32,7 +32,7 @@ const tiers = [
       { title: 'Set your next three months', items: ['Leave each session knowing exactly what to focus on until the next one'] },
     ],
     cta: 'Join with coaching',
-    href: '#pricing',
+    href: '/join/coaching/',
   },
   {
     name: '12 months of full support',
@@ -63,7 +63,7 @@ const tiers = [
         <p class="for">{t.for}</p>
         <p class="price">{t.price}</p>
         <a class:list={['btn', t.apply ? 'btn--light' : 'btn--primary']} href={t.href}>{t.cta}</a>
-        {t.plan && <p class="next">Or pay £697 today, then 2 monthly payments of £300. No interest, no extra charge. <a href={t.plan} rel="nofollow">Spread the cost</a></p>}
+        {t.plan && <p class="next">Pay in one go, or £697 today then 2 monthly payments of £300. No interest, no extra charge.</p>}
         {t.apply && <p class="next">Runs in intakes with limited places. Join the waitlist to hear first when the next intake opens.</p>}
 
         <!-- Phones: the list opens with "See what's included". Wider screens: always open -->
@@ -108,7 +108,6 @@ const tiers = [
   .badge { position: absolute; top: 0; left: clamp(24px, 2.6vw, 32px); translate: 0 -50%; padding: 4px 12px; border-radius: 999px; background: var(--terracotta-dark); color: #fff; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.02em; }
   .for { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
   .next { margin: 14px 0 0; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
-  .next a { color: var(--terracotta-dark); font-weight: 500; text-underline-offset: 3px; white-space: nowrap; }
   .guarantee { margin: 28px 0 0; text-align: center; color: var(--muted); font-size: 1.05rem; }
   .guarantee a { color: var(--terracotta-dark); text-underline-offset: 4px; }
   .price { margin: 14px 0 22px; font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
