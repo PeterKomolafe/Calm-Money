@@ -68,7 +68,7 @@ const bottomNotes = ['peace key'];
 </script>
 
 <style>
-  .hero { position: relative; text-align: center; padding: 0 0 8vw; overflow: hidden; }
+  .hero { position: relative; text-align: center; padding: 0 0 8vw; overflow: hidden; margin-bottom: -0.6vw; } /* the arrow sits 0.6vw off the bottom: pull the next section up so arrow to heading is one section gap */
   /* Same box the notes were placed in before the strip: its bottom padding is overlapped by the strip */
   .stage { position: relative; padding: 3vw 0 8vw; margin-bottom: -6vw; }
   .kicker { font-family: var(--font-body); font-weight: var(--w-medium); font-size: clamp(1.1rem, 2vw, 1.8rem); line-height: 1.25; margin: 0 0 1.4vw; padding: 0 16px; text-wrap: balance; }
@@ -107,5 +107,6 @@ const bottomNotes = ['peace key'];
     .sub, .apr, .overdraft, .payday, .isa, .tenk { display: none; }
     .peace { width: 36vw; right: 5%; bottom: 5%; }
     .arrow { width: 7vw; left: 22%; bottom: 3vw; }
+    .hero { margin-bottom: -3vw; }
   }
 </style>

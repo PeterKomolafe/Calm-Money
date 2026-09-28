@@ -73,8 +73,8 @@ const lines = [
 
 <style>
   .testimonials { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
-  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
+  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); }
 
   /* Ledger index tabs, as on the calculator: unselected tabs sit behind the card, the chosen one joins it */
   .tabs { display: flex; gap: 6px; padding: 0 28px; margin: 0 0 -6px; position: relative; }
@@ -111,7 +111,7 @@ const lines = [
 
   @media (max-width: 760px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
-    h2 { font-size: 32px; margin-bottom: 20px; }
+    h2 { font-size: 32px; }
     .lede { font-size: 18px; line-height: 1.55; }
     .name { font-size: 19px; }
     dd { font-size: 17px; }

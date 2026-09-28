@@ -97,8 +97,8 @@ const tiers = [
 
 <style>
   .pricing { max-width: 1160px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
-  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
+  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); }
 
   .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
   .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); container-type: inline-size; position: relative; }
@@ -138,7 +138,7 @@ const tiers = [
   }
   @media (max-width: 760px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
-    h2 { font-size: 32px; margin-bottom: 20px; }
+    h2 { font-size: 32px; }
     .lede { font-size: 18px; line-height: 1.55; }
     li strong { font-size: min(19px, 6.25cqi); } /* the one-line lesson count still fits on the smallest phones */
     .pricing { padding-inline: 24px; }

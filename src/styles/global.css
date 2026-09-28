@@ -36,6 +36,10 @@
   --lift: inset 0 1px 0 rgb(255 255 255 / 0.10), 0 3px 6px rgb(31 38 36 / 0.08),
     0 12px 24px -4px rgb(31 38 36 / 0.16), 0 32px 56px -12px rgb(31 38 36 / 0.24), 0 64px 96px -32px rgb(31 38 36 / 0.30);
 
+  /* Inside a section: heading to its intro line, and heading block to the content */
+  --space-title: 16px;
+  --space-content: 44px;
+
   /* The one gap between every page section */
   --section-gap: clamp(96px, 10vw, 144px); /* 96px on phones: 64 left sections running into each other */
 

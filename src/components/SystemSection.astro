@@ -102,8 +102,8 @@ const css = modules
 
 <style>
   .system { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
-  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 56px; text-wrap: balance; }
+  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); text-wrap: balance; }
 
   .grid { display: grid; grid-template-columns: minmax(0, 360px) 1fr; gap: 56px; align-items: center; }
   .ring { width: 100%; overflow: visible; }
@@ -133,7 +133,7 @@ const css = modules
 
   @media (max-width: 760px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
-    h2 { font-size: 32px; margin-bottom: 20px; }
+    h2 { font-size: 32px; }
     .lede { font-size: 18px; line-height: 1.55; }
     h3 { font-size: 19px; }
     li .outcome { font-size: 17px; }
