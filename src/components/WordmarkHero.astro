@@ -71,8 +71,8 @@ const bottomNotes = ['peace key'];
   .hero { position: relative; text-align: center; padding: 0 0 8vw; overflow: hidden; }
   /* Same box the notes were placed in before the strip: its bottom padding is overlapped by the strip */
   .stage { position: relative; padding: 3vw 0 8vw; margin-bottom: -6vw; }
-  .kicker { font-family: var(--font-body); font-weight: 500; font-size: clamp(1.1rem, 2vw, 1.8rem); line-height: 1.25; margin: 0 0 1.4vw; padding: 0 16px; text-wrap: balance; }
-  h1 { margin: 0; font-family: var(--font-body); font-weight: 700; color: var(--teal); letter-spacing: 0; }
+  .kicker { font-family: var(--font-body); font-weight: var(--w-medium); font-size: clamp(1.1rem, 2vw, 1.8rem); line-height: 1.25; margin: 0 0 1.4vw; padding: 0 16px; text-wrap: balance; }
+  h1 { margin: 0; font-family: var(--font-body); font-weight: var(--w-bold); color: var(--teal); letter-spacing: 0; }
   /* The cards' lift, applied to the letters and ring: near, mid and far shadows, sized in em so they scale with the wordmark */
   .word { filter: drop-shadow(0 0.012em 0.016em rgb(31 38 36 / 0.10)) drop-shadow(0 0.04em 0.07em rgb(31 38 36 / 0.12)) drop-shadow(0 0.11em 0.16em rgb(31 38 36 / 0.14)); }
   /* About a third smaller than the first build (23vw), with tighter tracking */
@@ -81,7 +81,7 @@ const bottomNotes = ['peace key'];
   .slot { display: inline-block; position: relative; width: 0.75em; height: 0.7em; }
   .slot :global(svg) { position: absolute; visibility: hidden; }
   .slot.ready :global(svg) { visibility: visible; }
-  .byline { font-family: var(--font-body); font-weight: 500; font-size: clamp(1.1rem, 1.8vw, 1.6rem); margin: 2.4vw 0 0; }
+  .byline { font-family: var(--font-body); font-weight: var(--w-medium); font-size: clamp(1.1rem, 1.8vw, 1.6rem); margin: 2.4vw 0 0; }
 
   .note { position: absolute; z-index: 1; aspect-ratio: var(--ar); background: var(--graphite); pointer-events: none;
           -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }

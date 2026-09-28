@@ -97,28 +97,28 @@ const tiers = [
 
 <style>
   .pricing { max-width: 1160px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
+  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
 
   .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
   .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); container-type: inline-size; position: relative; }
 
-  h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; color: var(--ink); }
+  h3 { margin: 0; font-family: var(--font-body); font-weight: var(--w-medium); font-size: 1.1rem; color: var(--ink); }
   /* Sits on the card's top edge so it takes no room: prices and buttons stay level across the three cards */
-  .badge { position: absolute; top: 0; left: clamp(24px, 2.6vw, 32px); translate: 0 -50%; padding: 4px 12px; border-radius: 999px; background: var(--terracotta-dark); color: #fff; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.02em; }
+  .badge { position: absolute; top: 0; left: clamp(24px, 2.6vw, 32px); translate: 0 -50%; padding: 4px 12px; border-radius: 999px; background: var(--terracotta-dark); color: #fff; font-size: 0.8rem; font-weight: var(--w-medium);  }
   .for { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
   .next { margin: 14px 0 0; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
   .guarantee { margin: 28px 0 0; text-align: center; color: var(--muted); font-size: 1.05rem; }
   .guarantee a { color: var(--terracotta-dark); text-underline-offset: 4px; }
-  .price { margin: 14px 0 22px; font-family: var(--font-body); font-weight: 450; letter-spacing: -0.03em; font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
+  .price { margin: 14px 0 22px; font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
   .btn { align-self: flex-start; padding-inline: 1.4em; }
 
-  .intro { margin: 26px 0 12px; padding-top: 20px; border-top: 1px solid rgb(31 38 36 / 0.12); font-size: 0.95rem; font-weight: 600; color: var(--muted); }
+  .intro { margin: 26px 0 12px; padding-top: 20px; border-top: 1px solid rgb(31 38 36 / 0.12); font-size: 0.95rem; font-weight: var(--w-medium); color: var(--muted); }
   /* The list scales with the card so its widest title always spans the full width */
   ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; font-size: min(1.125rem, 6.25cqi); }
   li { display: grid; gap: 2px; padding-left: 22px; position: relative; line-height: 1.4; }
   li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); }
-  strong { font-weight: 500; color: var(--ink); }
+  strong { font-weight: var(--w-medium); color: var(--ink); }
   .one-line { white-space: nowrap; }
   li span { font-size: 0.95em; color: var(--muted); }
 
@@ -146,7 +146,7 @@ const tiers = [
 
     .inc { margin-top: 18px; border-top: 1px solid rgb(31 38 36 / 0.12); }
     .full .inc { border-top-color: rgb(245 232 216 / 0.18); }
-    .inc summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px 0 4px; font-weight: 500; }
+    .inc summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px 0 4px; font-weight: var(--w-medium); }
     .inc summary::-webkit-details-marker { display: none; }
     .inc summary::after { content: ''; width: 14px; height: 14px; background:
         linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,

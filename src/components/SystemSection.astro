@@ -102,13 +102,13 @@ const css = modules
 
 <style>
   .system { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
+  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 56px; text-wrap: balance; }
 
   .grid { display: grid; grid-template-columns: minmax(0, 360px) 1fr; gap: 56px; align-items: center; }
   .ring { width: 100%; overflow: visible; }
   .lifted, .endcap { display: none; }
-  .num { font: 600 5px var(--font-body); fill: var(--muted); text-anchor: middle; dominant-baseline: central; }
+  .num { font: 700 5px var(--font-body); fill: var(--muted); text-anchor: middle; dominant-baseline: central; }
 
   /* Each module is a row with a bar of its ring colour down the left and a large serif number */
   ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -123,13 +123,13 @@ const css = modules
       linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
   details[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
   summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; border-radius: 4px; }
-  .n { font-family: var(--font-display); font-weight: 700; font-size: 1.65rem; line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
-  h3 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.3rem; color: var(--ink); }
+  .n { font-family: var(--font-display); font-weight: var(--w-bold); font-size: 1.65rem; line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
+  h3 { margin: 0; font-family: var(--font-body); font-weight: var(--w-medium); font-size: 1.3rem; color: var(--ink); }
   li p { margin: 0 0 0 54px; color: var(--muted); } /* lines up under the title */
   /* What the module leaves you with */
   li .outcome { color: var(--ink); margin-top: 10px; }
   /* The visitor's goal: a mint tag under the module that builds it */
-  li .yours { display: none; margin-top: 12px; padding: 4px 12px; border-radius: 999px; background: var(--mint); font-size: 0.9rem; font-weight: 600; color: var(--teal-dark); }
+  li .yours { display: none; margin-top: 12px; padding: 4px 12px; border-radius: 999px; background: var(--mint); font-size: 0.9rem; font-weight: var(--w-medium); color: var(--teal-dark); }
 
   @media (max-width: 760px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */

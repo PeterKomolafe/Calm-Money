@@ -73,14 +73,14 @@ const lines = [
 
 <style>
   .testimonials { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  h2 { font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
+  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 14px; }
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 44px; }
 
   /* Ledger index tabs, as on the calculator: unselected tabs sit behind the card, the chosen one joins it */
   .tabs { display: flex; gap: 6px; padding: 0 28px; margin: 0 0 -6px; position: relative; }
   .tabs label { position: relative; z-index: 0; cursor: pointer; }
   .tabs input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
-  .tabs span { display: flex; align-items: center; gap: 8px; padding: 12px 20px 18px; border-radius: 14px 14px 0 0; font-weight: 500; font-size: 1rem; line-height: 1.2;
+  .tabs span { display: flex; align-items: center; gap: 8px; padding: 12px 20px 18px; border-radius: 14px 14px 0 0; font-weight: var(--w-medium); font-size: 1rem; line-height: 1.2;
     background: #e9d8c3; color: #4a5452; /* 5.3:1 on the tab; --muted was 4.3:1 */ box-shadow: 0 -2px 6px rgb(31 38 36 / 0.08); transition: background-color 0.15s, color 0.15s; }
   .tabs span i { width: 9px; height: 9px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.25); }
   .tabs label:hover span { color: var(--ink); }
@@ -94,15 +94,15 @@ const lines = [
   .story.on { visibility: visible; }
 
   .who { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; padding-bottom: 14px; border-bottom: 1px solid rgb(31 38 36 / 0.12); }
-  .name { font-weight: 500; font-size: 1.15rem; color: var(--ink); }
+  .name { font-weight: var(--w-medium); font-size: 1.15rem; color: var(--ink); }
   .goal { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
   .goal i { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.08); }
 
   .headline { margin: 18px 0 26px; }
-  .headline p { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.015em; font-size: clamp(1.45rem, 2.4vw, 1.7rem); line-height: 1.25; color: var(--teal-dark); }
+  .headline p { margin: 0; font-family: var(--font-display); font-weight: var(--w-bold); letter-spacing: var(--track-heading); font-size: clamp(1.45rem, 2.4vw, 1.7rem); line-height: 1.25; color: var(--teal-dark); }
 
   dl { margin: 0; display: grid; gap: 16px; }
-  dt { font-size: 0.875rem; font-weight: 600; color: var(--muted); margin-bottom: 3px; }
+  dt { font-size: 0.875rem; font-weight: var(--w-medium); color: var(--muted); margin-bottom: 3px; }
   dd { margin: 0; font-size: 1.03rem; line-height: 1.45; color: var(--ink); }
 
   /* Placeholders are obviously unfinished so they can't be mistaken for real members */

@@ -61,31 +61,31 @@ import Base from '../../layouts/Base.astro';
 
 <style>
   .choose { max-width: 880px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
-  .kicker { margin: 0 0 12px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta-dark); }
-  h1 { margin: 0 0 14px; font-family: var(--font-body); font-weight: 450; letter-spacing: -0.02em; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); }
+  .kicker { margin: 0 0 12px; font-size: 0.85rem; font-weight: var(--w-bold); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--terracotta-dark); }
+  h1 { margin: 0 0 14px; font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); }
   .lede { margin: 0 0 44px; font-size: 1.25rem; color: var(--muted); }
 
   .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
   .option { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 3vw, 36px); box-shadow: var(--lift); }
-  h2 { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.1rem; color: var(--ink); }
-  .price { margin: 14px 0 8px; font-weight: 450; letter-spacing: -0.03em; font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
+  h2 { margin: 0; font-family: var(--font-body); font-weight: var(--w-medium); font-size: 1.1rem; color: var(--ink); }
+  .price { margin: 14px 0 8px; font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 1; color: var(--teal-dark); }
   .price span { font-size: 0.4em; letter-spacing: 0; color: var(--muted); }
   .when { margin: 0 0 24px; color: var(--muted); }
 
   .schedule { list-style: none; margin: 8px 0 14px; padding: 0; display: grid; }
   .schedule li { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid rgb(31 38 36 / 0.12); color: var(--muted); }
-  .schedule strong { font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
-  .schedule .total { border-bottom: 0; color: var(--ink); font-weight: 500; }
+  .schedule strong { font-weight: var(--w-medium); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .schedule .total { border-bottom: 0; color: var(--ink); font-weight: var(--w-medium); }
 
   /* Buttons sit on the bottom edge so they line up across the two cards */
   .btn { margin-top: auto; align-self: flex-start; padding-inline: 1.4em; }
 
   .notes { margin: 40px 0 0; display: grid; gap: 14px; max-width: 680px; }
   .notes p { margin: 0; color: var(--muted); line-height: 1.6; }
-  .notes strong { color: var(--ink); font-weight: 500; }
+  .notes strong { color: var(--ink); font-weight: var(--w-medium); }
   .notes a, .back { color: var(--terracotta-dark); text-underline-offset: 3px; }
   .notes .small { font-size: 0.9rem; }
-  .back { display: inline-block; margin-top: 28px; font-weight: 500; }
+  .back { display: inline-block; margin-top: 28px; font-weight: var(--w-medium); }
 
   @media (max-width: 760px) {
     .choose { padding-inline: 24px; }
