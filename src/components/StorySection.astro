@@ -52,7 +52,7 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
           <details class="more" open>
             <summary>
               <span class="head">
-                <span class="step">{String(i + 1).padStart(2, '0')}</span>
+                <span class="step">{i + 1}</span>
                 <h3>{s.title}</h3>
               </span>
             </summary>
@@ -205,7 +205,7 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
     .chapter:first-child { margin-top: 32px; }
     .more { padding-left: 18px; }
     .more summary { cursor: pointer; display: grid; grid-template-columns: 1fr 14px; gap: 12px; align-items: center; padding: 10px 0; }
-    .more .head { display: grid; grid-template-columns: 40px 1fr; column-gap: 14px; align-items: center; }
+    .more .head { display: grid; grid-template-columns: 24px 1fr; column-gap: 14px; align-items: center; }
     .step { font-size: 26px; }
     .more h3 { margin: 0; font-size: 20px; }
     .more summary::after { content: ''; width: 14px; height: 14px; background:

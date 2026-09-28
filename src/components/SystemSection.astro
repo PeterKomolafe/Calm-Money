@@ -63,7 +63,7 @@ const css = modules
         <li data-m={m.n} style={`--c:${m.color === 'var(--cream)' ? 'var(--cream-bar)' : m.color}`}>
           <details name="modules">
             <summary>
-              <span class="n">{String(m.n - 1).padStart(2, '0')}</span>
+              <span class="n">{m.n - 1}</span>
               <h3>{m.title}</h3>
             </summary>
             <p class="outcome">{m.outcome}</p>
@@ -116,7 +116,7 @@ const css = modules
   /* The bar carries the same faint outline as the dots, so the cream one still shows on the pale page */
   li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--c); }
   /* Each module opens like the common questions: title row with a plus that turns into a minus */
-  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 40px 1fr 14px; align-items: center; column-gap: 14px; }
+  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 24px 1fr 14px; align-items: center; column-gap: 14px; }
   summary::-webkit-details-marker { display: none; }
   summary::after { content: ''; width: 14px; height: 14px; background:
       linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,
@@ -125,7 +125,7 @@ const css = modules
   summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; border-radius: 4px; }
   .n { font-family: var(--font-display); font-weight: var(--w-bold); font-size: 1.65rem; line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
   h3 { margin: 0; font-family: var(--font-body); font-weight: var(--w-medium); font-size: 1.3rem; color: var(--ink); }
-  li p { margin: 0 0 0 54px; color: var(--muted); } /* lines up under the title */
+  li p { margin: 0 0 0 38px; color: var(--muted); } /* lines up under the title: number column (24) + gap (14) */
   /* What the module leaves you with */
   li .outcome { color: var(--ink); margin-top: 10px; }
   /* The visitor's goal: a mint tag under the module that builds it */
