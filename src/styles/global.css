@@ -1,3 +1,7 @@
+/* Satoshi (Fontshare, ITF Free Font License): one variable file covers every weight */
+@font-face { font-family: 'Satoshi'; src: url('/fonts/Satoshi-Variable.woff2') format('woff2'); font-weight: 300 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Satoshi'; src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2'); font-weight: 300 900; font-style: italic; font-display: swap; }
+
 /* Brand palette sampled from the Calm Money mark */
 :root {
   --teal: #557170;
@@ -17,7 +21,7 @@
   --graphite: #6f7573; /* handwritten notes */
 
   --font-display: 'DM Serif Display', Georgia, serif;
-  --font-body: 'Jost Variable', 'Jost', system-ui, -apple-system, sans-serif;
+  --font-body: 'Satoshi', system-ui, -apple-system, sans-serif;
 
   /* Stacked shadows (near, far) that make a card look lifted off the page. No tight contact layer: it read as an outline */
   --lift: inset 0 1px 0 rgb(255 255 255 / 0.10), 0 3px 6px rgb(31 38 36 / 0.08),
