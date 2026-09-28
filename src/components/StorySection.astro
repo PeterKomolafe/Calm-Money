@@ -171,7 +171,7 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
   /* As in the module list: a bar of the chapter's ring colour down the left, and a large serif number */
   .more { position: relative; padding-left: 24px; }
   .more::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--dot); }
-  .step { display: block; font-family: var(--font-display); font-weight: var(--w-bold); font-size: clamp(1.7rem, 2.4vw, 2rem); line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
+  .step { display: block; font-family: var(--font-display); font-weight: var(--w-bold); font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
   h3 { margin: 12px 0; font-family: var(--font-display); font-weight: var(--w-bold); letter-spacing: var(--track-heading); font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.15; color: var(--teal-dark); text-wrap: balance; }
   .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
   .chapter p + p { margin-top: 14px; }
@@ -179,7 +179,9 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
   /* Chapters: on wider screens the summary is just the number and heading */
   .more summary { list-style: none; cursor: default; }
   .more summary::-webkit-details-marker { display: none; }
-  .more .head { display: block; }
+  /* Number and heading share a line; the heading wraps under its own first word */
+  .more .head { display: flex; align-items: baseline; gap: 0.45em; margin: 0 0 14px; }
+  .more .head h3 { margin: 0; }
 
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
