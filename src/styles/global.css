@@ -20,7 +20,7 @@
   --rule: #e9ecea; /* ledger grid */
   --graphite: #6f7573; /* handwritten notes */
 
-  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-display: 'Satoshi', system-ui, -apple-system, sans-serif; /* accent headings: swap here if a serif is chosen */
   --font-body: 'Satoshi', system-ui, -apple-system, sans-serif;
 
   /* Stacked shadows (near, far) that make a card look lifted off the page. No tight contact layer: it read as an outline */
@@ -52,7 +52,7 @@ a:hover { color: var(--teal-dark); }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--teal-dark);
