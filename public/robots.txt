@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /join/
+Disallow: /pay/
+Disallow: /thank-you/
+
+# TODO: update the domain when the live one is connected (also `site` in astro.config.mjs)
+Sitemap: https://calm-money.netlify.app/sitemap-index.xml

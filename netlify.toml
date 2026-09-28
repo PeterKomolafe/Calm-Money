@@ -4,3 +4,13 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Netlify already redirects http to https once the certificate is issued.
+# HSTS tells browsers to use https every time, even if someone types http.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
