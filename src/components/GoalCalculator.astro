@@ -166,18 +166,25 @@
     document.dispatchEvent(new CustomEvent('calm:goal', { detail: { goal } }));
   };
 
-  // Size each inline field to its text (measured, since commas are narrower than digits)
-  const measure = document.createElement('canvas').getContext('2d')!;
+  // Size each inline field to its text. Measured with a hidden copy in the field's exact font,
+  // tabular figures and spacing included (a canvas ignores those and clipped the numbers)
+  const measure = document.createElement('span');
+  measure.setAttribute('aria-hidden', 'true');
+  Object.assign(measure.style, { position: 'absolute', visibility: 'hidden', whiteSpace: 'pre', left: '-9999px', top: '0' });
+  document.body.appendChild(measure);
   const fit = (el: HTMLInputElement) => {
     const cs = getComputedStyle(el);
-    measure.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-    el.style.width = `${Math.ceil(measure.measureText(el.value || '0').width) + 2}px`;
+    Object.assign(measure.style, { fontFamily: cs.fontFamily, fontSize: cs.fontSize, fontWeight: cs.fontWeight, fontStyle: cs.fontStyle, fontVariantNumeric: cs.fontVariantNumeric, fontFeatureSettings: cs.fontFeatureSettings, letterSpacing: cs.letterSpacing });
+    measure.textContent = el.value || '0';
+    el.style.width = `${Math.ceil(measure.getBoundingClientRect().width) + 4}px`;
   };
+  const fitAll = () => root.querySelectorAll<HTMLInputElement>('input[data-k]').forEach(fit);
 
   root.querySelectorAll<HTMLInputElement>('input[name="goal"]').forEach((r) =>
     r.addEventListener('change', () => {
       root.dataset.goal = r.value;
       root.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) => (p.hidden = p.dataset.panel !== r.value));
+      fitAll();
       update();
     }),
   );
@@ -192,7 +199,9 @@
     });
   });
   root.querySelectorAll<HTMLInputElement>('input[name="months"]').forEach((el) => el.addEventListener('change', update));
-  document.fonts.ready.then(() => root.querySelectorAll<HTMLInputElement>('input[data-k]').forEach(fit));
+  document.fonts.ready.then(fitAll);
+  // The sentence scales with the card, so refit when its width changes
+  new ResizeObserver(fitAll).observe(root);
   update();
 </script>
 
