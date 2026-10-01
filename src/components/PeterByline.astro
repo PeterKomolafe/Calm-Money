@@ -1,0 +1,30 @@
+---
+// "A programme by Peter Komolafe" with Peter's photo and the same wordmark as peterkomolafe.com,
+// so visitors arriving from his site recognise him. Links back to his site.
+interface Props { size?: 'hero' | 'small' }
+const { size = 'hero' } = Astro.props;
+---
+<a class:list={['peter-byline', size]} href="https://www.peterkomolafe.com/" aria-label="A programme by Peter Komolafe. Visit peterkomolafe.com">
+  <img class="face" src="/images/peter/peter.webp" width="120" height="120" alt="" loading={size === 'hero' ? 'eager' : 'lazy'} decoding="async" />
+  <span class="by">A programme by</span>
+  <span class="wordmark" aria-hidden="true"></span>
+</a>
+
+<style>
+  .peter-byline { display: inline-flex; align-items: center; gap: 0.45em; color: var(--ink); text-decoration: none; }
+  .face {
+    flex: none; width: 2.4em; height: 2.4em; border-radius: 50%; object-fit: cover; margin-right: 0.15em;
+    border: 2px solid var(--paper, #fff);
+    box-shadow: 0 1px 2px rgb(31 38 36 / 0.12), 0 4px 10px rgb(31 38 36 / 0.14);
+  }
+  /* Peter's wordmark from peterkomolafe.com, coloured from the palette */
+  .wordmark {
+    flex: none; height: 0.92em; aspect-ratio: 467 / 57; background: currentColor; translate: 0 0.04em;
+    -webkit-mask: url(/images/peter/wordmark.png) center / contain no-repeat; mask: url(/images/peter/wordmark.png) center / contain no-repeat;
+    transition: background-color .2s ease;
+  }
+  .peter-byline:hover .wordmark, .peter-byline:focus-visible .wordmark { background: var(--teal); }
+  .peter-byline:focus-visible { outline: 2px solid var(--teal); outline-offset: 6px; border-radius: 99px; }
+  .small { font-size: 0.95rem; }
+  .small .face { width: 2em; height: 2em; border-width: 1.5px; }
+</style>

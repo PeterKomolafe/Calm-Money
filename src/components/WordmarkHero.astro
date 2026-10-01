@@ -4,6 +4,7 @@
 // so their colour comes from the palette (graphite, or terracotta for key notes).
 import Logo from './Logo.astro';
 import PressStrip from './PressStrip.astro';
+import PeterByline from './PeterByline.astro';
 
 // Left of the wordmark: what gets cleared. Right: what gets built. Bottom right: where it leads
 const notes = [
@@ -27,7 +28,7 @@ const bottomNotes = ['peace key'];
     <span class="word" aria-hidden="true">Calm</span>
     <span class="word" aria-hidden="true">M<span class="slot"><Logo size={100} title="" /></span>ney</span>
   </h1>
-  <p class="byline">A programme by Peter Komolafe</p>
+  <p class="byline"><PeterByline /></p>
 
   {notes.filter((n) => !bottomNotes.includes(n.cls)).map((n) => (
     <span class={`note ${n.cls}`} style={`--src: url(/images/notes/${n.file}.png); --ar: ${n.ar}`} aria-hidden="true" />

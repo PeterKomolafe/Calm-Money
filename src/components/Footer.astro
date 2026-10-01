@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import PeterByline from './PeterByline.astro';
 import site from '../data/site.json';
 const year = new Date().getFullYear();
 ---
@@ -8,6 +9,7 @@ const year = new Date().getFullYear();
     <!-- No page links: on a one-page site they only jump back up, and the final card above already goes to pricing -->
     <div class="top">
       <a class="brand" href="/" aria-label={`${site.name}, home`}><Logo size={36} title="" /></a>
+      <PeterByline size="small" />
     </div>
     <p class="disclaimer">{site.disclaimer}</p>
     <div class="bottom">
