@@ -138,10 +138,8 @@
     wealth: (a) => `investing <b>${a}</b>`,
   };
 
-  // Two hand-drawn strokes under the "A system..." sentence: a full one rising gently to the right,
-  // then a shorter one set in beneath it, both clear of the letters
-  const UNDERLINE = '<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 90 7, 190 4, 297 2" /><path d="M24 25 C 100 22, 180 20, 246 19" /></svg>';
-  const underlined = (text: string) => `<span class="underlined">${text}${UNDERLINE}</span>`;
+  // The "A system..." sentence takes the site's one hand-drawn stroke (.stroke in global.css)
+  const underlined = (text: string) => `<span class="stroke">${text}</span>`;
 
   const update = () => {
     const goal = root.dataset.goal!;
@@ -157,10 +155,10 @@
       turn.innerHTML = `Willpower won’t carry you for ${m}.<br class="wide-only"> ${underlined('A system will.')}`;
     } else if (date === 'Already there') {
       bridge.textContent = 'You’re already there.';
-      turn.innerHTML = underlined('A system is what keeps you there.');
+      turn.innerHTML = `${underlined('A system')} is what keeps you there.`;
     } else {
       bridge.textContent = 'Right now, there’s no date to aim for.';
-      turn.innerHTML = underlined('A system is how you get one.');
+      turn.innerHTML = `${underlined('A system')} is how you get one.`;
     }
     // Lets the system section highlight the module for this goal
     document.dispatchEvent(new CustomEvent('calm:goal', { detail: { goal } }));
@@ -288,9 +286,6 @@
   @media (max-width: 760px) { .bridge :global(.wide-only) { display: none; } }
   /* Tablets: the card nearly fills the width, so keep the roll inside the screen */
   @media (max-width: 1100px) { .roll { right: 0; width: 210px; } }
-  .bridge :global(.underlined) { position: relative; display: inline-block; white-space: nowrap; }
-  .bridge :global(.underlined svg) { position: absolute; left: -2%; top: 104%; width: 104%; height: 0.36em; overflow: visible; pointer-events: none; }
-  .bridge :global(.underlined path) { fill: none; stroke: var(--terracotta); stroke-width: 4; stroke-linecap: round; vector-effect: non-scaling-stroke; }
   .bridge .turn { font-family: var(--font-display); font-weight: var(--w-bold); letter-spacing: var(--track-heading); font-size: clamp(1.75rem, 5.3cqi, 3.6rem); line-height: 1.15; color: var(--teal); margin-top: 0.5em; padding-bottom: 0.5em; }
   /* Sized to the column so "Willpower won't carry you for N months." fits one line on wider screens: two lines in all */
   @media (min-width: 761px) { .bridge .turn { white-space: nowrap; } }
@@ -301,7 +296,6 @@
     .sentence { font-size: 19px; line-height: 1.75; } /* inputs inherit this; above 16px so iPhones don't zoom on tap */
     .big { font-size: 17px; }
     .bridge, .bridge-cta { padding-inline: 0; } /* the calculator section already sets the gutter */
-    .bridge :global(.underlined path) { stroke-width: 3; }
     .calc { padding: var(--section-gap) 24px 0; }
     .roll { display: none; } /* no room beside the tabs on phones */
     .card { border-radius: 20px; padding: 28px 20px; }
