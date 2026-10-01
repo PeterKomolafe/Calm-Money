@@ -18,9 +18,9 @@ import { featured, logoHeight } from '../data/featured';
   img { display: block; width: auto; height: var(--h); opacity: 0.9; }
   @media (max-width: 760px) {
     .press { padding-inline: 24px; margin-top: 12px; }
-    /* Five across, so the nine logos sit as 5 and 4 rather than leaving one or two alone on a row */
+    /* Three across, so the six logos sit as two even rows */
     ul { gap: 14px 0; }
-    li { flex: 0 0 20%; display: flex; justify-content: center; }
+    li { flex: 0 0 33.333%; display: flex; justify-content: center; }
     img { height: calc(var(--h) * 0.62); max-width: 90%; object-fit: contain; }
   }
 </style>
