@@ -30,7 +30,7 @@ const cards = [
     ))}
   </div>
   <p class="not">
-    <strong class="underlined">This isn’t for you if<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10 C 90 7, 190 4, 297 2" /><path d="M24 25 C 100 22, 180 20, 246 19" /></svg></strong> you want stock tips, a get-rich-quick plan, or someone to manage your money for you.
+    <strong class="stroke">This isn’t for you if</strong> you want stock tips, a get-rich-quick plan, or someone to manage your money for you.
   </p>
 </section>
 
@@ -58,10 +58,6 @@ const cards = [
 
   .not { margin: 44px 0 0; padding-top: 20px; border-top: 1px dashed rgb(31 38 36 / 0.18); color: var(--muted); font-size: 1.05rem; }
   .not strong { font-weight: var(--w-medium); color: var(--ink); }
-  /* The same two-stroke pen underline as "A system will." */
-  .underlined { position: relative; display: inline-block; white-space: nowrap; }
-  .underlined svg { position: absolute; left: -2%; top: calc(100% - 4px); width: 104%; height: 0.4em; overflow: visible; pointer-events: none; } /* tucked up so the lower stroke clears the next line */
-  .underlined path { fill: none; stroke: var(--terracotta); stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 
   @media (max-width: 860px) {
     .cards { grid-template-columns: 1fr; gap: 48px; }

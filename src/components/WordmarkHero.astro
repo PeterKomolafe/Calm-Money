@@ -18,7 +18,7 @@ const notes = [
 ---
 <section class="hero">
   <div class="stage">
-    <h1>You earn well. Now build the system that gets you <em>investing.</em></h1>
+    <h1>You earn well. Now build the system that gets you <em class="stroke">investing.</em></h1>
     <div class="actions">
       <a class="btn btn--primary" href="#pricing">Join Calm Money <span aria-hidden="true">→</span></a>
       <PeterByline />
@@ -41,11 +41,7 @@ const notes = [
     letter-spacing: var(--track-display); color: var(--teal-dark); text-wrap: balance;
   }
   /* Hand-drawn terracotta stroke under the payoff */
-  h1 em { font-style: normal; position: relative; white-space: nowrap; }
-  h1 em::after {
-    content: ''; position: absolute; left: -2%; right: -2%; bottom: -0.12em; height: 0.16em;
-    background: var(--terracotta); border-radius: 99px; rotate: -1.2deg; opacity: 0.9;
-  }
+  h1 em { font-style: normal; } /* the stroke itself is .stroke in global.css */
   .actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px 3.6vw; margin: 4.4vw 0 2.8vw; }
   .actions .btn { gap: 0.6em; }
   .actions :global(.peter-byline) { font-size: clamp(1rem, 1.2vw, 1.15rem); font-weight: var(--w-medium); }
