@@ -2,7 +2,6 @@
 // Headline-led hero: the promise in the heading font with a hand-drawn underline under the payoff,
 // framed by Peter's handwritten margin notes. Notes are transparent PNGs used as CSS masks,
 // so their colour comes from the palette (graphite, or terracotta for key notes).
-import Logo from './Logo.astro';
 import PressStrip from './PressStrip.astro';
 import PeterByline from './PeterByline.astro';
 
@@ -19,7 +18,6 @@ const notes = [
 ---
 <section class="hero">
   <div class="stage">
-    <span class="ring"><Logo size={56} title="" /></span>
     <h1>You earn well. Now build the system that gets you <em>investing.</em></h1>
     <div class="actions">
       <a class="btn btn--primary" href="#pricing">Join Calm Money <span aria-hidden="true">→</span></a>
@@ -38,8 +36,6 @@ const notes = [
   .hero { position: relative; text-align: center; overflow: hidden; }
   /* The notes are placed by percentage of this stage */
   .stage { position: relative; display: grid; justify-items: center; padding: 5vw 16px 9vw; }
-  .ring { display: block; width: clamp(40px, 3.6vw, 56px); margin-bottom: 2.2vw; }
-  .ring :global(svg) { display: block; width: 100%; height: auto; }
   h1 {
     margin: 0; max-width: 12em; font-size: clamp(2.5rem, 4.6vw, 4.6rem); line-height: 1.04;
     letter-spacing: var(--track-display); color: var(--teal-dark); text-wrap: balance;
@@ -57,10 +53,10 @@ const notes = [
   .note { position: absolute; z-index: 1; aspect-ratio: var(--ar); background: var(--graphite); pointer-events: none;
           -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat; }
   .note.key { background: var(--terracotta); }
-  .sub       { width: 15vw;  left: 13%;   top: 12%;   rotate: -4deg; }
+  .sub       { width: 15vw;  left: 10%;   top: 12%;   rotate: -4deg; }
   .apr       { width: 15.5vw; left: 4%;    top: 42%;   rotate: -3deg; }
   .overdraft { width: 13.5vw; left: 5.5%;  top: 70%;   rotate: -2deg; }
-  .payday    { width: 16vw;  right: 12%;  top: 13%;   rotate: 3deg; }
+  .payday    { width: 16vw;  right: 9%;   top: 13%;   rotate: 3deg; }
   .isa       { width: 9.5vw; right: 10%;  top: 42%;   rotate: -3deg; }
   .tenk      { width: 12vw;  right: 8%;   top: 64%;   rotate: 4deg; }
   .peace     { width: 14vw;  right: 4%;   bottom: 2%; rotate: -3deg; }
@@ -71,7 +67,6 @@ const notes = [
 
   @media (max-width: 760px) {
     .stage { padding: 10vw 24px 30vw; }
-    .ring { width: 13vw; margin-bottom: 6vw; }
     h1 { font-size: 10.6vw; }
     .actions { flex-direction: column; gap: 8vw; margin: 9vw 0 7vw; }
     .actions :global(.peter-byline) { font-size: 1.05rem; }
