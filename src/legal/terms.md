@@ -18,7 +18,7 @@ Your account, login details, and access to Calm Money are personal to you and ma
 
 ## 4. Options, Pricing and Payment
 
-Calm Money is available in three options. Every option includes the five modules (Module 0, Reset, to Module 4, From Stability to Investing), the money personality test, the practical tools, and lifetime access to the content library.
+Calm Money is available in three options. Every option includes the five modules (Module 0, Reset, to Module 4, From Stability to Investing), the money personality test, the practical tools, and 12 months’ access to the content library.
 
 - **At your pace (£297).** The content library only, worked through at your own pace.
 - **At your pace with coaching (£1,297).** Everything in At your pace, plus four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
@@ -26,11 +26,13 @@ Calm Money is available in three options. Every option includes the five modules
 
 Prices are in pounds sterling and include any VAT that applies. Payment is taken in full at checkout, or in instalments where an instalment option is shown at checkout. At your pace with coaching can be paid as £697 at checkout followed by two monthly payments of £300, £1,297 in total, with no interest or other charges. If you pay in instalments, you agree to pay each instalment when it falls due, and we may pause your access to coaching and support while a payment is overdue. Payment is processed through our third-party payment processor, Stripe; we do not store your full card details ourselves.
 
-## 5. Lifetime Access and the Support Period
+## 5. Your 12 Months and Renewal
 
-"Lifetime access" means access to the content library for as long as we continue to run Calm Money. If we ever close the programme, we will give you reasonable notice before your access ends.
+Your access lasts 12 months from the date you join, or, for 12 months of full support, from the start of your intake. This covers the content library and, depending on your option, coaching sessions, live calls, WhatsApp access and meet-ups. Any sessions, calls or meet-ups you have not used by the end of the 12 months expire.
 
-Coaching sessions, live calls, WhatsApp access and meet-ups are provided for 12 months from the date you join, or, for 12 months of full support, from the start of your intake. Any that you have not used by the end of that period expire. Your access to the content library continues after the 12 months end, and no further payment is taken.
+Before your 12 months end, we will email you with the option to renew your access to the content library for a further 12 months, and the price of doing so. Renewal is optional and never automatic: we will not take any payment unless you choose to renew. If you do not renew, your access ends when your 12 months end.
+
+If we ever close the programme while your access is active, we will give you reasonable notice before it ends.
 
 ## 6. Coaching Sessions, Live Calls and Meet-ups
 
