@@ -7,12 +7,15 @@ const tiers = [
   {
     name: 'At your pace',
     for: 'For self-starters who want the full system to work through on their own.',
-    price: '£297',
+    price: '£397',
     intro: 'What’s included',
     groups: [
       { title: '5 modules, 64 lessons, 2.5 hours', oneLine: true, items: ['From Reset to Investing, at your own pace'] },
       { title: 'Money personality test', items: ['Find out your money personality, with practical tips based on it'] },
       { title: 'Practical tools', items: ['Exercises and guides to put every module into action'] },
+      { title: 'The Calm Money community', items: ['Share wins, swap tips and stay motivated with other members'] },
+      { title: 'A monthly update from Peter', items: ['A short recorded update on what’s changed in UK money and what it means for your system'] },
+      { title: 'Workshop library', items: ['Replays of Peter’s workshops, such as how to tell if you’re investing enough'] },
       { title: '12 months’ access', items: ['The content library and its tools are yours to come back to'] },
     ],
     cta: 'Start at your pace',
@@ -26,6 +29,7 @@ const tiers = [
     price: '£1,297',
     intro: 'Everything in At your pace, plus',
     groups: [
+      { title: 'Onboarding call', items: ['Start with a one-to-one with Peter to set your goals and map out your timeline'] },
       { title: '4 quarterly coaching sessions', items: ['One every three months, across 12\u00a0months'] },
       { title: 'Review & accountability', items: ['Track your progress against the timeline you set and stay accountable to the goals that matter'] },
       { title: 'Adjust your plan', items: ['Life changes. Your income shifts. Your goals evolve. Get expert guidance to keep your system up to date'] },
@@ -50,10 +54,27 @@ const tiers = [
     apply: true,
   },
 ];
+
+// Side-by-side comparison under the cards: true = included, false = not, text = how many
+const compare: [string, ...(boolean | string)[]][] = [
+  ['Five modules, 64 lessons', true, true, true],
+  ['Money personality test', true, true, true],
+  ['Practical tools and guides', true, true, true],
+  ['The Calm Money community', true, true, true],
+  ['Monthly update from Peter', true, true, true],
+  ['Workshop library', true, true, true],
+  ['Onboarding call with Peter', false, true, true],
+  ['Quarterly coaching sessions', false, '4', false],
+  ['Live online coaching calls', false, false, '24'],
+  ['Peter on WhatsApp', false, false, true],
+  ['In-person meet-ups', false, false, '2'],
+  ['30-day money-back guarantee', false, true, true],
+  ['Months of access', '12', '12', '12'],
+];
 ---
 <section class="pricing" id="pricing">
   <h2>Choose how you’re supported.</h2>
-  <p class="lede">Every option includes the full five-module programme, with 12 months’ access to the content library.</p>
+  <p class="lede">Every option includes the full five-module programme, the community and Peter’s monthly update, with 12 months’ access.</p>
 
   <div class="tiers">
     {tiers.map((t) => (
@@ -82,6 +103,35 @@ const tiers = [
       </article>
     ))}
   </div>
+  <div class="compare">
+    <h3 class="compare-title">Compare the options</h3>
+    <div class="table-wrap">
+      <table>
+        <colgroup><col class="feat" /><col /><col /><col /></colgroup>
+        <thead>
+          <tr>
+            <td></td>
+            {tiers.map((t) => <th scope="col" class:list={{ rec: t.recommended }}>{t.name.replace('At your pace with coaching', 'With coaching').replace('12 months of full support', 'Full support')}<span>{t.price}</span></th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {compare.map(([label, ...cells]) => (
+            <tr>
+              <th scope="row">{label}</th>
+              {cells.map((c, i) => (
+                <td class:list={{ rec: tiers[i].recommended }}>
+                  {c === true ? <span class="yes" role="img" aria-label="Included">✓</span>
+                    : c === false ? <span class="no" role="img" aria-label="Not included">–</span>
+                    : <span class="val">{c}</span>}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <WaitlistPopup />
   <p class="guarantee">Both coaching options come with a 30-day money-back guarantee. <a href="#guarantee">See how it works</a>.</p>
 </section>
@@ -133,6 +183,23 @@ const tiers = [
 
   .inc summary { display: none; }
 
+  /* Comparison table: the recommended column is tinted so it reads as the default choice */
+  .compare { max-width: 880px; margin: clamp(56px, 6vw, 80px) auto 0; }
+  .compare-title { font-weight: var(--w-bold); letter-spacing: var(--track-heading); font-size: clamp(1.5rem, 2.4vw, 1.9rem); margin: 0 0 20px; text-align: center; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 1rem; }
+  thead th { padding: 14px 8px; font-weight: var(--w-medium); font-size: 0.95rem; color: var(--ink); text-align: center; vertical-align: bottom; line-height: 1.3; }
+  thead th span { display: block; margin-top: 4px; font-weight: var(--w-bold); font-size: 1.2rem; color: var(--teal-dark); letter-spacing: var(--track-heading); }
+  tbody th { padding: 13px 12px 13px 0; text-align: left; font-weight: var(--w-regular); color: var(--ink); line-height: 1.35; }
+  tbody td { padding: 13px 8px; text-align: center; }
+  tbody tr { border-top: 1px solid var(--line); }
+  td.rec, th.rec { background: var(--cream); }
+  thead th.rec { border-radius: 14px 14px 0 0; }
+  tbody tr:last-child td.rec { border-radius: 0 0 14px 14px; }
+  col.feat { width: 40%; }
+  .yes { color: var(--teal); font-weight: var(--w-bold); font-size: 1.4rem; line-height: 1; }
+  .no { color: #a3aaa8; }
+  .val { font-weight: var(--w-medium); color: var(--ink); font-size: 1.05rem; }
+
   @media (max-width: 1000px) {
     .tiers { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; row-gap: 40px; } /* room for the Recommended badge between stacked cards */
   }
@@ -158,5 +225,14 @@ const tiers = [
     .full .inc[open] summary::after { background: linear-gradient(var(--blush), var(--blush)) center / 100% 2px no-repeat; }
     .inc summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
     .inc .intro { border-top: 0; padding-top: 8px; margin-top: 0; }
+
+    .compare-title { font-size: 23px; }
+    table { font-size: 15px; }
+    col.feat { width: 44%; }
+    thead th { padding: 12px 2px; font-size: 12.5px; }
+    thead th span { font-size: min(16px, 4vw); }
+    tbody th { padding: 12px 8px 12px 0; }
+    tbody td { padding: 12px 4px; }
+    .val { font-size: 15px; }
   }
 </style>

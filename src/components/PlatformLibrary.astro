@@ -1,0 +1,88 @@
+---
+// A look inside the programme platform: real screens as a browsable library.
+// Each card opens the full screenshot in a dialog.
+const screens = [
+  { src: 'finance-wheel', w: 1600, h: 890, title: 'Finance Wheel', text: 'Rate your confidence across six areas of your money.', alt: 'The Finance Wheel exercise with The Reset lesson list' },
+  { src: 'personality-test', w: 1600, h: 1289, title: 'Money Personality Test', text: '15 questions to find the habits shaping your decisions.', alt: 'A question from the Money Personality Test' },
+  { src: 'spender-guide', w: 900, h: 1274, title: 'Your personality guide', fit: 'sheet', text: 'Practical tips written for your money personality.', alt: 'Cover of The Spender money personality guide' },
+  { src: 'savings-guide', w: 1600, h: 1039, title: 'Savings Automation Guide', pos: 'top center', text: 'An emergency fund plan that runs itself.', alt: 'The Savings Automation Guide, choosing a money personality' },
+  { src: 'workshop', w: 1528, h: 1486, title: 'Workshop library', text: 'Replays of Peter’s workshops, such as how to tell if you’re investing enough.', alt: 'The Am I investing enough? workshop replay' },
+];
+---
+<section class="library" id="inside">
+  <h2>Inside the platform.</h2>
+  <p class="lede">The tools, guides and workshops you’ll use as you work through the programme. All of this comes with every option.</p>
+
+  <ul class="grid">
+    {screens.map((s, i) => (
+      <li>
+        <button class="card" type="button" data-open={i} aria-label={`View ${s.title} full size`}>
+          <span class:list={['shot', s.fit]} style={s.pos && `--pos:${s.pos}`}><img src={`/images/platform/${s.src}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" /></span>
+          <span class="title">{s.title}</span>
+          <span class="text">{s.text}</span>
+        </button>
+      </li>
+    ))}
+  </ul>
+
+  <dialog class="viewer" aria-label="Platform screen">
+    <form method="dialog"><button class="close" aria-label="Close">×</button></form>
+    <img alt="" />
+    <p></p>
+  </dialog>
+</section>
+
+<script>
+  const lib = document.querySelector<HTMLElement>('.library')!;
+  const dlg = lib.querySelector<HTMLDialogElement>('.viewer')!;
+  lib.querySelectorAll<HTMLButtonElement>('[data-open]').forEach((b) => b.addEventListener('click', () => {
+    const img = b.querySelector('img')!;
+    const view = dlg.querySelector('img')!;
+    view.src = img.currentSrc || img.src; view.alt = img.alt;
+    dlg.querySelector('p')!.textContent = b.querySelector('.title')!.textContent;
+    dlg.showModal();
+  }));
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+</script>
+
+<style>
+  .library { max-width: 1120px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
+  h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); }
+
+  /* Rows centre, so a short last row sits in the middle */
+  .grid { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px 28px; }
+  .grid li { width: calc((100% - 56px) / 3); }
+  .card { all: unset; box-sizing: border-box; display: grid; gap: 6px; width: 100%; cursor: zoom-in; }
+  .card:focus-visible { outline: 2px solid var(--teal); outline-offset: 6px; border-radius: 16px; }
+  /* Every screen cropped to the same frame, from the top, so the library reads as one set */
+  .shot { display: block; aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 10px; border-radius: 14px; border: 1px solid var(--line); background: #fff;
+    box-shadow: 0 2px 6px rgb(31 38 36 / 0.06), 0 14px 30px rgb(31 38 36 / 0.09); transition: translate .2s ease, box-shadow .2s ease; }
+  .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, top left); }
+  /* A4 guides are shown whole, as a sheet on a soft backdrop */
+  .shot.sheet { background: var(--cream, #f5ede3); padding: 7% 0; box-sizing: border-box; }
+  .shot.sheet img { object-fit: contain; object-position: center; filter: drop-shadow(0 6px 14px rgb(31 38 36 / 0.18)); }
+  .card:hover .shot { translate: 0 -3px; box-shadow: 0 4px 10px rgb(31 38 36 / 0.08), 0 20px 40px rgb(31 38 36 / 0.12); }
+  .title { font-weight: var(--w-medium); font-size: 1.1rem; color: var(--ink); }
+  .text { color: var(--muted); font-size: 0.98rem; line-height: 1.45; }
+
+  .viewer { border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); max-height: 92vh; overflow: visible; }
+  .viewer::backdrop { background: rgb(31 38 36 / 0.72); }
+  .viewer img { display: block; max-width: 100%; max-height: 82vh; margin: 0 auto; border-radius: 12px; background: #fff; }
+  .viewer p { margin: 12px 0 0; text-align: center; color: #fff; font-weight: var(--w-medium); }
+  .close { position: absolute; top: -44px; right: 0; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
+
+  @media (prefers-reduced-motion: reduce) { .shot { transition: none; } }
+
+  @media (max-width: 900px) { .grid { gap: 32px 22px; } .grid li { width: calc((100% - 22px) / 2); } }
+  @media (max-width: 760px) {
+    h2 { font-size: 32px; }
+    .lede { font-size: 18px; line-height: 1.55; }
+    .library { padding-inline: 24px; }
+    /* Phones: one row that scrolls sideways, with the next card peeking in */
+    .grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; margin-inline: -24px; padding: 4px 24px 18px; scrollbar-width: none; }
+    .grid::-webkit-scrollbar { display: none; }
+    .grid { flex-wrap: nowrap; justify-content: flex-start; }
+    .grid li { flex: 0 0 78%; width: auto; scroll-snap-align: start; scroll-margin-left: 24px; }
+  }
+</style>

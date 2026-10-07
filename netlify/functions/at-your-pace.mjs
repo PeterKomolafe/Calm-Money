@@ -1,8 +1,8 @@
-// Starts Stripe Checkout for At your pace: £297, paid upfront.
+// Starts Stripe Checkout for At your pace: £397, paid upfront.
 // Needs STRIPE_SECRET_KEY set in Netlify (Site configuration > Environment variables).
 import { startCheckout } from './coaching-plan.mjs';
 
-export const PRICE = 29700; // pence
+export const PRICE = 39700; // pence
 // The At your pace product in Stripe, so every sale is reported under it.
 // Test mode has its own product IDs: set STRIPE_PRODUCT_AT_YOUR_PACE in Netlify to use a test one.
 export const PRODUCT = process.env.STRIPE_PRODUCT_AT_YOUR_PACE || 'prod_VKrmaUuxc9SU4o';

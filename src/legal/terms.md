@@ -18,10 +18,10 @@ Your account, login details, and access to Calm Money are personal to you and ma
 
 ## 4. Options, Pricing and Payment
 
-Calm Money is available in three options. Every option includes the five modules (Module 0, Reset, to Module 4, From Stability to Investing), the money personality test, the practical tools, and 12 months’ access to the content library.
+Calm Money is available in three options. Every option includes the five modules (Module 0, Reset, to Module 4, From Stability to Investing), the money personality test, the practical tools, membership of the Calm Money community, a recorded monthly update from Peter, the workshop library, and 12 months’ access to all of these.
 
-- **At your pace (£297).** The content library only, worked through at your own pace.
-- **At your pace with coaching (£1,297).** Everything in At your pace, plus four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
+- **At your pace (£397).** The content library, community, monthly update and workshop library, worked through at your own pace. It does not include coaching sessions, live calls or direct access to Peter.
+- **At your pace with coaching (£1,297).** Everything in At your pace, plus an onboarding call and four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
 - **12 months of full support (£2,497).** Everything in At your pace, plus, for 12 months from the start of your intake: an onboarding call with Peter, 24 live online coaching calls (one every two weeks), direct access to Peter on WhatsApp, and two in-person meet-ups in the UK during those 12 months. This option runs in intakes with limited places. Joining the waitlist does not reserve a place or commit you to buying. When an intake opens, we review applications and may decline one without giving a reason. No payment is taken unless your application is accepted.
 
 **The Calm Money Sprint (£47).** A separate, shorter programme: three live 90-minute online sessions on Zoom, on consecutive days, hosted by Peter. One ticket covers two people from the same household. The dates and times are shown on the booking page. The Sprint does not include access to the content library or any of the options above.
@@ -30,13 +30,19 @@ Prices are in pounds sterling and include any VAT that applies. Payment is taken
 
 ## 5. Your 12 Months and Renewal
 
-Your access lasts 12 months from the date you join, or, for 12 months of full support, from the start of your intake. This covers the content library and, depending on your option, coaching sessions, live calls, WhatsApp access and meet-ups. Any sessions, calls or meet-ups you have not used by the end of the 12 months expire.
+Your access lasts 12 months from the date you join, or, for 12 months of full support, from the start of your intake. This covers the content library, community, monthly update and workshop library and, depending on your option, coaching sessions, live calls, WhatsApp access and meet-ups. Any sessions, calls or meet-ups you have not used by the end of the 12 months expire.
 
-Before your 12 months end, we will email you with the option to renew your access to the content library for a further 12 months, and the price of doing so. Renewal is optional and never automatic: we will not take any payment unless you choose to renew. If you do not renew, your access ends when your 12 months end.
+Before your 12 months end, we will email you with the option to renew your access to the content library, community, monthly update and workshop library for a further 12 months, and the price of doing so. Renewal is optional and never automatic: we will not take any payment unless you choose to renew. If you do not renew, your access ends when your 12 months end.
 
 If we ever close the programme while your access is active, we will give you reasonable notice before it ends.
 
-## 6. Coaching Sessions, Live Calls and Meet-ups
+## 6. Community, Monthly Update, Coaching Sessions, Live Calls and Meet-ups
+
+**The monthly update** is a recorded video from Peter, published once a month during your 12 months. It is general financial education, not financial advice, and it is not interactive: it does not answer individual questions.
+
+**The workshop library** contains recordings of past workshops. We may add to it, and we may remove or replace recordings that become out of date.
+
+**The community** is a space for members to support each other. Peter does not answer individual questions there; questions for Peter belong in coaching sessions and live calls, for the options that include them. You must treat other members with respect and keep what they share private. We may remove posts, or suspend your access to the community, if you do not.
 
 We will give you the dates for coaching sessions, live calls and meet-ups in advance. If you cannot attend a one-to-one session, tell us at least 24 hours before it starts and we will rearrange it. A session missed without that notice may not be rearranged.
 
@@ -58,7 +64,7 @@ Not attending a session does not cancel your booking, and sessions you miss are 
 
 **Our 30-day guarantee on the coaching options.** Our coaching options are built around action, so our guarantee is too. If you have taken the first steps and still feel Calm Money is not right for you, email us within 30 days of joining and we will give you a full refund, provided that:
 
-- **At your pace with coaching:** you have completed Module 0 and attended your first coaching session.
+- **At your pace with coaching:** you have completed Module 0 and attended your onboarding call.
 - **12 months of full support:** you have completed Module 0 and attended your onboarding call.
 
 **At your pace.** Because At your pace gives you instant access to all the content, it is not eligible for a refund once your access has started.
