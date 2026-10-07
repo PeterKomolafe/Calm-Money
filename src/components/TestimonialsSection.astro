@@ -18,12 +18,15 @@ const goals = {
 };
 const lines = [
   ['before', 'Before joining'],
-  ['tipped', 'What tipped it'],
   ['doubt', 'The doubt, and how it looks now'],
+  ['doing_now', 'Doing now'],
+] as const;
+// The rest of the story sits behind "Read ... full story", so the card stays short until opened
+const more = [
+  ['tipped', 'What tipped it'],
   ['valuable', 'Most valuable so far'],
   ['support', 'The support'],
   ['experience', 'What it’s like'],
-  ['doing_now', 'Doing now'],
   ['friend', 'What I’d tell a friend'],
 ] as const;
 ---
@@ -58,7 +61,17 @@ const lines = [
               <div><dt>{label}</dt><dd>{t[key]}</dd></div>
             ))}
           </dl>
-          {t.note && <p class="note">{t.note}</p>}
+          {(more.some(([key]) => t[key]) || t.note) && (
+            <details class="more">
+              <summary><span class="open-label">Read {t.name.split(' ')[0]}’s full story</span><span class="close-label">Show less</span></summary>
+              <dl>
+                {more.map(([key, label]) => t[key] && (
+                  <div><dt>{label}</dt><dd>{t[key]}</dd></div>
+                ))}
+              </dl>
+              {t.note && <p class="note">{t.note}</p>}
+            </details>
+          )}
         </article>
       ))}
       </div>
@@ -128,4 +141,14 @@ const lines = [
     .tabs span { justify-content: center; padding: 11px 8px 17px; font-size: 0.95rem; }
   }
   .note { margin: 22px 0 0; padding-top: 14px; border-top: 1px solid rgb(31 38 36 / 0.12); font-size: 0.9rem; color: var(--muted); }
+  /* Read more */
+  .more { margin-top: 22px; }
+  .more > dl { margin-top: 18px; }
+  .more summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-weight: var(--w-medium); color: var(--terracotta-dark); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 5px; }
+  .more summary::-webkit-details-marker { display: none; }
+  .more summary::after { content: '+'; text-decoration: none; display: inline-block; font-size: 1.1em; }
+  .more[open] summary::after { content: '−'; }
+  .more .close-label, .more[open] .open-label { display: none; }
+  .more[open] .close-label { display: inline; }
+  .more summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; border-radius: 4px; }
 </style>
