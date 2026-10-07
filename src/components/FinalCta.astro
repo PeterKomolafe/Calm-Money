@@ -1,10 +1,12 @@
 ---
-// Closing call to action, on the same deep-teal lifted card as the calculator.
+// Closing call to action, on the same deep-teal lifted card as the calculator. A member's words are the headline.
 ---
 <section class="final" aria-labelledby="final-heading">
   <div class="card">
-    <h2 id="final-heading">Staying where you are for another year will cost more than this programme.</h2>
-    <blockquote class="member"><p>“You may not be doing anything wrong, but you could be doing it better with the right roadmap.”</p><cite>Jean M. · Founding member</cite></blockquote>
+    <figure class="member">
+      <blockquote><p id="final-heading">“You may not be doing anything wrong, but you could be doing it better with <em class="stroke">the right roadmap.”</em></p></blockquote>
+      <figcaption>Jean M. · Founding member</figcaption>
+    </figure>
     <a class="btn btn--light" href="#pricing">Join Calm Money</a>
   </div>
 </section>
@@ -13,10 +15,13 @@
   .final { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   .card { display: grid; justify-items: center; gap: 22px; text-align: center; padding: clamp(32px, 4vw, 48px) clamp(24px, 4vw, 48px);
     border-radius: 28px; background: linear-gradient(180deg, #3d5453, #34494a 40%); color: var(--cream); box-shadow: var(--lift); }
-  h2 { margin: 0; color: var(--cream); font-family: var(--font-display); font-weight: var(--w-bold); letter-spacing: var(--track-heading); font-size: clamp(1.7rem, 3.2vw, 2.6rem); line-height: 1.2; max-width: 22em; text-wrap: balance; }
-  .member { margin: 0; max-width: 34em; }
-  .member p { margin: 0; color: #d6d1c6; font-size: 1.05rem; line-height: 1.5; font-style: italic; }
-  .member cite { display: block; margin-top: 8px; font-style: normal; font-size: 0.9rem; font-weight: var(--w-medium); color: var(--cream); }
+  /* Jean's words are the closing headline */
+  .member { margin: 0; }
+  .member blockquote { margin: 0; }
+  .member p { margin: 0 auto; max-width: 20em; color: var(--cream); font-family: var(--font-display); font-weight: var(--w-bold); letter-spacing: var(--track-heading);
+    font-size: clamp(1.7rem, 3.2vw, 2.6rem); line-height: 1.2; text-wrap: balance; }
+  .member em { font-style: normal; }
+  .member figcaption { margin-top: 18px; font-size: 1rem; font-weight: var(--w-medium); color: #d6d1c6; }
   .btn--light { background: var(--cream); color: var(--ink); }
   .btn--light:hover { background: #fff; color: var(--ink); }
 
