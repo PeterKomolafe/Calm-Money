@@ -89,9 +89,12 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
     const frame = story.querySelector<HTMLElement>('.frame')!;
     const steps = chapters.map((c) => c.querySelector<HTMLElement>('.step')!);
     let current = 0, queued = false;
+    // Chapters further down stay hidden until they scroll into view, then fade in
+    story.classList.add('reveal');
     const update = () => {
       queued = false;
       if (getComputedStyle(frame).display === 'none') return; // phones: each chapter has its own photo
+      chapters.forEach((c) => { if (c.getBoundingClientRect().top <= innerHeight * 0.85) c.classList.add('seen'); });
       const box = frame.getBoundingClientRect();
       const line = box.top + box.height / 2;
       let i = 0;
@@ -163,6 +166,11 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
   .chapter { display: flex; flex-direction: column; opacity: 0.65; transition: opacity 0.4s; } /* 0.65: the faded chapters still pass contrast */
   @media (min-width: 801px) { .chapter + .chapter { margin-top: 72px; } }
   .chapter.on { opacity: 1; }
+  /* Wider screens: a chapter is invisible until it scrolls into view (the class is added by the script, so without it every chapter shows) */
+  @media (min-width: 801px) {
+    .reveal .chapter:not(.seen) { opacity: 0; translate: 0 24px; }
+    .chapter { transition: opacity 0.6s, translate 0.6s; }
+  }
   .chapter .inline { display: none; }
 
   .frame { position: sticky; top: calc(50vh - min(34vh, 290px)); height: min(68vh, 580px); }
@@ -224,5 +232,6 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
   }
   @media (prefers-reduced-motion: reduce) {
     .chapter, .frame img { transition: none; }
+    .reveal .chapter:not(.seen) { translate: none; }
   }
 </style>
