@@ -1,9 +1,11 @@
 ---
-// Peter's story in stages, one photo per stage. A line break in `text` starts a new paragraph.
+// Peter's story in stages, one photo per stage, chosen from a timeline. A line break in `text` starts a new paragraph.
+// `when` labels the stage's point on the timeline
 const stages = [
   {
     img: 'early-years', pos: '45% 30%', w: 1075, h: 1165,
     alt: 'Peter as a baby, held up by a woman, with a young boy beside them',
+    when: 'Childhood',
     title: 'Fostered from three months old',
     text: 'Fostered at three months old, I grew up without money. I still remember how my friends’ dinners always smelled better than ours. I had no idea the scarcity mindset forming in those moments would go on to hurt my finances as an adult. At eight, I was told I was going to Nigeria for a two-week holiday. It lasted ten years.\nI returned from Nigeria in 1998 with £50 in my pocket and, not understanding how money worked, ended up homeless and sleeping on the streets. By 2001 I was in debt, and I stayed there for over a decade.',
     placeholder: false,
@@ -11,6 +13,7 @@ const stages = [
   {
     img: 'office', pos: '35% 40%', w: 1199, h: 1200,
     alt: 'Peter at his desk in an office, in a shirt and tie',
+    when: '2006',
     title: 'Canary Wharf',
     text: 'In 2006, I found a job as a bank cashier and worked my way through retail and corporate banking before reaching wealth management in Canary Wharf in 2012. For the first time, I was earning good money, yet I still felt stuck. I understood everyday financial products but knew nothing about investing, and the scarcity mindset from my childhood had me overspending and living for the moment.\nThen a manager showed me I was earning enough to buy my first property. That conversation sparked the biggest mindset shift of my life. I set proper goals, stopped spending aimlessly, cleared debt I’d struggled with for over ten years, bought my first home and finally started investing. Not bad for someone who once slept on the streets.',
     placeholder: false,
@@ -18,6 +21,7 @@ const stages = [
   {
     img: 'lorraine', pos: '60% 55%', w: 1200, h: 1200,
     alt: 'Peter being interviewed by Lorraine Kelly on Lorraine',
+    when: '2020',
     title: 'Conversations I wish someone had with me',
     text: 'In 2020 I started a YouTube channel, which led to my bestselling book with HarperCollins, The Money Basics: How to Become Your Own Financial Hero, in 2023. I’ve appeared on shows including Lorraine, Steph’s Packed Lunch, Secret Spenders: Beat the Price Rises, Family Budget Switch Up and Jeremy Vine, and as a financial expert on BBC News, Sky News, Channel 5 News and the BBC World Service.',
     placeholder: false,
@@ -25,6 +29,7 @@ const stages = [
   {
     img: 'downing-street', pos: '30% 50%', mpos: '30% 29%', w: 900, h: 1200, // mpos: on phones the shorter crop keeps the door number and head in view
     alt: 'Peter outside 10 Downing Street',
+    when: 'Number 10',
     title: 'Advocating for financial education',
     text: 'I ended up sleeping on the streets because I didn’t understand simple budgeting. It’s why I joined a team campaigning for financial education to be made compulsory in primary schools, taking our case from Parliament all the way to Number 10. From September 2028, children in England as young as five will learn the fundamentals of money in school.',
     placeholder: false,
@@ -32,6 +37,7 @@ const stages = [
   {
     img: 'stage', pos: '36% 40%', w: 1400, h: 933,
     alt: 'Peter speaking on stage at an awards event',
+    when: 'Today',
     title: 'Why Calm Money exists',
     text: 'I’ve come a long way from noticing whose dinner smelled better. But the biggest lesson from that journey is one no textbook taught me: you can understand money and still be controlled by it. One conversation shifted my mindset, but it was the action I took afterwards that changed my life. It took years to realise how many people are stuck where I was, earning, trying, and still not moving forward. Calm Money is my answer to that. A place to stop overthinking your money and start taking the steps that move you forward, so you don’t have to wait as long as I did.',
     placeholder: false,
@@ -44,114 +50,58 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
   <h2>Why I built Calm Money.</h2>
   <p class="lede">A programme by Peter Komolafe. This is how it came to be.</p>
 
-  <div class="grid">
-    <ol class="chapters">
-      {stages.map((s, i) => (
-        <li class:list={['chapter', { on: i === 0, placeholder: s.placeholder }]} style={`--dot: ${colours[i]}`} data-chapter={i}>
-          {/* Phones: a headline row that opens on tap, one at a time. Wider screens: always open */}
-          <details class="more" open>
-            <summary>
-              <span class="head">
-                <span class="step">{i + 1}.</span>
-                <h3>{s.title}</h3>
-              </span>
-            </summary>
-            <figure class="inline">
-              <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" style={`object-position: ${s.pos}${'mpos' in s ? `; --mpos: ${s.mpos}` : ''}`} />
-            </figure>
-            {s.text.split('\n').map((para) => <p>{para}</p>)}
-          </details>
-          {s.placeholder && <span class="tag">Placeholder</span>}
-        </li>
-      ))}
-    </ol>
-
-    <!-- On wider screens the photo stays in view and changes as each chapter passes -->
-    <div class="frame" aria-hidden="true">
-      {stages.map((s, i) => (
-        <img class:list={{ on: i === 0 }} src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt="" loading="lazy" decoding="async" style={`object-position: ${s.pos}`} data-frame={i} />
-      ))}
-    </div>
+  <!-- A timeline of the five stages. Each point fills with its colour once visited -->
+  <div class="timeline" role="tablist" aria-label="Peter’s story">
+    {stages.map((s, i) => (
+      <button class:list={['point', { seen: i === 0 }]} role="tab" id={`story-tab-${i}`} aria-controls={`story-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} style={`--dot: ${colours[i]}`} data-tab={i}>
+        <span class="node" aria-hidden="true"></span>
+        <span class="when">{s.when}</span>
+      </button>
+    ))}
   </div>
 
+  <!-- Every stage stays in the page for search engines and screen readers; only the chosen one shows -->
+  <div class="panels">
+    {stages.map((s, i) => (
+      <article class:list={['panel', { on: i === 0, placeholder: s.placeholder }]} role="tabpanel" id={`story-panel-${i}`} aria-labelledby={`story-tab-${i}`} data-panel={i} style={`--dot: ${colours[i]}`}>
+        <div class="text">
+          <h3><span class="step">{i + 1}.</span> {s.title}</h3>
+          {s.text.split('\n').map((para) => <p>{para}</p>)}
+          {s.placeholder && <span class="tag">Placeholder</span>}
+        </div>
+        <figure class="photo">
+          <img src={`/images/story/${s.img}.webp`} width={s.w} height={s.h} alt={s.alt} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" style={`object-position: ${s.pos}${'mpos' in s ? `; --mpos: ${s.mpos}` : ''}`} />
+        </figure>
+      </article>
+    ))}
+  </div>
 </section>
 
 <script>
   const story = document.querySelector<HTMLElement>('#story'); // by id: member-story cards also use .story
   if (story) {
-    const chapters = [...story.querySelectorAll<HTMLElement>('[data-chapter]')];
-    const frames = [...story.querySelectorAll<HTMLElement>('[data-frame]')];
-    const show = (i: number) => {
-      chapters.forEach((c, j) => { c.classList.toggle('on', j === i); if (j <= i) c.classList.add('seen'); });
-      frames.forEach((f, j) => f.classList.toggle('on', j === i));
+    const tabs = [...story.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+    const panels = [...story.querySelectorAll<HTMLElement>('[data-panel]')];
+    const show = (i: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        const on = j === i;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        if (on) t.classList.add('seen');
+      });
+      panels.forEach((p, j) => p.classList.toggle('on', j === i));
+      if (focus) tabs[i].focus();
     };
-    // A chapter takes over once its number reaches the middle of the photo
-    const frame = story.querySelector<HTMLElement>('.frame')!;
-    const steps = chapters.map((c) => c.querySelector<HTMLElement>('.step')!);
-    let current = 0, queued = false;
-    // Chapters further down stay hidden until they take over from the one before, then fade in
-    story.classList.add('reveal');
-    const update = () => {
-      queued = false;
-      if (getComputedStyle(frame).display === 'none') return; // phones: each chapter has its own photo
-      const box = frame.getBoundingClientRect();
-      const line = box.top + box.height / 2;
-      let i = 0;
-      steps.forEach((s, j) => { if (s.getBoundingClientRect().top <= line) i = j; });
-      if (i !== current) { current = i; show(i); }
-    };
-    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
-    addEventListener('scroll', queue, { passive: true });
-    addEventListener('resize', queue);
-    show(0);
-    update();
-
-    // Phones: one chapter open at a time, following the reader. Wider screens keep every chapter open
-    const more = [...story.querySelectorAll<HTMLDetailsElement>('details.more')];
-    const sums = more.map((d) => d.querySelector<HTMLElement>('summary')!);
-    const phone = matchMedia('(max-width: 800px)');
-    let active = 0;
-    // Open one chapter and close the rest, holding that chapter's row where it is on screen, so a chapter
-    // closing above never moves the text under the reader's eyes
-    const openOnly = (i: number) => {
-      const before = sums[i].getBoundingClientRect().top;
-      more.forEach((d, j) => { d.open = j === i; });
-      const shift = sums[i].getBoundingClientRect().top - before;
-      if (shift) scrollBy(0, shift);
-    };
-    const fit = () => {
-      sums.forEach((sum) => (phone.matches ? sum.removeAttribute('tabindex') : (sum.tabIndex = -1)));
-      if (phone.matches) { active = 0; more.forEach((d, j) => (d.open = j === 0)); }
-      else more.forEach((d) => (d.open = true));
-    };
-    fit();
-    phone.addEventListener('change', fit);
-
-    // A tap opens that chapter (closing the rest) and brings it up to the reading position, or closes it
-    sums.forEach((sum, i) => sum.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (!phone.matches) return;
-      if (more[i].open) { more[i].open = false; return; }
-      active = i;
-      openOnly(i);
-      scrollBy(0, sum.getBoundingClientRect().top - innerHeight * 0.2);
-    }));
-
-    // Reading on: the next chapter takes over once its row passes 40% down the screen; going back up, the
-    // previous one returns once the current row drops below 60%. The gap between the two stops flicker
-    let ticking = false;
-    const follow = () => {
-      ticking = false;
-      if (!phone.matches) return;
-      const vh = innerHeight;
-      let next = active;
-      while (next + 1 < more.length && sums[next + 1].getBoundingClientRect().top <= vh * 0.4) next++;
-      while (next > 0 && sums[next].getBoundingClientRect().top > vh * 0.6) next--;
-      if (next === active) return;
-      active = next;
-      openOnly(next);
-    };
-    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(follow); } }, { passive: true });
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => show(i));
+      // Arrow keys move along the timeline, as in any set of tabs
+      t.addEventListener('keydown', (e) => {
+        const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+        if (step) { e.preventDefault(); show((i + step + tabs.length) % tabs.length, true); }
+        if (e.key === 'Home') { e.preventDefault(); show(0, true); }
+        if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
+      });
+    });
   }
 </script>
 
@@ -160,78 +110,62 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
   h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); }
 
-  .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); }
-  .chapters { list-style: none; margin: 0; padding: 0; }
-  /* Chapters follow each other at the content gap; the first starts level with the photo */
-  .chapter { display: flex; flex-direction: column; opacity: 0.65; transition: opacity 0.4s; } /* 0.65: the faded chapters still pass contrast */
-  @media (min-width: 801px) { .chapter + .chapter { margin-top: 72px; } }
-  .chapter.on { opacity: 1; }
-  /* Wider screens: a chapter is invisible until it scrolls into view (the class is added by the script, so without it every chapter shows) */
-  @media (min-width: 801px) {
-    .reveal .chapter:not(.seen) { opacity: 0; translate: 0 24px; }
-    .chapter { transition: opacity 0.6s, translate 0.6s; }
-  }
-  .chapter .inline { display: none; }
+  /* The timeline: one line, five points, a label under each */
+  .timeline { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0 0 clamp(32px, 4vw, 48px); }
+  .timeline::before { content: ''; position: absolute; left: 10%; right: 10%; top: 15px; height: 2px; background: var(--line); }
+  .point { position: relative; display: grid; justify-items: center; gap: 10px; padding: 0 4px; border: 0; background: none; cursor: pointer;
+    font: inherit; font-size: 1rem; font-weight: var(--w-medium); color: var(--muted); text-align: center; }
+  .node { width: 32px; height: 32px; border-radius: 50%; background: var(--paper); box-shadow: inset 0 0 0 2px var(--line); transition: transform 0.25s, background-color 0.25s, box-shadow 0.25s; }
+  .point.seen .node { background: var(--dot); box-shadow: none; }
+  .point[aria-selected='true'] { color: var(--ink); }
+  .point[aria-selected='true'] .node { transform: scale(1.2); box-shadow: 0 0 0 6px color-mix(in srgb, var(--dot) 28%, transparent); }
+  .point:hover .node { transform: scale(1.1); }
+  .point[aria-selected='true']:hover .node { transform: scale(1.2); }
+  .point:focus-visible { outline: none; }
+  .point:focus-visible .node { outline: 2px solid var(--teal); outline-offset: 4px; }
 
-  .frame { position: sticky; top: calc(50vh - min(34vh, 290px)); height: min(68vh, 580px); }
-  .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); opacity: 0; transition: opacity 0.5s; }
-  .frame img.on { opacity: 1; }
-
-  /* As in the module list: a bar of the chapter's ring colour down the left, and a large serif number */
-  .more { position: relative; padding-left: 24px; }
-  .more::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--dot); }
-  .step { display: block; font-family: var(--font-display); font-weight: var(--w-bold); font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1; color: var(--teal-dark); font-variant-numeric: tabular-nums; }
-  h3 { margin: 12px 0; font-family: var(--font-display); font-weight: var(--w-bold); letter-spacing: var(--track-heading); font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; color: var(--teal-dark); text-wrap: wrap; } /* fill line 1 first: balance and pretty pulled words down */
-  .chapter p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
-  .chapter p + p { margin-top: 14px; }
-
-  /* Chapters: on wider screens the summary is just the number and heading */
-  .more summary { list-style: none; cursor: default; }
-  .more summary::-webkit-details-marker { display: none; }
-  /* Number and heading share a line; the heading wraps under its own first word */
-  .more .head { display: flex; align-items: baseline; gap: 0.45em; margin: 0 0 14px; }
-  .more .head h3 { margin: 0; }
-
+  /* Every stage sits in the same spot, so the section keeps one height as the stages change */
+  .panels { display: grid; }
+  .panel { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); align-items: start; visibility: hidden; opacity: 0; }
+  .panel.on { visibility: visible; opacity: 1; transition: opacity 0.45s; }
+  .text { position: relative; padding-left: 24px; }
+  /* As in the module list: a bar of the stage's ring colour down the left */
+  .text::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--dot); }
+  h3 { margin: 0 0 14px; font-family: var(--font-display); font-weight: var(--w-bold); letter-spacing: var(--track-heading); font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; color: var(--teal-dark); }
+  .step { font-variant-numeric: tabular-nums; }
+  .text p { margin: 0; font-size: 1.1rem; line-height: 1.6; color: var(--ink); }
+  .text p + p { margin-top: 14px; }
+  .photo { margin: 0; aspect-ratio: 5 / 5.6; max-width: 100%; }
+  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); }
 
   /* Placeholders are obviously unfinished so they can't go live by mistake */
   .placeholder h3, .placeholder p { color: #8a918f; font-style: italic; }
-  .tag { align-self: flex-start; margin-top: 14px; padding: 2px 8px; border: 1px dashed var(--terracotta-dark); border-radius: 6px; font-size: 0.8rem; color: var(--terracotta-dark); }
+  .tag { display: inline-block; margin-top: 14px; padding: 2px 8px; border: 1px dashed var(--terracotta-dark); border-radius: 6px; font-size: 0.8rem; color: var(--terracotta-dark); }
 
-  /* Phones and narrow tablets: no sticky frame, each chapter shows its own photo */
+  /* Phones and narrow tablets: photo above the text, and the section grows or shrinks with each stage */
   @media (max-width: 800px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
     h2 { font-size: 32px; }
     .lede { font-size: 18px; line-height: 1.55; }
-    h3 { font-size: 23px; }
-    .chapter p { font-size: 17px; }
     .story { padding-inline: 24px; }
-    .grid { grid-template-columns: 1fr; }
-    .frame { display: none; }
-    .chapter { min-height: 0; opacity: 1; margin-top: 48px; }
-    .chapter .inline { display: block; margin: 0 0 18px; }
-    .inline img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); }
-
-    /* Chapters collapse to a row: colour bar, number, heading and a plus, like the module list */
-    .chapter:has(.more) { margin-top: 10px; }
-    .chapter:first-child { margin-top: 32px; }
-    .more { padding-left: 18px; }
-    .more summary { cursor: pointer; display: grid; grid-template-columns: 1fr 14px; gap: 12px; align-items: center; padding: 10px 0; }
-    .more .head { display: grid; grid-template-columns: 26px 1fr; column-gap: 14px; align-items: center; }
-    .step { font-size: 26px; }
-    .more h3 { margin: 0; font-size: 20px; }
-    .more summary::after { content: ''; width: 14px; height: 14px; background:
-        linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat,
-        linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 2px 100% no-repeat; }
-    .more[open] summary::after { background: linear-gradient(var(--terracotta-dark), var(--terracotta-dark)) center / 100% 2px no-repeat; }
-    .more summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
-    .more .inline { margin: 4px 0 16px; }
-    .more .inline img { max-height: 240px; border-radius: 14px; }
-    .more .inline img[style*='--mpos'] { object-position: var(--mpos) !important; } /* a phone crop where the shorter photo needs one */
-    .more p:last-child { margin-bottom: 12px; }
-
+    .timeline { margin-bottom: 28px; }
+    .timeline::before { top: 13px; }
+    .point { font-size: 13px; gap: 8px; padding: 0; white-space: nowrap; }
+    .node { width: 28px; height: 28px; }
+    .panel { grid-template-columns: 1fr; gap: 22px; display: none; }
+    .panel.on { display: grid; }
+    .photo { order: -1; aspect-ratio: 4 / 3; }
+    .photo img { border-radius: 14px; }
+    .photo img[style*='--mpos'] { object-position: var(--mpos) !important; } /* a phone crop where the shorter photo needs one */
+    h3 { font-size: 23px; }
+    .text { padding-left: 18px; }
+    .text p { font-size: 17px; }
+  }
+  /* The smallest phones: smaller labels so neighbours never touch */
+  @media (max-width: 360px) {
+    .point { font-size: 11px; letter-spacing: -0.01em; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .chapter, .frame img { transition: none; }
-    .reveal .chapter:not(.seen) { translate: none; }
+    .node, .panel.on { transition: none; }
   }
 </style>
