@@ -1,5 +1,7 @@
 [build]
-  command = "npm run build"
+  # TEMPORARY: fails on purpose so linking the repo cannot publish over the live site.
+  # Put back to "npm run build" once auto publishing is locked in Netlify.
+  command = "echo 'Build paused until auto publishing is locked' && exit 1"
   publish = "dist"
 
 [build.environment]
