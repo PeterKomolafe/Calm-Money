@@ -108,7 +108,7 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
 <style>
   .story { max-width: 1080px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
-  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 calc(var(--space-content) + clamp(16px, 3vw, 32px)); } /* extra room above the timeline */
 
   /* The timeline: one line, five points, a label under each */
   .timeline { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0 0 clamp(32px, 4vw, 48px); }
@@ -126,7 +126,7 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
 
   /* Every stage sits in the same spot, so the section keeps one height as the stages change */
   .panels { display: grid; }
-  .panel { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); align-items: start; visibility: hidden; opacity: 0; }
+  .panel { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); align-items: center; visibility: hidden; opacity: 0; } /* text centred against the photo's height */
   .panel.on { visibility: visible; opacity: 1; transition: opacity 0.45s; }
   .text { position: relative; padding-left: 24px; }
   /* As in the module list: a bar of the stage's ring colour down the left */
@@ -146,7 +146,7 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
   @media (max-width: 800px) {
     /* Mobile type scale: 32 section heading, 23 card heading, 19 small heading, 17 body */
     h2 { font-size: 32px; }
-    .lede { font-size: 18px; line-height: 1.55; }
+    .lede { font-size: 18px; line-height: 1.55; margin-bottom: calc(var(--space-content) + 12px); }
     .story { padding-inline: 24px; }
     .timeline { margin-bottom: 28px; }
     .timeline::before { top: 13px; }
