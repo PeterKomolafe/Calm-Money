@@ -151,7 +151,7 @@ const compare: [string, ...(boolean | string)[]][] = [
   h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
   .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); }
 
-  .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+  .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; } /* equal-height cards side by side */
   .tier { display: flex; flex-direction: column; background: var(--cream); border-radius: 22px; padding: clamp(24px, 2.6vw, 32px); box-shadow: var(--lift); container-type: inline-size; position: relative; }
 
   h3 { margin: 0; font-family: var(--font-body); font-weight: var(--w-medium); font-size: 1.1rem; color: var(--ink); }
