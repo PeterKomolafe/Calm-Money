@@ -44,9 +44,9 @@ const tiers = [
     price: '£2,497',
     intro: 'Everything in At your pace with coaching, plus',
     groups: [
-      { title: 'Onboarding review', items: ['Start with a one-to-one with Peter. Set your goals, get a professional review of your practical exercises, and map out a timeline for action so you know exactly where you are and what comes next'] },
+      { title: 'Onboarding review', items: ['Start with a one-to-one with Peter. Set your goals, get a professional review of your practical exercises, and map out a timeline for action'] },
       { title: '12 monthly live group calls', items: ['One a month', 'Q&As, workshops and professional guests', 'Module amplification sessions'] },
-      { title: 'Peter on WhatsApp', items: ['Message Peter directly with your questions and get support when you need it', 'Plus updates on new material and news from the community'] },
+      { title: 'Peter on WhatsApp', items: ['Message Peter directly with your questions and get support when you need it'] },
       { title: '2 meetups a year', items: ['Two in-person meet-ups during your 12 months. A chance to step away from the screen, meet the people on the same journey as you, and take stock of how far you’ve come'] },
     ],
     cta: 'Join the waitlist',
@@ -86,7 +86,7 @@ const compare: [string, ...(boolean | string)[]][] = [
         <p class="price">{t.price}</p>
         <a class:list={['btn', t.apply ? 'btn--light' : 'btn--primary']} href={t.href}>{t.cta}</a>
         {t.plan && <p class="next">Pay in one go, or £697 today then 2 monthly payments of £300. No interest, no extra charge.</p>}
-        {t.apply && <p class="next">Runs in intakes with limited places. Join the waitlist to hear first when the next intake opens.</p>}
+        {t.apply && <p class="next">10 places per intake. Join the waitlist to hear first when the next one opens.</p>}
 
         <!-- Phones: the list opens with "See what's included". Wider screens: always open -->
         <details class="inc" open>
