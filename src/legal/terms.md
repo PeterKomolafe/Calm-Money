@@ -24,6 +24,8 @@ Calm Money is available in three options. Every option includes the five modules
 - **At your pace with coaching (£1,297).** Everything in At your pace, plus four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
 - **12 months of full support (£2,497).** Everything in At your pace, plus, for 12 months from the start of your intake: an onboarding call with Peter, 24 live online coaching calls (one every two weeks), direct access to Peter on WhatsApp, and two in-person meet-ups in the UK during those 12 months. This option runs in intakes with limited places. Joining the waitlist does not reserve a place or commit you to buying. When an intake opens, we review applications and may decline one without giving a reason. No payment is taken unless your application is accepted.
 
+**The Calm Money Sprint (£47).** A separate, shorter programme: three live 90-minute online sessions on Zoom, on consecutive days, hosted by Peter. One ticket covers two people from the same household. The dates and times are shown on the booking page. The Sprint does not include access to the content library or any of the options above.
+
 Prices are in pounds sterling and include any VAT that applies. Payment is taken in full at checkout, or in instalments where an instalment option is shown at checkout. At your pace with coaching can be paid as £697 at checkout followed by two monthly payments of £300, £1,297 in total, with no interest or other charges. If you pay in instalments, you agree to pay each instalment when it falls due, and we may pause your access to coaching and support while a payment is overdue. Payment is processed through our third-party payment processor, Stripe; we do not store your full card details ourselves.
 
 ## 5. Your 12 Months and Renewal
@@ -45,6 +47,14 @@ Meet-ups take place in the UK. You are responsible for your own travel, accommod
 ## 7. Your Right to Cancel and Refunds
 
 **Your legal right to cancel.** Under the Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013 you normally have 14 days from purchase to cancel. When you buy, we will ask you to agree that your access to the content library starts immediately and to acknowledge that, once it starts, you lose your right to cancel the digital content. For coaching and support, if you ask for sessions to start within those 14 days and then cancel, we may deduct an amount for the services already provided.
+
+**Cancelling the Calm Money Sprint.** You have 14 days from the day you book to cancel. Where the Sprint starts within those 14 days, we will ask you at checkout to confirm that you want it to start during that period, and to acknowledge what that means for cancelling:
+
+- If you cancel before the first session starts, we will refund the £47 in full.
+- If you cancel after the first session has started, we will refund the £47 less the value of the sessions already delivered. Each session is valued at one third of the price.
+- Once all three sessions have taken place, the Sprint is complete and you can no longer cancel.
+
+Not attending a session does not cancel your booking, and sessions you miss are not refunded. If we need to move or cancel a session, we will offer you another date or a refund for that session. To cancel, email us at the address in Section 14 and tell us that you want to cancel. Refunds are paid to the card you paid with within 14 days of us receiving your request.
 
 **Our 30-day guarantee on the coaching options.** Our coaching options are built around action, so our guarantee is too. If you have taken the first steps and still feel Calm Money is not right for you, email us within 30 days of joining and we will give you a full refund, provided that:
 
