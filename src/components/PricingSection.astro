@@ -44,6 +44,7 @@ const tiers = [
     price: '£2,497',
     intro: 'Everything in At your pace with coaching, plus',
     groups: [
+      { title: 'Onboarding review', items: ['Start with a one-to-one with Peter. Set your goals, get a professional review of your practical exercises, and map out a timeline for action so you know exactly where you are and what comes next'] },
       { title: '12 monthly live group calls', items: ['One a month', 'Q&As, workshops and professional guests', 'Module amplification sessions'] },
       { title: 'Peter on WhatsApp', items: ['Message Peter directly with your questions and get support when you need it', 'Plus updates on new material and news from the community'] },
       { title: '2 meetups a year', items: ['Two in-person meet-ups during your 12 months. A chance to step away from the screen, meet the people on the same journey as you, and take stock of how far you’ve come'] },
@@ -63,6 +64,7 @@ const compare: [string, ...(boolean | string)[]][] = [
   ['Monthly update from Peter', true, true, true],
   ['Workshop library', true, true, true],
   ['Onboarding call with Peter', false, true, true],
+  ['Review of your practical exercises', false, false, true],
   ['Quarterly coaching sessions', false, '4', '4'],
   ['Monthly live group calls', false, false, '12'],
   ['Peter on WhatsApp', false, false, true],
