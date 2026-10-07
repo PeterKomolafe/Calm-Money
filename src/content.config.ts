@@ -16,6 +16,12 @@ const testimonials = defineCollection({
     tipped: z.string().optional(), // Q2: the moment they decided to join
     doubt: z.string().optional(), // Q3 and Q4: their doubts, and how they look now
     doing_now: z.string().optional(), // Q10: one thing they do now that they didn't before
+    valuable: z.string().optional(), // Q5 and Q6: the most valuable part, and a moment it made a difference
+    support: z.string().optional(), // Q7 and Q8: support beyond what they expected, and the difference it made
+    experience: z.string().optional(), // Q9, Q11 and Q13: what it's like inside, and the time it takes
+    friend: z.string().optional(), // Q14: what they'd tell a friend
+    // A short note under the story, e.g. which version of the programme they joined
+    note: z.string().optional(),
     // Placeholders show until real answers arrive; remove them before launch
     placeholder: z.boolean().default(false),
     // Only publish testimonials the member has given written permission to use

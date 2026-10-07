@@ -46,6 +46,11 @@ collections:
       - { name: tipped, label: "What tipped it (Q2)", widget: text, required: false }
       - { name: doubt, label: "The doubt, and how it looks now (Q3 and Q4)", widget: text, required: false }
       - { name: doing_now, label: "Doing now (Q10)", widget: text, required: false }
+      - { name: valuable, label: "Most valuable so far (Q5 and Q6)", widget: text, required: false }
+      - { name: support, label: "The support (Q7 and Q8)", widget: text, required: false }
+      - { name: experience, label: "What it's like (Q9, Q11 and Q13)", widget: text, required: false }
+      - { name: friend, label: "What I'd tell a friend (Q14)", widget: text, required: false }
+      - { name: note, label: "Note under the story (e.g. which programme they joined)", widget: string, required: false }
       - { name: placeholder, label: Placeholder, widget: boolean, default: false }
       - { name: permission_confirmed, label: Member gave written permission, widget: boolean, default: false, hint: "Only shown on the site when ticked" }
       - { name: order, label: Display order, widget: number, default: 0 }

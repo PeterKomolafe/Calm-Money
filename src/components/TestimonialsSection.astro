@@ -20,7 +20,11 @@ const lines = [
   ['before', 'Before joining'],
   ['tipped', 'What tipped it'],
   ['doubt', 'The doubt, and how it looks now'],
+  ['valuable', 'Most valuable so far'],
+  ['support', 'The support'],
+  ['experience', 'What it’s like'],
   ['doing_now', 'Doing now'],
+  ['friend', 'What I’d tell a friend'],
 ] as const;
 ---
 {entries.length > 0 && (
@@ -54,6 +58,7 @@ const lines = [
               <div><dt>{label}</dt><dd>{t[key]}</dd></div>
             ))}
           </dl>
+          {t.note && <p class="note">{t.note}</p>}
         </article>
       ))}
       </div>
@@ -122,4 +127,5 @@ const lines = [
     .tabs label { flex: 1 1 0; }
     .tabs span { justify-content: center; padding: 11px 8px 17px; font-size: 0.95rem; }
   }
+  .note { margin: 22px 0 0; padding-top: 14px; border-top: 1px solid rgb(31 38 36 / 0.12); font-size: 0.9rem; color: var(--muted); }
 </style>
