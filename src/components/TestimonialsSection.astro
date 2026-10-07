@@ -26,7 +26,7 @@ const lines = [
 {entries.length > 0 && (
   <section class="testimonials" id="results">
     <h2>In their words.</h2>
-    <p class="lede">{count} on where they started, what changed, and where they are now.</p>
+    <p class="lede">{entries.length === 1 ? 'One of our founding members on' : `${count} on`} where they started, what changed, and where they are now.</p>
 
     <!-- One card with ledger tabs, like the calculator: one member at a time -->
     <div class="ledger">
@@ -44,7 +44,7 @@ const lines = [
       {entries.map(({ data: t }, i) => (
         <article class:list={['story', { placeholder: t.placeholder, on: i === 0 }]} data-member={i}>
           <header class="who">
-            <span class="name">{t.name}</span>
+            <span class="name">{t.name}{t.label && <span class="label"> · {t.label}</span>}</span>
             {t.goal && <span class="goal"><i style={`background:${goals[t.goal].color}`} />{goals[t.goal].label}</span>}
             {t.placeholder && <span class="tag">Placeholder</span>}
           </header>
@@ -95,6 +95,7 @@ const lines = [
 
   .who { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; padding-bottom: 14px; border-bottom: 1px solid rgb(31 38 36 / 0.12); }
   .name { font-weight: var(--w-medium); font-size: 1.15rem; color: var(--ink); }
+  .name .label { font-weight: var(--w-regular); color: var(--muted); }
   .goal { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--muted); }
   .goal i { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgb(31 38 36 / 0.08); }
 

@@ -16,7 +16,7 @@ const arc = (from: number, to: number, dx = 0, dy = 0) => {
 // Same geometry as the logo. Each module owns one segment and the round cap at its start;
 // `prev` is the module whose end meets that start (it needs its own cap when this one lifts).
 const modules = [
-  { n: 1, title: 'Reset', outcome: 'We begin at ground zero. We uncover what you value, what motivates you, and how to turn your natural wiring into a superpower that propels you forward.', from: 231, to: 288, color: 'var(--cream)', prev: 2 },
+  { n: 1, title: 'Reset', outcome: 'We begin at ground zero. We uncover what you value, what motivates you, and how to turn your natural wiring into a superpower that propels you forward.', quote: ['I discovered I was a Spender, and that it was linked to my emotions. I’d cut back on buying for myself but was still buying for others. Now, if I catch myself wandering into a shop, I stop and ask why I went in.', 'Jean M. · Founding member'], from: 231, to: 288, color: 'var(--cream)', prev: 2 },
   { n: 2, title: 'Giving Your Money Structure', outcome: 'Build the structure that gives you control and confidence in your day-to-day finances, and becomes the foundation of your whole system.', from: 171, to: 231, color: 'var(--terracotta)', prev: 3 },
   { n: 3, title: 'Breaking the Debt Cycle', outcome: 'Get a full picture of your debts and a step-by-step plan that shows which to clear first and when you’ll be debt free.', from: 119, to: 171, color: 'var(--blush)', prev: 4 },
   { n: 4, title: 'Creating Financial Stability', outcome: 'Here, peace of mind stops being an idea and becomes your reality. Your buffer lets you live well today while securing tomorrow.', from: 72, to: 119, color: 'var(--sage)', prev: 5 },
@@ -67,6 +67,7 @@ const css = modules
               <h3>{m.title}</h3>
             </summary>
             <p class="outcome">{m.outcome}</p>
+            {m.quote && <blockquote class="mq"><p>“{m.quote[0]}”</p><cite>{m.quote[1]}</cite></blockquote>}
           </details>
           <p class="yours" data-yours></p>
         </li>
@@ -128,6 +129,10 @@ const css = modules
   li p { margin: 0 0 0 38px; color: var(--muted); } /* lines up under the title: number column (24) + gap (14) */
   /* What the module leaves you with */
   li .outcome { color: var(--ink); margin-top: 10px; }
+  /* A member's words under the module they speak to */
+  .mq { margin: 16px 0 4px; padding-left: 16px; border-left: 2px solid var(--c); }
+  .mq p { margin: 0; color: var(--muted); font-style: italic; }
+  .mq cite { display: block; margin-top: 6px; font-style: normal; font-size: 0.9rem; font-weight: var(--w-medium); color: var(--ink); }
   /* The visitor's goal: a mint tag under the module that builds it */
   li .yours { display: none; margin-top: 12px; padding: 4px 12px; border-radius: 999px; background: var(--mint); font-size: 0.9rem; font-weight: var(--w-medium); color: var(--teal-dark); }
 

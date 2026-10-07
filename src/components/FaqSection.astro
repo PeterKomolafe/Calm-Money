@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     q: 'I’m in debt. Is this still for me?',
-    a: 'Yes. Module 2, Breaking the Debt Cycle, gives you a clear plan to pay it off, and the programme shows you how to balance clearing debt with building savings and, later, investing.',
+    a: 'Yes. Module 2, Breaking the Debt Cycle, gives you a clear plan to pay it off, and the programme shows you how to balance clearing debt with building savings and, later, investing.\n“I realise some things take time to resolve. As long as I’m engaging with my creditors, and not burying my head in the sand, they do understand.” Jean M., founding member',
   },
   {
     q: 'I’m self-employed. Does it still work?',
@@ -45,7 +45,7 @@ const isPlaceholder = (a: string) => a.includes('[');
     {faqs.map((f) => (
       <details name="faq" id={f.id}>
         <summary>{f.q}</summary>
-        {f.a.split('\n').map((para) => <p class:list={{ placeholder: isPlaceholder(para) }}>{para}</p>)}
+        {f.a.split('\n').map((para) => <p class:list={{ placeholder: isPlaceholder(para), member: para.startsWith('“') }}>{para}</p>)}
       </details>
     ))}
   </div>
@@ -99,4 +99,6 @@ const isPlaceholder = (a: string) => a.includes('[');
     .faq { padding-inline: 24px; }
     summary { font-size: 19px; padding: 18px 0; }
   }
+  /* A member's words inside an answer */
+  .member { font-style: italic; padding-left: 14px; border-left: 2px solid var(--blush); }
 </style>

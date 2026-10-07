@@ -7,6 +7,8 @@ const testimonials = defineCollection({
   schema: z.object({
     // As the member agreed to be named: full name, first name or initials
     name: z.string(),
+    // Shown next to the name, e.g. 'Founding member' or the option they're on
+    label: z.string().optional(),
     // The goal they came in with, matching the calculator goals
     goal: z.enum(['debt', 'secure', 'wealth']).optional(),
     headline: z.string(), // questionnaire Q12: how they feel about money now
