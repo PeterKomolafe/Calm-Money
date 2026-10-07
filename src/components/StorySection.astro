@@ -159,12 +159,13 @@ const colours = ['var(--cream-bar)', 'var(--terracotta)', 'var(--blush)', 'var(-
 
   .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 80px); }
   .chapters { list-style: none; margin: 0; padding: 0; }
-  /* Each chapter gets most of a screen, so the photo changes one stage at a time */
-  .chapter { min-height: 64vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.65; transition: opacity 0.4s; } /* 0.65: the faded chapters still pass contrast */
+  /* Chapters follow each other at the content gap; the first starts level with the photo */
+  .chapter { display: flex; flex-direction: column; opacity: 0.65; transition: opacity 0.4s; } /* 0.65: the faded chapters still pass contrast */
+  @media (min-width: 801px) { .chapter + .chapter { margin-top: 72px; } }
   .chapter.on { opacity: 1; }
   .chapter .inline { display: none; }
 
-  .frame { position: sticky; top: calc(50vh - min(34vh, 290px)); height: min(68vh, 580px); margin-top: 18vh; }
+  .frame { position: sticky; top: calc(50vh - min(34vh, 290px)); height: min(68vh, 580px); }
   .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; box-shadow: var(--lift); background: var(--cream); opacity: 0; transition: opacity 0.5s; }
   .frame img.on { opacity: 1; }
 
