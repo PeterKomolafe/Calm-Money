@@ -1,8 +1,8 @@
 ---
-// A look inside the programme platform: real screens as a browsable library.
-// Each card opens the full screenshot in a dialog.
+// A look inside the programme platform: a few of its tools as a list, with the chosen one's real screen
+// shown large beside it. The large screen opens full size in a dialog.
 const screens = [
-  { src: 'finance-wheel', w: 1235, h: 926, title: 'Finance Wheel', text: 'Rate your confidence across six areas of your money.', alt: 'The Finance Wheel exercise with The Reset lesson list' },
+  { src: 'finance-wheel', w: 1235, h: 926, title: 'Finance Wheel', text: 'Rate your confidence across six areas of your money.', alt: 'The Finance Wheel exercise' },
   { src: 'personality-test', w: 1600, h: 1289, title: 'Money Personality Test', text: '15 questions to find the habits shaping your decisions.', alt: 'A question from the Money Personality Test' },
   { src: 'spender-guide', w: 900, h: 1274, title: 'Your money personality guide', fit: 'sheet', text: 'A guide to your money personality.', alt: 'Cover of The Spender money personality guide' },
   { src: 'savings-guide', w: 1600, h: 1039, title: 'Savings Automation Guide', pos: 'top center', text: 'An emergency fund plan that runs itself.', alt: 'The Savings Automation Guide, choosing a money personality' },
@@ -11,19 +11,33 @@ const screens = [
 ---
 <section class="library" id="inside">
   <h2>Inside the platform.</h2>
-  <p class="lede">The tools, guides and workshops you’ll use as you work through the programme. All of this comes with every option.</p>
+  <p class="lede">A few of the tools, guides and workshops waiting for you inside. There are more in every module, and all of it comes with every option.</p>
 
-  <ul class="grid">
-    {screens.map((s, i) => (
-      <li>
-        <button class="card" type="button" data-open={i} aria-label={`View ${s.title} full size`}>
-          <span class:list={['shot', s.fit]} style={s.pos && `--pos:${s.pos}`}><img src={`/images/platform/${s.src}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" /></span>
-          <span class="title">{s.title}</span>
-          <span class="text">{s.text}</span>
-        </button>
-      </li>
-    ))}
-  </ul>
+  <div class="tour">
+    <ol class="list" role="tablist" aria-label="Tools in the platform">
+      {screens.map((s, i) => (
+        <li>
+          <button class="item" type="button" role="tab" id={`tool-tab-${i}`} aria-controls="tool-view" aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tool={i}>
+            <span class="title">{s.title}</span>
+            <span class="text">{s.text}</span>
+          </button>
+        </li>
+      ))}
+      <li class="more">Plus more inside, including a Quick Debt Check and a Risk Check before you invest.</li>
+    </ol>
+
+    <!-- Every screen sits in the same spot; the chosen one shows. Tap it to see it full size -->
+    <div class="panel" id="tool-view" role="tabpanel" aria-labelledby="tool-tab-0">
+    <button class="view" type="button" aria-label={`View ${screens[0].title} full size`}>
+      {screens.map((s, i) => (
+        <span class:list={['shot', s.fit, { on: i === 0 }]} style={s.pos && `--pos:${s.pos}`} data-shot={i}>
+          <img src={`/images/platform/${s.src}.webp`} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
+        </span>
+      ))}
+      <span class="zoom" aria-hidden="true">View full size</span>
+    </button>
+    </div>
+  </div>
 
   <dialog class="viewer" aria-label="Platform screen">
     <form method="dialog"><button class="close" aria-label="Close">×</button></form>
@@ -34,37 +48,67 @@ const screens = [
 
 <script>
   const lib = document.querySelector<HTMLElement>('.library')!;
+  const items = [...lib.querySelectorAll<HTMLButtonElement>('[data-tool]')];
+  const shots = [...lib.querySelectorAll<HTMLElement>('[data-shot]')];
+  const view = lib.querySelector<HTMLButtonElement>('.view')!;
+  const panel = lib.querySelector<HTMLElement>('.panel')!;
   const dlg = lib.querySelector<HTMLDialogElement>('.viewer')!;
-  lib.querySelectorAll<HTMLButtonElement>('[data-open]').forEach((b) => b.addEventListener('click', () => {
-    const img = b.querySelector('img')!;
-    const view = dlg.querySelector('img')!;
-    view.src = img.currentSrc || img.src; view.alt = img.alt;
-    dlg.querySelector('p')!.textContent = b.querySelector('.title')!.textContent;
+  let current = 0;
+
+  const show = (i: number, focus = false) => {
+    current = i;
+    items.forEach((b, j) => { b.setAttribute('aria-selected', String(j === i)); b.tabIndex = j === i ? 0 : -1; });
+    shots.forEach((s, j) => s.classList.toggle('on', j === i));
+    panel.setAttribute('aria-labelledby', items[i].id);
+    view.setAttribute('aria-label', `View ${items[i].querySelector('.title')!.textContent} full size`);
+    if (focus) items[i].focus();
+  };
+  items.forEach((b, i) => {
+    b.addEventListener('click', () => show(i));
+    // Arrow keys move through the list, as in any set of tabs
+    b.addEventListener('keydown', (e) => {
+      const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (step) { e.preventDefault(); show((i + step + items.length) % items.length, true); }
+    });
+  });
+
+  view.addEventListener('click', () => {
+    const img = shots[current].querySelector('img')!;
+    const big = dlg.querySelector('img')!;
+    big.src = img.currentSrc || img.src; big.alt = img.alt;
+    dlg.querySelector('p')!.textContent = items[current].querySelector('.title')!.textContent;
     dlg.showModal();
-  }));
+  });
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
 </script>
 
 <style>
   .library { max-width: 1120px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
   h2 { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.02; color: var(--ink); margin: 0 0 var(--space-title); }
-  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); }
+  .lede { font-size: 1.25rem; color: var(--muted); margin: 0 0 var(--space-content); max-width: 40em; }
 
-  /* Rows centre, so a short last row sits in the middle */
-  .grid { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px 28px; }
-  .grid li { width: calc((100% - 56px) / 3); }
-  .card { all: unset; box-sizing: border-box; display: grid; gap: 6px; width: 100%; cursor: zoom-in; }
-  .card:focus-visible { outline: 2px solid var(--teal); outline-offset: 6px; border-radius: 16px; }
-  /* Every screen cropped to the same frame, from the top, so the library reads as one set */
-  .shot { display: block; aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 10px; border-radius: 14px; border: 1px solid var(--line); background: #fff;
-    box-shadow: 0 2px 6px rgb(31 38 36 / 0.06), 0 14px 30px rgb(31 38 36 / 0.09); transition: translate .2s ease, box-shadow .2s ease; }
-  .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, top left); }
-  /* A4 guides are shown whole, as a sheet on a soft backdrop */
-  .shot.sheet { background: var(--cream, #f5ede3); padding: 7% 0; box-sizing: border-box; }
-  .shot.sheet img { object-fit: contain; object-position: center; filter: drop-shadow(0 6px 14px rgb(31 38 36 / 0.18)); }
-  .card:hover .shot { translate: 0 -3px; box-shadow: 0 4px 10px rgb(31 38 36 / 0.08), 0 20px 40px rgb(31 38 36 / 0.12); }
+  /* List on the left, the chosen screen large on the right */
+  .tour { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .item { all: unset; box-sizing: border-box; width: 100%; display: grid; gap: 2px; padding: 14px 18px; border-radius: 14px; cursor: pointer; transition: background-color 0.2s; }
+  .item:hover { background: rgb(232 248 245 / 0.55); }
+  .item[aria-selected='true'] { background: var(--mint); }
+  .item:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
   .title { font-weight: var(--w-medium); font-size: 1.1rem; color: var(--ink); }
   .text { color: var(--muted); font-size: 0.98rem; line-height: 1.45; }
+  .more { padding: 14px 18px 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; font-style: italic; }
+
+  .view { all: unset; box-sizing: border-box; position: relative; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); width: 100%; aspect-ratio: 4 / 3; max-width: 100%; cursor: zoom-in;
+    border-radius: 18px; border: 1px solid var(--line); background: #fff; overflow: hidden; box-shadow: var(--lift); }
+  .view:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+  .shot { grid-area: 1 / 1; display: block; min-width: 0; min-height: 0; opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s; }
+  .shot.on { opacity: 1; visibility: visible; }
+  .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, top left); }
+  /* A4 guides are shown whole, as a sheet on a soft backdrop */
+  .shot.sheet { background: var(--cream); padding: 6% 0; box-sizing: border-box; }
+  .shot.sheet img { object-fit: contain; object-position: center; filter: drop-shadow(0 6px 14px rgb(31 38 36 / 0.18)); }
+  .zoom { position: absolute; right: 14px; bottom: 14px; padding: 6px 12px; border-radius: 999px; background: rgb(31 38 36 / 0.78); color: #fff; font-size: 0.85rem; font-weight: var(--w-medium); opacity: 0; transition: opacity 0.2s; }
+  .view:hover .zoom, .view:focus-visible .zoom { opacity: 1; }
 
   .viewer { border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); max-height: 92vh; overflow: visible; }
   .viewer::backdrop { background: rgb(31 38 36 / 0.72); }
@@ -72,17 +116,19 @@ const screens = [
   .viewer p { margin: 12px 0 0; text-align: center; color: #fff; font-weight: var(--w-medium); }
   .close { position: absolute; top: -44px; right: 0; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
 
-  @media (prefers-reduced-motion: reduce) { .shot { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .shot, .item, .zoom { transition: none; } }
 
-  @media (max-width: 900px) { .grid { gap: 32px 22px; } .grid li { width: calc((100% - 22px) / 2); } }
-  @media (max-width: 760px) {
+  /* Phones and narrow tablets: the screen sits above the list */
+  @media (max-width: 800px) {
     h2 { font-size: 32px; }
     .lede { font-size: 18px; line-height: 1.55; }
     .library { padding-inline: 24px; }
-    /* Phones: one row that scrolls sideways, with the next card peeking in */
-    .grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; margin-inline: -24px; padding: 4px 24px 18px; scrollbar-width: none; }
-    .grid::-webkit-scrollbar { display: none; }
-    .grid { flex-wrap: nowrap; justify-content: flex-start; }
-    .grid li { flex: 0 0 78%; width: auto; scroll-snap-align: start; scroll-margin-left: 24px; }
+    .tour { grid-template-columns: 1fr; gap: 20px; }
+    .panel { order: -1; }
+    .view { border-radius: 14px; }
+    .zoom { opacity: 1; }
+    .item { padding: 12px 14px; }
+    .title { font-size: 17px; }
+    .more { padding: 10px 14px 0; }
   }
 </style>
