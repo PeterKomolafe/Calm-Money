@@ -62,20 +62,30 @@ Meet-ups take place in the UK. You are responsible for your own travel, accommod
 
 Not attending a session does not cancel your booking, and sessions you miss are not refunded. If we need to move or cancel a session, we will offer you another date or a refund for that session. To cancel, email us at the address in Section 14 and tell us that you want to cancel. Refunds are paid to the card you paid with within 14 days of us receiving your request.
 
-**Our 30-day guarantee on the coaching options.** Our coaching options are built around action, so our guarantee is too. If you have taken the first steps and still feel Calm Money is not right for you, email us within 30 days of joining and we will give you a full refund, provided that:
+**Our 30-day coaching guarantee.** Our coaching options are built around action, so our guarantee is too. If you have completed Module 0 and attended your onboarding call, and still feel the coaching is not right for you, email us within 30 days of joining and we will refund your coaching fee.
 
-- **At your pace with coaching:** you have completed Module 0 and attended your onboarding call.
-- **12 months of full support:** you have completed Module 0 and attended your onboarding call.
+Your coaching fee is the price of your option less the At your pace price of £397: £900 for At your pace with coaching and £2,600 for 12 months of full support. The £397 covers the content library, which you have full access to from the day you join, so it is not refunded. You keep At your pace (the content library, community, monthly update and workshop library) for the rest of your 12 months; your coaching sessions, calls, WhatsApp access and meet-ups end.
 
-**At your pace.** Because At your pace gives you instant access to all the content, it is not eligible for a refund once your access has started.
+If you are paying in instalments, we refund anything you have paid above £397 and cancel any payments still to come.
 
-If you are paying in instalments and receive a refund under the guarantee, we refund what you have paid and cancel any payments still to come.
+The guarantee does not apply if you have broken Section 8, for example by recording, downloading or sharing the content.
+
+**At your pace.** At your pace is the content library itself, and you get all of it as soon as you join, so it is not refundable once your access has started, unless it is faulty or not as described.
 
 To ask for a refund, email us at the address in Section 14. This does not affect your statutory rights.
 
 ## 8. Access and Licence
 
 Subject to your compliance with these Terms, we grant you a personal, non-transferable, non-exclusive licence to access and use the Calm Money programme content, coaching and support included in your option, for your own personal financial education. You may not resell, redistribute, publicly share, or use the content for any commercial purpose without our prior written consent.
+
+**Copying, recording and downloading.** The programme is for you to use inside Calm Money. You must not:
+
+- record, screen-record or capture audio from any lesson, video, workshop, live call or coaching session;
+- download, save or scrape the content, except materials we offer as downloads (such as worksheets and guides), which are for your own personal use only;
+- copy or transcribe the content, or upload any of it to a website, file-sharing service, social media platform or AI tool;
+- share the content, downloads or any recording with anyone who has not bought Calm Money.
+
+If you do, we may end your access straight away without a refund, including under our guarantee, and we may take legal action to protect our content.
 
 ## 9. Conduct in Calls, WhatsApp and Meet-ups
 
