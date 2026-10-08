@@ -12,7 +12,7 @@ Last updated 7 October 2026. Branch: `claude/website-build-3w8rav`. Netlify proj
   | Option | Price | Includes |
   |---|---|---|
   | At your pace | £397 | Modules, personality test, tools, community, monthly update, workshop library, 12 months' access |
-  | At your pace with coaching | £1,297 (or £697 then 2 × £300) | Everything above, plus an onboarding call and 4 quarterly 1:1s |
+  | At your pace with coaching | £1,297 (or £397 then 9 × £100) | Everything above, plus an onboarding call and 4 quarterly 1:1s |
   | 12 months of full support | £2,997, instalments available | Everything in coaching, plus an onboarding review of exercises, 12 monthly live group calls, WhatsApp and 2 meet-ups. 10 places per intake, waitlist |
 
   A collapsible comparison table sits under the cards.
