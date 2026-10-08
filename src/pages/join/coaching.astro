@@ -1,5 +1,5 @@
 ---
-// "Join with coaching" lands here: pay £1,297 in one go, or £697 today then 2 monthly payments of £300.
+// "Join with coaching" lands here: pay £1,297 in one go, or £397 today then 9 monthly payments of £100.
 // Each button starts Stripe Checkout through a Netlify function (netlify/functions/coaching-*.mjs).
 import Base from '../../layouts/Base.astro';
 ---
@@ -24,20 +24,19 @@ import Base from '../../layouts/Base.astro';
 
       <article class="option">
         <h2>Spread the cost</h2>
-        <p class="price">£697 <span>today</span></p>
+        <p class="price">£397 <span>today</span></p>
         <ol class="schedule" aria-label="Payment schedule">
-          <li><span data-month="0">Today</span><strong>£697</strong></li>
-          <li><span data-month="1">In 1 month</span><strong>£300</strong></li>
-          <li><span data-month="2">In 2 months</span><strong>£300</strong></li>
+          <li><span>Today</span><strong>£397</strong></li>
+          <li><span>Monthly, <span data-month="1">in 1 month</span> to <span data-month="9">in 9 months</span></span><strong>9 × £100</strong></li>
           <li class="total"><span>Total</span><strong>£1,297</strong></li>
         </ol>
         <p class="when">No interest, no extra charge.</p>
-        <a class="btn btn--primary" href="/pay/coaching-plan" rel="nofollow">Pay £697 today</a>
+        <a class="btn btn--primary" href="/pay/coaching-plan" rel="nofollow">Pay £397 today</a>
       </article>
     </div>
 
     <div class="notes">
-      <p><strong>30-day money-back guarantee.</strong> Complete Module 0 and attend your first coaching session. If it still isn’t right for you, email us within 30 days of joining for a full refund. If you’re paying in instalments, we cancel any payments still to come. <a href="/#guarantee">How the guarantee works</a>.</p>
+      <p><strong>30-day money-back guarantee.</strong> Complete Module 0 and attend your onboarding call. If it still isn’t right for you, email us within 30 days of joining for a full refund. If you’re paying in instalments, we cancel any payments still to come. <a href="/#guarantee">How the guarantee works</a>.</p>
       <p><strong>Paying off high-interest debt?</strong> Please don’t put this on a credit card. Start with <a href="/#pricing">At your pace</a> and focus on Module 2 first. You can move up to coaching later.</p>
       <p class="small">Payments are handled securely by Stripe. By continuing you agree to our <a href="/terms">Terms and conditions</a>.</p>
     </div>
@@ -47,7 +46,7 @@ import Base from '../../layouts/Base.astro';
 </Base>
 
 <script>
-  // Show the real dates of the two monthly payments (the same day next month; short months use their last day)
+  // Show the real dates of the first and last monthly payments (the same day each month; short months use their last day)
   const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long' });
   const today = new Date();
   document.querySelectorAll<HTMLElement>('[data-month]').forEach((el) => {
@@ -74,7 +73,8 @@ import Base from '../../layouts/Base.astro';
 
   .schedule { list-style: none; margin: 8px 0 14px; padding: 0; display: grid; }
   .schedule li { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid rgb(31 38 36 / 0.12); color: var(--muted); }
-  .schedule strong { font-weight: var(--w-medium); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .schedule strong { font-weight: var(--w-medium); color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .schedule [data-month] { white-space: nowrap; } /* keep each date on one line */
   .schedule .total { border-bottom: 0; color: var(--ink); font-weight: var(--w-medium); }
 
   /* Buttons sit on the bottom edge so they line up across the two cards */
