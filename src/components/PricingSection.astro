@@ -55,7 +55,8 @@ const tiers = [
   },
 ];
 
-// Side-by-side comparison under the cards: true = included, false = not. Quantities live in the labels
+// Side-by-side comparison under the cards: true = included, false = not. Quantities live in the labels.
+// Rows run from what every option has to what only full support has, so each column's ticks sit together
 const compare: [string, ...(boolean | string)[]][] = [
   ['Five modules, 64 lessons', true, true, true],
   ['Money personality test', true, true, true],
@@ -63,14 +64,14 @@ const compare: [string, ...(boolean | string)[]][] = [
   ['The Calm Money community', true, true, true],
   ['Monthly update from Peter', true, true, true],
   ['Workshop library', true, true, true],
+  ['12 months’ access', true, true, true],
   ['Onboarding call with Peter', false, true, true],
-  ['Review of your practical exercises', false, false, true],
   ['4 quarterly coaching sessions', false, true, true],
+  ['30-day money-back guarantee', false, true, true],
+  ['Review of your practical exercises', false, false, true],
   ['12 monthly live group calls', false, false, true],
   ['Peter on WhatsApp', false, false, true],
   ['2 in-person meet-ups', false, false, true],
-  ['30-day money-back guarantee', false, true, true],
-  ['12 months’ access', true, true, true],
 ];
 ---
 <section class="pricing" id="pricing">
