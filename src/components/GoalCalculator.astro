@@ -260,6 +260,7 @@ import site from '../data/site.json';
           relationships: { list: { data: { type: 'list', id: list } } },
         }),
       ]);
+      (window as any).calmTrack?.('Result emailed', { goal });
       keep.reset();
       msg.textContent = `Sent. Check your inbox for ${date}.`;
     } catch {
@@ -269,6 +270,16 @@ import site from '../data/site.json';
       sendBtn.textContent = 'Send it';
     }
   });
+
+  // Counted once per visit, on the visitor's first change (the defaults on load don't count)
+  let used = false;
+  const markUsed = (e: Event) => {
+    if (used || (e.target as Element).closest('.keep')) return;
+    used = true;
+    (window as any).calmTrack?.('Calculator used', { goal: root.dataset.goal });
+  };
+  root.addEventListener('input', markUsed);
+  root.addEventListener('change', markUsed);
 
   document.fonts.ready.then(fitAll);
   // The sentence scales with the card, so refit when its width changes

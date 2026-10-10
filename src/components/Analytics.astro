@@ -1,0 +1,46 @@
+---
+import site from '../data/site.json';
+// Cookie-free visitor stats with Plausible. Nothing is stored on the visitor's device and no personal
+// data is collected, so there's no consent banner. Paste the script URL from Plausible's site settings
+// (it looks like https://plausible.io/js/pa-XXXX.js) into plausible_script in src/data/site.json;
+// while it's empty, nothing loads.
+//
+// Events sent (each must also be added as a goal in Plausible to show on the dashboard):
+//   Join click       which section, and the button's words
+//   Calculator used  first change to the calculator, with the goal
+//   Result emailed   the calculator result email was sent, with the goal
+//   Waitlist joined  someone joined the full support waitlist
+//   Video played     the intro video was started
+//   Compare opened   the pricing comparison table was opened
+const src = site.plausible_script;
+---
+{src && (
+  <>
+    <script async src={src}></script>
+    <script is:inline>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init();
+    </script>
+    <script is:inline define:vars={{ joinUrl: site.join_url }}>
+      (() => {
+        const track = (name, props) => window.plausible(name, props ? { props } : undefined);
+        window.calmTrack = track;
+        const section = (el) => (el.closest('section, header')?.className || 'page').split(' ')[0];
+
+        document.addEventListener('click', (e) => {
+          const a = e.target.closest && e.target.closest('a[href]');
+          if (a && a.href === joinUrl) track('Join click', { where: section(a), button: a.textContent.trim() });
+        });
+
+        document.addEventListener('toggle', (e) => {
+          if (e.target.matches && e.target.matches('details.compare') && e.target.open) track('Compare opened');
+        }, true);
+
+        // The video plays inside Bunny's player, so a click on it shows up as the page losing focus to it
+        let played = false;
+        window.addEventListener('blur', () => setTimeout(() => {
+          if (!played && document.activeElement?.closest?.('.intro')) { played = true; track('Video played'); }
+        }));
+      })();
+    </script>
+  </>
+)}

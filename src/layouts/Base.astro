@@ -3,6 +3,7 @@ import '../styles/global.css';
 // The font the first screen needs, fetched straight away rather than after the CSS is read
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
 import site from '../data/site.json';
 
 interface Props { title?: string; description?: string; image?: string; noindex?: boolean }
@@ -37,6 +38,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(image, Astro.site)} />
     <meta name="theme-color" content="#ffffff" />
+    <Analytics />
   </head>
   <body>
     <Header />

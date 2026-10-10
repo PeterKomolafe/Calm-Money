@@ -92,6 +92,7 @@ import site from '../data/site.json';
         });
         if (!res.ok) throw new Error(String(res.status));
         form.reset();
+        (window as any).calmTrack?.('Waitlist joined');
         show('done');
       } catch {
         fail('Something went wrong. Please try again, or email hello@peterkomolafe.com.');
