@@ -1,6 +1,6 @@
 # Calm Money: launch status
 
-Last updated 7 October 2026. Branch: `claude/website-build-3w8rav`. Netlify project `calmmoneysalespage` is linked to this branch with auto publishing **locked**, so pushes build but do not go live.
+Last updated 10 October 2026. Live site: https://www.calmmoneycommunity.com, published by Netlify (`calmmoneysalespage`) from the `main` branch with auto publishing **on**. Work happens on `claude/website-build-3w8rav` and is copied to `main` to go live. All Join and price buttons go to https://app.calmmoneycommunity.com/register.
 
 ## What the page does now
 
