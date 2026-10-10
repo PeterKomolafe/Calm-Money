@@ -6,7 +6,7 @@ About 75 seconds. Sits between the hero and "This is for you if", just above the
 >
 > When I came back to the UK as a teenager, I had £50 in my pocket and no idea how money worked. I ended up sleeping on the streets, and then fell into debt that I struggled with for over ten years.
 >
-> Even when things got better, and I was working in Canary Wharf on a good salary, I still felt stuck. The money came in and went straight back out. I was living for the moment, not investing, and not being responsible with money.
+> Even on a good salary in Canary Wharf, I still felt stuck. The money came in and went straight back out.
 >
 > What finally changed things wasn't a pay rise. It was a conversation that aligned my goals with my finances. From there, I built a system. I cleared my debt, built a financial safety net, and started investing.
 >
