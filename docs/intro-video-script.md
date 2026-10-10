@@ -1,9 +1,7 @@
 # Intro video script (version A: calm and warm)
 
-About 75 seconds. Sits between the hero and "This is for you if", just above the calculator. Add subtitles.
+About 75 seconds. Sits between the hero and "This is for you if", just above the calculator. Add subtitles, and show "Peter Komolafe" as an on-screen name caption in the first few seconds.
 
-> Hi, I'm Peter.
->
 > If you earn a good living but money still stresses you out, I want you to know something. You're not doing anything wrong. I know, because I've been exactly where you are.
 >
 > When I came back to London as a teenager, I had £50 in my pocket and no idea how money worked. I ended up sleeping on the streets, and not long after, I fell into debt. I stayed there for over ten years.
