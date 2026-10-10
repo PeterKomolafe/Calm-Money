@@ -19,6 +19,8 @@ The event appears in Klaviyo after the first real sign-up. Do one test on the li
 
 Sign off each email as Peter. The links go to the pricing on the site.
 
+**Ready-made templates:** `docs/klaviyo/calculator-debt.html`, `calculator-secure.html` and `calculator-wealth.html`. In Klaviyo go to **Templates > Create template > Code your own**, paste one in and save it. Then pick that template for the matching email in the flow and add the subject line below. The copy below is the same as in the templates.
+
 ## Email 1: Debt free (`goal` = debt)
 
 **Subject:** Debt free by {{ event.date }}

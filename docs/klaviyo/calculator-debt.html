@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calm Money: Debt free</title>
+</head>
+<body style="margin:0;padding:0;background:#f3efe9;">
+<!-- Calm Money calculator result email: Debt free. Paste into Klaviyo: Templates > Create template > Code your own -->
+<div style="display:none;max-height:0;overflow:hidden;">And the first thing to do today.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f3efe9;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border-radius:16px;">
+<tr><td style="padding:32px 28px 8px;">
+  <p style="margin:0 0 24px;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:24px;font-weight:bold;color:#557170;">Calm Money</p>
+  <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;color:#1f2624;">Hi,</p>
+  <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;color:#1f2624;">Here's the date you asked for.</p>
+</td></tr>
+<tr><td style="padding:0 28px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#34494a;border-radius:14px;">
+  <tr><td style="padding:22px 24px;">
+    <p style="margin:0 0 6px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:22px;color:#bbb8ad;">You could be debt free by</p>
+    <p style="margin:0 0 10px;font-family:Helvetica,Arial,sans-serif;font-size:34px;line-height:38px;font-weight:bold;color:#f5e8d8;">{{ event.date }}</p>
+    <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:22px;color:#bbb8ad;">{{ event.note }}</p>
+  </td></tr>
+  </table>
+</td></tr>
+<tr><td style="padding:24px 28px 0;">
+  <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;color:#1f2624;">That interest is money you've already earned, going to someone else. The sooner the debt goes, the more of it you keep.</p>
+  <p style="margin:24px 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:24px;font-weight:bold;color:#1f2624;">Your first step</p>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#e8f8f5;border-radius:10px;">
+  <tr><td style="padding:14px 16px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;color:#1f2624;">{{ event.first_step }}</td></tr>
+  </table>
+  <p style="margin:24px 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:24px;font-weight:bold;color:#1f2624;">What gets you there</p>
+  <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;color:#1f2624;">Paying {{ event.monthly }} every month, without missing one, until {{ event.date }}. Most people don't miss because they don't care. They miss because life happens: a big bill, a birthday, a tough month. Willpower won't carry you that far. A system will.</p>
+  <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;color:#1f2624;">That's what Calm Money builds with you: a plan for every debt, a way to stop new borrowing creeping back, and the safety net that means one bad month doesn't undo your progress.</p>
+</td></tr>
+<tr><td style="padding:4px 28px 0;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+  <td style="background:#a0584a;border-radius:999px;">
+    <a href="https://www.calmmoneycommunity.com/#pricing" style="display:inline-block;padding:13px 24px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:20px;font-weight:bold;color:#ffffff;text-decoration:none;">See how Calm Money works</a>
+  </td></tr></table>
+</td></tr>
+<tr><td style="padding:24px 28px 28px;">
+  <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:24px;color:#1f2624;">Peter</p>
+  <p style="margin:20px 0 0;padding-top:16px;border-top:1px solid #ebe6e0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:19px;color:#5b6664;">This is an estimate. It assumes a fixed interest rate and no new borrowing. It is not financial advice.</p>
+</td></tr>
+</table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+<tr><td align="center" style="padding:18px 12px 8px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:18px;color:#5b6664;">
+  {{ organization.name }}, {{ organization.full_address }}<br>
+  You're getting this because you asked for your result on calmmoneycommunity.com.<br>
+  {% unsubscribe 'Unsubscribe' %}
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>
