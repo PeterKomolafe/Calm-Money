@@ -18,7 +18,7 @@ Conversation of Money Ltd is the data controller for your personal information. 
 **Information collected when you use our website**
 
 - Basic technical information, such as your IP address, browser, device and the pages you visit.
-- If you agree to them, information from cookies and similar technologies, including the Facebook (Meta) Pixel. See "Cookies" below.
+- We do not currently use analytics or advertising cookies. If we start to, for example the Meta (Facebook) Pixel, we will only collect that information if you agree to it first. See "Cookies" below.
 
 **Information we don't collect**
 
@@ -36,8 +36,8 @@ UK data protection law requires us to have a lawful basis for each way we use yo
 - **To reply to you when you contact us.** Basis: our legitimate interest in answering your questions.
 - **To send you marketing emails about money and Calm Money.** Basis: your consent. You can unsubscribe at any time using the link in every email.
 - **To send you service emails about something you've bought**, such as login details or session dates. Basis: contract. You can't opt out of these while you're a member, but we keep them to what's needed.
-- **To measure and improve our website and advertising**, including the Facebook Pixel and remarketing. Basis: your consent, given through our cookie settings.
-- **To show our adverts to people on our mailing list, or to people similar to them, on platforms such as Facebook and Instagram.** Basis: your consent. We only do this if you have agreed to it separately, and you can withdraw that consent at any time by emailing us.
+- **To measure and improve our website and advertising**, if we start using analytics or advertising tools such as the Meta (Facebook) Pixel. Basis: your consent, which we will ask for before any of these tools run.
+- **To show our adverts to people on our mailing list, or to people similar to them, on platforms such as Facebook and Instagram.** We do not do this at the moment. If we start, we will only include you if you have agreed to it separately, and you can withdraw that consent at any time by emailing us.
 - **To meet our legal obligations and protect our rights**, for example in a dispute. Basis: legal obligation and legitimate interests.
 
 ## Who we share it with
@@ -50,7 +50,7 @@ We share it only with the service providers who help us run Calm Money, and only
 - **Stripe**, to take payments.
 - **Netlify**, which hosts this website.
 - **The hosting provider for our programme platform.** The platform is built for us, and your information on it stays under our control.
-- **Meta (Facebook)**, for advertising measurement and remarketing, only if you've consented.
+- **Meta (Facebook)**, for advertising measurement and remarketing, only if we start using it and you've consented.
 
 We may also share information:
 
@@ -60,7 +60,7 @@ We may also share information:
 
 ## International transfers
 
-Some of our providers, including Klaviyo, Stripe and Meta, store information outside the UK, mainly in the United States. When this happens, we make sure appropriate safeguards are in place, such as the UK International Data Transfer Agreement or the UK Extension to the EU-US Data Privacy Framework.
+Some of our providers, including Klaviyo, Stripe and (if we start using it) Meta, store information outside the UK, mainly in the United States. When this happens, we make sure appropriate safeguards are in place, such as the UK International Data Transfer Agreement or the UK Extension to the EU-US Data Privacy Framework.
 
 ## How long we keep it
 
@@ -68,7 +68,7 @@ Some of our providers, including Klaviyo, Stripe and Meta, store information out
 - **Members:** for as long as you're a member, then for 6 years after, to meet tax and accounting rules and in case of legal claims.
 - **Applications that don't go ahead:** up to 12 months.
 - **Emails and messages with us:** up to 2 years after our last contact, unless we need them longer for one of the reasons above.
-- **Website and cookie data:** for the periods set out in our cookie settings, and no longer than 26 months.
+- **Website and cookie data:** if we start using analytics or advertising cookies, for the periods shown when we ask for your consent, and no longer than 26 months.
 
 When we no longer need your information, we delete it or anonymise it so it can't identify you.
 
@@ -97,7 +97,7 @@ If you're unhappy with how we've handled your information, please tell us first 
 Cookies are small files stored on your device when you visit a website.
 
 - **Essential cookies** make the website work. They don't need your consent.
-- **Analytics and advertising cookies**, including the Facebook Pixel and remarketing, help us understand how the site is used and show our adverts to people who have visited it. We only set these if you agree, and you can change your choice at any time in our cookie settings.
+- **Analytics and advertising cookies** help a website understand how it is used and show adverts to people who have visited it. We do not use any at the moment. If we start to, for example the Meta (Facebook) Pixel or an analytics tool, we will ask for your consent before setting them, let you change your choice at any time, and update this policy.
 
 You can also block or delete cookies in your browser settings. Blocking essential cookies may stop parts of the site working.
 
