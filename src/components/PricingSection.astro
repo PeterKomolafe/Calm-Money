@@ -1,8 +1,9 @@
 ---
+import site from '../data/site.json';
 import WaitlistPopup from './WaitlistPopup.astro';
 // Three ways to join. Price and button sit at the top of each card so they line up
 // whatever the length of the list below. The top tier runs in intakes: its button joins the waitlist.
-// The first two buttons start checkout (netlify/functions); the third opens the waitlist pop-up.
+// The first two buttons go to the platform's register page (site.join_url); the third opens the waitlist pop-up.
 const tiers = [
   {
     name: 'At your pace',
@@ -19,7 +20,7 @@ const tiers = [
       { title: '12 months’ access', items: ['The content library and its tools are yours to come back to'] },
     ],
     cta: 'Start at your pace',
-    href: '/pay/at-your-pace', // Stripe Checkout (netlify/functions/at-your-pace.mjs)
+    href: site.join_url, // the platform's register page
   },
   {
     name: 'At your pace with coaching',
@@ -36,7 +37,7 @@ const tiers = [
       { title: 'Set your next three months', items: ['Leave each session knowing exactly what to focus on until the next one'] },
     ],
     cta: 'Join with coaching',
-    href: '/join/coaching/',
+    href: site.join_url,
   },
   {
     name: '12 months of full support',
