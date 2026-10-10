@@ -1,7 +1,7 @@
 ---
 // The full support waitlist: a pop-up opened by the "Join the waitlist" button, which sends the sign-up
 // straight to a Klaviyo list through Klaviyo's public subscribe endpoint. No Klaviyo script, no cookies.
-// Set the public key and list ID in src/data/site.json (or Site settings in /admin).
+// Set the public key and list ID in src/data/site.json.
 import site from '../data/site.json';
 ---
 <dialog class="waitlist" aria-labelledby="waitlist-title" data-key={site.klaviyo_public_key} data-list={site.klaviyo_waitlist_list_id}>
