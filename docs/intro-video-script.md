@@ -1,17 +1,12 @@
 # Intro video script (version A: calm and warm)
 
-About 75 seconds. Sits between the hero and "This is for you if", just above the calculator. Add subtitles, and show "Peter Komolafe" as an on-screen name caption in the first few seconds.
+About 45 seconds. Sits between the hero and "This is for you if", just above the calculator. Add subtitles, and show "Peter Komolafe" as an on-screen name caption in the first few seconds.
 
-> If you earn a good living but money still stresses you out, it's not you. You're not doing anything wrong. I know, because I've been exactly where you are.
+> You're here because you earn well, but money is still stressing you out. You feel a little overwhelmed, and you can't quite see the wood for the trees. You're not alone.
 >
-> When I came back to the UK as a teenager, I had £50 in my pocket and no idea how money worked. I ended up sleeping on the streets, and then fell into debt that I struggled with for over ten years.
+> I speak to people in the same position every day. They feel stuck. I know that feeling, because I've been there too.
 >
-> Even on a good salary in Canary Wharf, I still felt stuck. The money came in and went straight back out.
->
-> What finally changed things wasn't a pay rise. It was a conversation that aligned my goals with my finances. From there, I built a system. I cleared my debt, built a financial safety net, and started investing.
->
-> Now I hear the same thing all the time from people who work hard and still feel behind. That's why I created Calm Money: to give you that same system, with the tools and support to stick to it, at a pace that fits your life.
+> That's why I created Calm Money. It gives you a system to take control of your money: clear your debt, build your safety net, and start investing for the future. With the tools and support to stick to it, at a pace that fits your life.
 >
 > So start with the calculator just below. Pick your goal, and let's build the system that gets you there.
 
-Check before filming: the debt timeline (in debt from 2001, still in debt at Canary Wharf, cleared after the conversation there).
