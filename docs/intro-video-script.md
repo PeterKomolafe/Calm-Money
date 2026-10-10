@@ -14,6 +14,6 @@ About 75 seconds. Goes at the top of the story section ("Why I built Calm Money"
 >
 > I hear the same thing all the time from people who work hard and still feel behind. That's why I created Calm Money. It gives you the steps, the tools and the support to do the same, at a pace that fits your life.
 >
-> Start with the calculator below. See your date. Then let's build the system that gets you there.
+> If you haven't already, use the calculator on this page to see your date. Then let's build the system that gets you there.
 
 Check before filming: the debt timeline (in debt from 2001, still in debt at Canary Wharf, cleared after the conversation there).
