@@ -18,7 +18,7 @@ Conversation of Money Ltd is the data controller for your personal information. 
 **Information collected when you use our website**
 
 - Basic technical information, such as your IP address, browser, device and the pages you visit.
-- We count visits with Plausible Analytics, which doesn't use cookies, doesn't store anything on your device and doesn't identify you. It records things like which pages are viewed and which buttons are pressed, as totals.
+- We count visits with Umami, which doesn't use cookies, doesn't store anything on your device and doesn't identify you. It records things like which pages are viewed and which buttons are pressed, as totals.
 - We do not use advertising cookies. If we start to, for example the Meta (Facebook) Pixel, we will only collect that information if you agree to it first. See "Cookies" below.
 
 **Information we don't collect**
@@ -37,7 +37,7 @@ UK data protection law requires us to have a lawful basis for each way we use yo
 - **To reply to you when you contact us.** Basis: our legitimate interest in answering your questions.
 - **To send you marketing emails about money and Calm Money.** Basis: your consent. You can unsubscribe at any time using the link in every email.
 - **To send you service emails about something you've bought**, such as login details or session dates. Basis: contract. You can't opt out of these while you're a member, but we keep them to what's needed.
-- **To understand how our website is used**, so we can improve it. We use Plausible Analytics, which counts visits and actions without cookies or personal information. Basis: our legitimate interests.
+- **To understand how our website is used**, so we can improve it. We use Umami, which counts visits and actions without cookies or personal information. Basis: our legitimate interests.
 - **To measure and improve our advertising**, if we start using advertising tools such as the Meta (Facebook) Pixel. Basis: your consent, which we will ask for before any of these tools run.
 - **To show our adverts to people on our mailing list, or to people similar to them, on platforms such as Facebook and Instagram.** We do not do this at the moment. If we start, we will only include you if you have agreed to it separately, and you can withdraw that consent at any time by emailing us.
 - **To meet our legal obligations and protect our rights**, for example in a dispute. Basis: legal obligation and legitimate interests.
@@ -51,7 +51,7 @@ We share it only with the service providers who help us run Calm Money, and only
 - **Klaviyo**, for our emails.
 - **Stripe**, to take payments.
 - **Netlify**, which hosts this website.
-- **Plausible Analytics**, which counts visits to this website without cookies or personal information. It is based in the EU.
+- **Umami**, which counts visits to this website without cookies or personal information.
 - **Bunny.net**, which hosts and plays the video on this page.
 - **The hosting provider for our programme platform.** The platform is built for us, and your information on it stays under our control.
 - **Meta (Facebook)**, for advertising measurement and remarketing, only if we start using it and you've consented.
@@ -101,7 +101,7 @@ If you're unhappy with how we've handled your information, please tell us first 
 Cookies are small files stored on your device when you visit a website.
 
 - **Essential cookies** make the website work. They don't need your consent.
-- **Analytics and advertising cookies** help a website understand how it is used and show adverts to people who have visited it. We do not use any at the moment. Our visitor counting (Plausible) doesn't use cookies. If we start to, for example the Meta (Facebook) Pixel or an analytics tool, we will ask for your consent before setting them, let you change your choice at any time, and update this policy.
+- **Analytics and advertising cookies** help a website understand how it is used and show adverts to people who have visited it. We do not use any at the moment. Our visitor counting (Umami) doesn't use cookies. If we start to, for example the Meta (Facebook) Pixel or an analytics tool, we will ask for your consent before setting them, let you change your choice at any time, and update this policy.
 
 You can also block or delete cookies in your browser settings. Blocking essential cookies may stop parts of the site working.
 

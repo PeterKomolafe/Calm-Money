@@ -1,28 +1,25 @@
 ---
 import site from '../data/site.json';
-// Cookie-free visitor stats with Plausible. Nothing is stored on the visitor's device and no personal
-// data is collected, so there's no consent banner. Paste the script URL from Plausible's site settings
-// (it looks like https://plausible.io/js/pa-XXXX.js) into plausible_script in src/data/site.json;
-// while it's empty, nothing loads.
+// Cookie-free visitor stats with Umami Cloud (free Hobby plan). Nothing is stored on the visitor's device
+// and no personal data is collected, so there's no consent banner. Paste the Website ID from Umami's
+// website settings into umami_website_id in src/data/site.json; while it's empty, nothing loads.
+// The free plan counts each event property as an event, so properties are kept to the useful few.
 //
-// Events sent (each must also be added as a goal in Plausible to show on the dashboard):
+// Events sent:
 //   Join click       which section, and the button's words
 //   Calculator used  first change to the calculator, with the goal
 //   Result emailed   the calculator result email was sent, with the goal
 //   Waitlist joined  someone joined the full support waitlist
 //   Video played     the intro video was started
 //   Compare opened   the pricing comparison table was opened
-const src = site.plausible_script;
+const id = site.umami_website_id;
 ---
-{src && (
+{id && (
   <>
-    <script async src={src}></script>
-    <script is:inline>
-      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init();
-    </script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id={id}></script>
     <script is:inline define:vars={{ joinUrl: site.join_url }}>
       (() => {
-        const track = (name, props) => window.plausible(name, props ? { props } : undefined);
+        const track = (name, data) => window.umami?.track(name, data);
         window.calmTrack = track;
         const section = (el) => (el.closest('section, header')?.className || 'page').split(' ')[0];
 
