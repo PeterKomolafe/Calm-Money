@@ -1,4 +1,5 @@
 ---
+import site from '../data/site.json';
 // Goal calculator: pick a goal, fill in the sentence, get the month you reach it.
 // All maths runs in the browser; nothing is sent anywhere.
 ---
@@ -59,7 +60,7 @@
     <p class="big" data-bridge></p>
     <p class="turn" data-turn></p>
   </div>
-  <div class="bridge-cta"><a class="btn btn--primary" href="#pricing">Join Calm Money</a></div>
+  <div class="bridge-cta"><a class="btn btn--primary" href={site.join_url}>Join Calm Money</a></div>
 </section>
 
 <script>

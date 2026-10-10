@@ -1,4 +1,5 @@
 ---
+import site from '../data/site.json';
 // Closing call to action, on the same deep-teal lifted card as the calculator. A member's words are the headline.
 ---
 <section class="final" aria-labelledby="final-heading">
@@ -7,7 +8,7 @@
       <blockquote><p id="final-heading">“You may not be doing anything wrong, but you could be doing it better with <em class="stroke">the right roadmap.”</em></p></blockquote>
       <figcaption>Jean M. · Founding member</figcaption>
     </figure>
-    <a class="btn btn--light" href="#pricing">Join Calm Money</a>
+    <a class="btn btn--light" href={site.join_url}>Join Calm Money</a>
   </div>
 </section>
 
