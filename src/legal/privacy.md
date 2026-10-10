@@ -49,7 +49,7 @@ We share it only with the service providers who help us run Calm Money, and only
 - **Klaviyo**, for our emails.
 - **Stripe**, to take payments.
 - **Netlify**, which hosts this website.
-- **Bunny.net**, which hosts and plays the video on this page. The video only loads when you press play.
+- **Bunny.net**, which hosts and plays the video on this page.
 - **The hosting provider for our programme platform.** The platform is built for us, and your information on it stays under our control.
 - **Meta (Facebook)**, for advertising measurement and remarketing, only if we start using it and you've consented.
 
