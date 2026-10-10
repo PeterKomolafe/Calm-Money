@@ -1,9 +1,11 @@
 ---
 import site from '../data/site.json';
 // Goal calculator: pick a goal, fill in the sentence, get the month you reach it.
-// All maths runs in the browser; nothing is sent anywhere.
+// All maths runs in the browser. Nothing is sent anywhere unless the visitor asks for their result by email:
+// then their email and result go to Klaviyo (a "Calculated goal" event, which triggers the result email,
+// plus a sign-up to the calculator list). Set the list ID in src/data/site.json.
 ---
-<section class="calc" id="calculator" data-goal="debt">
+<section class="calc" id="calculator" data-goal="debt" data-key={site.klaviyo_public_key} data-list={site.klaviyo_calculator_list_id}>
   <div class="wrap">
   <h2 id="goal-heading">What’s your goal?</h2>
   <!-- Goals as ledger index tabs on the card's top edge; short labels on phones -->
@@ -46,6 +48,16 @@ import site from '../data/site.json';
     </div>
   </div>
 
+  <!-- Shown only when there is a real date to send -->
+  <form class="keep" novalidate>
+    <label for="keep-email">Email me this date and my first step</label>
+    <div class="keep-row">
+      <input id="keep-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+      <button class="btn btn--light" type="submit">Send it</button>
+    </div>
+    <label class="trap" aria-hidden="true">Leave this empty <input name="company" type="text" tabindex="-1" autocomplete="off" /></label>
+    <p class="keep-small" data-keep-msg>One email with your date, then occasional emails from Peter. Unsubscribe any time.</p>
+  </form>
   <p class="fine" data-panel="debt">Assumes a fixed interest rate and no new borrowing. An estimate, not financial advice.</p>
   <p class="fine" data-panel="secure" hidden>Based on your essential monthly costs. An estimate, not financial advice.</p>
   <p class="fine" data-panel="wealth" hidden>Counts the money you put in, not investment growth. The value of investments can go down as well as up and you may get back less than you put in. This is not financial advice.</p>
@@ -142,9 +154,13 @@ import site from '../data/site.json';
   // The "A system..." sentence takes the site's one hand-drawn stroke (.stroke in global.css)
   const underlined = (text: string) => `<span class="stroke">${text}</span>`;
 
+  let latest: Result & { goal: string } = { goal: 'debt', label: '', date: '', note: '' };
+  const keep = root.querySelector<HTMLFormElement>('.keep')!;
+
   const update = () => {
     const goal = root.dataset.goal!;
-    const { label, date, note, months, monthly } = calc[goal]();
+    const { label, date, note, months, monthly } = (latest = { goal, ...calc[goal]() });
+    keep.hidden = !months;
     root.querySelector('[data-label]')!.textContent = label;
     root.querySelector('[data-out]')!.textContent = date;
     root.querySelector('[data-note]')!.textContent = note;
@@ -198,6 +214,62 @@ import site from '../data/site.json';
     });
   });
   root.querySelectorAll<HTMLInputElement>('input[name="months"]').forEach((el) => el.addEventListener('change', update));
+  // A first step for each goal, sent in the result email
+  const firstStep: Record<string, (amount: string) => string> = {
+    debt: () => 'Write down every debt with its balance, interest rate and minimum payment. You can’t plan around a number you haven’t seen.',
+    secure: (a) => `Open a separate easy access savings account and set up a standing order of ${a} for the day after payday.`,
+    wealth: (a) => `Set your ${a} to move automatically the day after payday, so it’s invested before it can be spent.`,
+  };
+
+  const msg = keep.querySelector<HTMLElement>('[data-keep-msg]')!;
+  const sendBtn = keep.querySelector<HTMLButtonElement>('button')!;
+  const klaviyo = (path: string, data: object) =>
+    fetch(`https://a.klaviyo.com/client/${path}/?company_id=${encodeURIComponent(root.dataset.key!)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/vnd.api+json', revision: '2024-10-15' },
+      body: JSON.stringify({ data }),
+    }).then((res) => { if (!res.ok) throw new Error(String(res.status)); });
+
+  keep.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(keep);
+    const email = String(data.get('email') || '').trim();
+    if (data.get('company')) return; // a bot
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Please check your email address.'; return; }
+    const { key, list } = root.dataset;
+    if (!key || !list) { msg.textContent = 'This isn’t connected yet. Please email hello@peterkomolafe.com.'; return; }
+
+    const { goal, label, date, note, months, monthly } = latest;
+    const profile = { data: { type: 'profile', attributes: { email } } };
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Sending…';
+    try {
+      await Promise.all([
+        // The event carries the result and triggers the result email in Klaviyo
+        klaviyo('events', {
+          type: 'event',
+          attributes: {
+            properties: { goal, headline: label, date, note, months, monthly: gbp(monthly ?? 0), first_step: firstStep[goal](gbp(monthly ?? 0)) },
+            metric: { data: { type: 'metric', attributes: { name: 'Calculated goal' } } },
+            profile,
+          },
+        }),
+        klaviyo('subscriptions', {
+          type: 'subscription',
+          attributes: { custom_source: 'Calm Money website: goal calculator', profile },
+          relationships: { list: { data: { type: 'list', id: list } } },
+        }),
+      ]);
+      keep.reset();
+      msg.textContent = `Sent. Check your inbox for ${date}.`;
+    } catch {
+      msg.textContent = 'Something went wrong. Please try again.';
+    } finally {
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Send it';
+    }
+  });
+
   document.fonts.ready.then(fitAll);
   // The sentence scales with the card, so refit when its width changes
   new ResizeObserver(fitAll).observe(root);
@@ -272,6 +344,14 @@ import site from '../data/site.json';
   .date { font-family: var(--font-body); font-weight: var(--w-bold); letter-spacing: var(--track-display); font-size: min(clamp(2.5rem, 8cqi, 4rem), 14.4cqi); line-height: 0.95; color: var(--on-card); margin: 0; white-space: nowrap; } /* 40px on phones, 64px on desktop; the longest date (September 2029) is 6.8em, so 14.4cqi keeps it on one line on the smallest phones */
   .note { color: var(--on-card-muted); margin: 12px 0 0; }
   .fine { font-size: 0.85rem; color: var(--on-card-muted); margin: 28px 0 0; }
+  .keep { margin: 28px 0 0; padding-top: 24px; border-top: 1px solid rgb(245 232 216 / 0.18); display: grid; gap: 10px; }
+  .keep[hidden] { display: none; }
+  .keep > label { font-weight: var(--w-medium); color: var(--on-card); font-size: 1.05rem; }
+  .keep-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .keep input[type='email'] { flex: 1 1 220px; min-width: 0; font: inherit; font-size: max(1rem, 16px); padding: 0.75em 1em; border-radius: 10px; border: 0; background: #fff; color: var(--ink); }
+  .keep .btn--light { background: var(--on-card); color: var(--ink); }
+  .keep .trap { position: absolute; left: -9999px; }
+  .keep-small { margin: 0; font-size: 0.85rem; color: var(--on-card-muted); }
 
   .bridge { max-width: 920px; margin: 0 auto; padding: var(--section-gap) 28px 0; container-type: inline-size; }
   .bridge p { margin: 0; text-wrap: pretty; }

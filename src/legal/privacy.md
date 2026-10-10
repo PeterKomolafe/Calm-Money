@@ -22,7 +22,7 @@ Conversation of Money Ltd is the data controller for your personal information. 
 
 **Information we don't collect**
 
-- The figures you enter in the calculator stay in your browser. We don't see or store them.
+- The figures you enter in the calculator stay in your browser. We don't see or store them unless you ask us to email you your result. Then we receive your email address and your result (your goal, target date and monthly amount) through Klaviyo.
 - We don't see or store your card or bank details. Payments are handled by Stripe.
 
 We don't ask for special category data, such as health information. If you choose to share something like this with us during coaching, we only use it to support you and keep it confidential.
