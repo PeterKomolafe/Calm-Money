@@ -83,11 +83,13 @@ const compare: [string, ...(boolean | string)[]][] = [
     {tiers.map((t) => (
       <article class:list={['tier', { full: t.apply }]}>
         {t.recommended && <span class="badge">Recommended</span>}
+        {t.apply && <span class="badge wait">Waitlist only · next intake opening soon</span>}
         <h3>{t.name}</h3>
         <p class="for">{t.for}</p>
         <p class="price">{t.price}</p>
         <a class:list={['btn', t.apply ? 'btn--light' : 'btn--primary']} href={t.href}>{t.cta}</a>
         {t.plan && <p class="next">Pay in one go, or £397 today then 9 monthly payments of £100. No interest, no extra charge.</p>}
+        {t.plan && <p class="next up"><strong>Want full support?</strong> Start with coaching now, and upgrade when the next full support intake opens.</p>}
         {t.apply && <p class="next">10 places per intake, with instalments available. Join the waitlist to hear first when the next one opens.</p>}
 
         <!-- Phones: the list opens with "See what's included". Wider screens: always open -->
@@ -158,6 +160,8 @@ const compare: [string, ...(boolean | string)[]][] = [
 
   h3 { margin: 0; font-family: var(--font-body); font-weight: var(--w-medium); font-size: 1.1rem; color: var(--ink); }
   /* Sits on the card's top edge so it takes no room: prices and buttons stay level across the three cards */
+  .badge.wait { background: var(--cream); color: var(--ink); } /* on the dark full support card */
+  .next.up { margin-top: 6px; }
   .badge { position: absolute; top: 0; left: clamp(24px, 2.6vw, 32px); translate: 0 -50%; padding: 4px 12px; border-radius: 999px; background: var(--terracotta-dark); color: #fff; font-size: 0.8rem; font-weight: var(--w-medium);  }
   .for { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
   .next { margin: 14px 0 0; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
