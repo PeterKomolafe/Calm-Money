@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calm Money: Your money forecast</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f3ee;">
+<!-- Calm Money money forecast email. Works for every result, so the same file goes in all three emails in the flow. Paste the whole file into the email's HTML editor in Klaviyo -->
+<div style="display:none;max-height:0;overflow:hidden;">And the one thing to do this week.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f3ee;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;background:#ffffff;border-radius:14px;">
+<tr><td style="padding:34px 34px 8px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 28px;"><tr>
+    <td style="padding-right:12px;"><img src="https://www.calmmoneycommunity.com/images/email/peter.jpg" width="48" height="48" alt="Peter Komolafe" style="display:block;width:48px;height:48px;border-radius:50%;border:0;"></td>
+    <td style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;"><b>Peter Komolafe</b><br><span style="font-size:13px;color:#5b6664;">Calm Money</span></td>
+  </tr></table>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Hi,</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Here's your money forecast. On {{ event.monthly }} a month, you could be sunny by <span style="background-color:#f6dcd6;padding:1px 3px;font-weight:bold;">{{ event.sunny }}</span>.</p>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 22px;border-bottom:1px solid #ebe6e0;">
+{% if event.debt_free %}
+      <tr>
+        <td width="18" style="padding:10px 0;border-top:1px solid #ebe6e0;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#b5695a;"></span></td>
+        <td style="padding:10px 8px 10px 0;border-top:1px solid #ebe6e0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;">Clear skies: debt free</td>
+        <td align="right" style="padding:10px 0;border-top:1px solid #ebe6e0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;font-weight:bold;white-space:nowrap;">{{ event.debt_free }}</td>
+      </tr>
+{% endif %}
+      <tr>
+        <td width="18" style="padding:10px 0;border-top:1px solid #ebe6e0;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#7d9d90;"></span></td>
+        <td style="padding:10px 8px 10px 0;border-top:1px solid #ebe6e0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;">Calm: 3-month safety net</td>
+        <td align="right" style="padding:10px 0;border-top:1px solid #ebe6e0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;font-weight:bold;white-space:nowrap;">{{ event.safety_net }}</td>
+      </tr>
+      <tr>
+        <td width="18" style="padding:10px 0;border-top:1px solid #ebe6e0;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#e6a89c;"></span></td>
+        <td style="padding:10px 8px 10px 0;border-top:1px solid #ebe6e0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;">Sunny: first £10,000 invested</td>
+        <td align="right" style="padding:10px 0;border-top:1px solid #ebe6e0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;font-weight:bold;white-space:nowrap;">{{ event.sunny }}</td>
+      </tr>
+  </table>
+
+  {% if event.goal == 'debt' %}<p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">The first stop matters most. {{ event.note }} That interest is money you've already earned, going to someone else.</p>{% endif %}
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;"><b>The one thing to do this week:</b> {{ event.first_step }}</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Once you reach one goal, the same {{ event.monthly }} a month moves on to the next. The hard part isn't the maths. It's keeping going every month, through big bills, birthdays and tough months. Willpower won't carry you that far. A system will.</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">That's what Calm Money builds with you. <a href="https://www.calmmoneycommunity.com/#pricing" style="color:#a0584a;font-weight:bold;text-decoration:underline;">See how it works</a>.</p>
+  <p style="margin:26px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Peter</p>
+</td></tr>
+<tr><td style="padding:22px 34px 32px;">
+  <p style="margin:0;padding-left:14px;border-left:3px solid #7d9d90;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:19px;color:#5b6664;">This is an estimate, not financial advice. It assumes a fixed interest rate, no new borrowing and a 7% a year investment return, which is not guaranteed. Investments can go down as well as up.</p>
+</td></tr>
+</table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;">
+<tr><td align="center" style="padding:18px 12px 8px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:18px;color:#5b6664;">
+  {{ organization.name }}, {{ organization.full_address }}<br>
+  You're getting this because you asked for your money forecast on calmmoneycommunity.com.<br>
+  {% unsubscribe 'Unsubscribe' %}
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>

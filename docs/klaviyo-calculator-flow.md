@@ -19,27 +19,32 @@ The event appears in Klaviyo after the first real sign-up. Do one test on the li
 
 Sign off each email as Peter. The links go to the pricing on the site.
 
-**Templates:** `docs/klaviyo/calculator-debt.html`, `calculator-secure.html` and `calculator-wealth.html` hold the final emails (design 4, a letter from Peter). Paste each whole file into its email's HTML editor in Klaviyo. They load Peter's photo from `www.calmmoneycommunity.com/images/email/peter.jpg`, so that file must be live.
+**Template:** `docs/klaviyo/calculator-forecast.html` is the money forecast email (design 4, a letter from Peter). It works for every result, so paste the whole file into the HTML editor of **all three** branch emails. The debt paragraph only shows when `goal` is debt, and the "Clear skies" row only shows when they have debt. It loads Peter's photo from `www.calmmoneycommunity.com/images/email/peter.jpg`, so that file must be live.
 
-| Email | Subject | Preview text |
-|---|---|---|
-| Debt free (`goal` = debt) | Debt free by {{ event.date }} | And the first thing to do today. |
-| Safety net (`goal` = secure) | Your safety net by {{ event.date }} | And the first thing to do today. |
-| Investing (`goal` = wealth) | Your first £10,000 invested by {{ event.date }} | And the first thing to do today. |
+Use the same subject and preview text on all three:
+
+| Subject | Preview text |
+|---|---|
+| Your money forecast: sunny by {{ event.sunny }} | And the one thing to do this week. |
+
+The older per-goal templates (`calculator-debt.html`, `calculator-secure.html`, `calculator-wealth.html`) are kept for reference but no longer match the forecast.
 
 ## What each field holds
 
 | Field | Example |
 |---|---|
-| `event.goal` | debt, secure or wealth |
-| `event.headline` | You could be debt free by |
-| `event.date` | January 2030 |
+| `event.goal` | First milestone: debt, secure or wealth |
+| `event.headline` | The headline shown on the site |
+| `event.date` | First milestone date, e.g. January 2030 |
 | `event.note` | That's 3 years and 3 months away, with roughly £3,112 paid in interest. |
 | `event.months` | 39 |
 | `event.monthly` | £300 |
 | `event.first_step` | Write down every debt with its balance, interest rate and minimum payment. |
+| `event.debt_free` | Debt free date, e.g. January 2030 (empty if no debt) |
+| `event.safety_net` | 3-month safety net date, e.g. October 2030 |
+| `event.sunny` | First £10,000 invested date, e.g. April 2033 |
 
 ## Check in Klaviyo
 
 - **List VG43J7 opt-in:** if it's double opt-in, people get a confirm email as well as the result. Single opt-in avoids two emails at once.
-- The site says "One email with your date, then occasional emails from Peter." Make sure that matches what you'll actually send.
+- The site says "One email with your forecast, then occasional emails from Peter." Make sure that matches what you will actually send.
