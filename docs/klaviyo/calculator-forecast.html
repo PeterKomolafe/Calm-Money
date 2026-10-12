@@ -19,7 +19,10 @@
   <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Hi,</p>
   <p style="margin:0 0 22px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Here's the money forecast you asked for.</p>
 
-  <!-- The forecast card, as it looked on the site -->
+  <!-- The forecast card: a picture of their card from the site. If the picture couldn't be made, the same card in email code -->
+  {% if event.card_image %}
+  <a href="https://www.calmmoneycommunity.com/#calculator" style="display:block;margin:0 0 26px;"><img src="{{ event.card_image }}" width="512" alt="Your money forecast: {{ event.forecast_headline }}" style="display:block;width:100%;max-width:512px;height:auto;border:0;"></a>
+  {% else %}
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 26px;">
   <tr><td bgcolor="#4c6b67" style="background-color:#4c6b67;background-image:linear-gradient(180deg,#435f5c 0%,#4c6b67 55%,#a7825e 100%);border-radius:18px;padding:22px 18px 20px;">
     <p style="margin:0 0 14px;font-family:Helvetica,Arial,sans-serif;font-size:11px;line-height:14px;letter-spacing:1.5px;text-transform:uppercase;font-weight:bold;color:#cfd9d4;">Your money forecast</p>
@@ -37,6 +40,7 @@
     </tr></table>
   </td></tr>
   </table>
+  {% endif %}
 
   {% if event.goal == 'debt' %}<p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">The first stop matters most. {{ event.note }} That interest is money you've already earned, going to someone else.</p>{% endif %}
   <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;"><b>The one thing to do this week:</b> {{ event.first_step }}</p>

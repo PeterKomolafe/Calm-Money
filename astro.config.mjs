@@ -9,5 +9,5 @@ export default defineConfig({
   output: 'static',
   adapter: netlify(),
   // Checkout steps and thank-you pages stay out of the sitemap (they are noindex too)
-  integrations: [sitemap({ filter: (page) => !/\/(join|thank-you)\//.test(new URL(page).pathname) })],
+  integrations: [sitemap({ filter: (page) => !/\/(join|thank-you|forecast-card)\//.test(new URL(page).pathname) })],
 });

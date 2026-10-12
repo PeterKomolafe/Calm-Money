@@ -43,6 +43,10 @@ The older per-goal templates (`calculator-debt.html`, `calculator-secure.html`, 
 | `event.debt_free` | Debt free date, e.g. January 2030 (empty if no debt) |
 | `event.safety_net` | 3-month safety net date, e.g. October 2030 |
 | `event.sunny` | First £10,000 invested date, e.g. April 2033 |
+| `event.card_image` | Link to a picture of their forecast card, e.g. https://www.calmmoneycommunity.com/card/….jpg (empty if it couldn't be made) |
+| `event.forecast_headline`, `event.forecast_sub`, `event.days` | The card's headline, the line under it and the four days, used if there's no picture |
+
+**The card picture:** when someone clicks "Send it", the site draws their card at email width in a hidden frame (`src/pages/forecast-card.astro`), at the end of the forecast and without the play button, takes a picture and stores it on Netlify (`netlify/functions/forecast-card.mjs`). Pictures are deleted after 12 months (`forecast-card-cleanup.mjs`), so the card in emails older than that no longer shows.
 
 ## Check in Klaviyo
 

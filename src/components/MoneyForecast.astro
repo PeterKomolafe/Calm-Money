@@ -3,9 +3,12 @@ import site from '../data/site.json';
 // The money forecast: the calculator as a weather forecast. Stormy while there's debt, clearing once it's
 // gone, calm with a safety net, sunny once the first £10,000 is invested (assuming 7% growth, stated in the card).
 // Once one goal is reached, the same monthly amount moves on to the next. All maths runs in the browser;
-// nothing is sent anywhere unless the visitor asks for their forecast by email (then it goes to Klaviyo).
+// nothing is sent anywhere unless the visitor asks for their forecast by email (then it goes to Klaviyo,
+// with a picture of their card taken by src/pages/forecast-card.astro).
+// `still` is for that picture: the card doesn't play itself when it comes into view.
+const { still = false } = Astro.props;
 ---
-<section class="forecast" id="calculator" data-goal="debt" data-key={site.klaviyo_public_key} data-list={site.klaviyo_calculator_list_id} aria-labelledby="forecast-h">
+<section class="forecast" id="calculator" data-still={still ? '' : undefined} data-goal="debt" data-key={site.klaviyo_public_key} data-list={site.klaviyo_calculator_list_id} aria-labelledby="forecast-h">
   <div class="intro">
     <h2 id="forecast-h">Your money forecast.</h2>
     <p class="lede">Tell us where things stand today. We’ll show you when the storm clears, when it turns calm, and when the sun comes out.</p>
@@ -371,7 +374,7 @@ import site from '../data/site.json';
   };
   $('play').addEventListener('click', play);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce && 'IntersectionObserver' in window) {
+  if (!reduce && 'IntersectionObserver' in window && !$('calculator').hasAttribute('data-still')) {
     const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); setTimeout(play, 400); } }, { threshold: 0.5 });
     io.observe($('sky'));
   }
@@ -423,6 +426,20 @@ import site from '../data/site.json';
       headers: { 'Content-Type': 'application/vnd.api+json', revision: '2024-10-15' },
       body: JSON.stringify({ data }),
     }).then((res) => { if (!res.ok) throw new Error(String(res.status)); });
+  // A picture of their card for the email: the same card, drawn at email width in a hidden frame with their
+  // numbers and taken at the end of the forecast. Resolves to the picture's link, or '' if it can't be made
+  const cardImage = () => new Promise((resolve) => {
+    const frame = document.createElement('iframe');
+    const q = new URLSearchParams(['owe', 'apr', 'pay', 'ess', 'saved', 'inv'].map((id) => [id, $(id).value]));
+    frame.src = `/forecast-card/?${q}`;
+    frame.setAttribute('aria-hidden', 'true'); frame.tabIndex = -1;
+    frame.style.cssText = 'position:fixed;left:-10000px;top:0;width:560px;height:1600px;border:0;opacity:0;pointer-events:none';
+    const done = (url) => { clearTimeout(timer); removeEventListener('message', got); frame.remove(); resolve(url); };
+    const got = (e) => { if (e.origin === location.origin && e.source === frame.contentWindow && e.data?.forecastCard) done(e.data.forecastCard.url || ''); };
+    const timer = setTimeout(() => done(''), 15000);
+    addEventListener('message', got);
+    document.body.append(frame);
+  });
   keep.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(keep);
@@ -436,6 +453,7 @@ import site from '../data/site.json';
     const profile = { data: { type: 'profile', attributes: { email } } };
     sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
     try {
+      const card_image = await cardImage();
       await Promise.all([
         klaviyo('events', {
           type: 'event',
@@ -444,7 +462,7 @@ import site from '../data/site.json';
               goal: f.goal, headline: f.headline, date: date(f.months, 'long'), note: f.note, months: f.months,
               monthly: gbp(P.pay), first_step: firstStep[f.goal](gbp(P.pay)),
               debt_free: P.owe > 0 ? date(P.d, 'long') : '', safety_net: date(P.s, 'long'), sunny: date(P.i, 'long'),
-              forecast_headline: $('headline').textContent, forecast_sub: $('sub').textContent, days: P.days,
+              forecast_headline: $('headline').textContent, forecast_sub: $('sub').textContent, days: P.days, card_image,
             },
             metric: { data: { type: 'metric', attributes: { name: 'Calculated goal' } } },
             profile,

@@ -23,7 +23,7 @@ Conversation of Money Ltd is the data controller for your personal information. 
 
 **Information we don't collect**
 
-- The figures you enter in the calculator stay in your browser. We don't see or store them unless you ask us to email you your result. Then we receive your email address and your result (your goal, target date and monthly amount) through Klaviyo.
+- The figures you enter in the calculator stay in your browser. We don't see or store them unless you ask us to email you your result. Then we receive your email address and your forecast (your dates, monthly amount and debt balance) through Klaviyo. We also make a picture of your forecast for the email. It is stored by Netlify at a private link that is hard to guess, and anyone with the link can see it.
 - We don't see or store your card or bank details. Payments are handled by Stripe.
 
 We don't ask for special category data, such as health information. If you choose to share something like this with us during coaching, we only use it to support you and keep it confidential.
@@ -50,7 +50,7 @@ We share it only with the service providers who help us run Calm Money, and only
 
 - **Klaviyo**, for our emails.
 - **Stripe**, to take payments.
-- **Netlify**, which hosts this website.
+- **Netlify**, which hosts this website and stores the picture of your forecast for your email.
 - **Umami**, which counts visits to this website without cookies or personal information.
 - **Bunny.net**, which hosts and plays the video on this page.
 - **The hosting provider for our programme platform.** The platform is built for us, and your information on it stays under our control.
@@ -68,6 +68,7 @@ Some of our providers, including Klaviyo, Stripe and (if we start using it) Meta
 
 ## How long we keep it
 
+- **The picture of your forecast:** 12 months, then it's deleted.
 - **Mailing list:** until you unsubscribe. After that we keep your email address on a suppression list so we don't email you again by mistake.
 - **Members:** for as long as you're a member, then for 6 years after, to meet tax and accounting rules and in case of legal claims.
 - **Applications that don't go ahead:** up to 12 months.
