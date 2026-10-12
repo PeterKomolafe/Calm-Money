@@ -296,6 +296,9 @@ import site from '../data/site.json';
       [P.s, 'calm', date(P.s), `${FUND_MONTHS}-month safety net`],
       [P.i, 'sunny', date(P.i), 'First £10,000 invested'],
     ];
+    // The same four days go in the forecast email, with "Next stop" on the first milestone
+    const firstN = days.find(([n]) => n > 0)?.[0];
+    P.days = days.map(([n, st, d, txt]) => ({ when: d, name: NAME[st], text: txt, icon: st, next: n === firstN && n > 0 }));
     $('days').innerHTML = days.map(([n, st, d, txt], i) => `<button type="button" class="day" data-n="${n}" aria-pressed="false"><span class="flag">Next stop</span><span class="d">${d}</span><svg viewBox="0 0 48 48" aria-hidden="true">${ICON[st]}</svg><span class="w">${NAME[st]}</span><span class="t">${txt}</span></button>`).join('');
 
 
@@ -441,6 +444,7 @@ import site from '../data/site.json';
               goal: f.goal, headline: f.headline, date: date(f.months, 'long'), note: f.note, months: f.months,
               monthly: gbp(P.pay), first_step: firstStep[f.goal](gbp(P.pay)),
               debt_free: P.owe > 0 ? date(P.d, 'long') : '', safety_net: date(P.s, 'long'), sunny: date(P.i, 'long'),
+              forecast_headline: $('headline').textContent, forecast_sub: $('sub').textContent, days: P.days,
             },
             metric: { data: { type: 'metric', attributes: { name: 'Calculated goal' } } },
             profile,
