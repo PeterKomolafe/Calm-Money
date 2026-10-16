@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -I .claude/scripts/klaviyo.py *)",
+      "Bash(python3 -I /home/user/Calm-Money/.claude/scripts/klaviyo.py *)"
+    ]
+  }
+}
