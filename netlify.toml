@@ -14,3 +14,17 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
+
+# The money personality test lives on its own Netlify site (built from quiz/site).
+# Show it at calmmoneycommunity.com/test without changing the address bar.
+[[redirects]]
+  from = "/test"
+  to = "https://calmmoneypersonalitytest.netlify.app/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/test/*"
+  to = "https://calmmoneypersonalitytest.netlify.app/:splat"
+  status = 200
+  force = true
