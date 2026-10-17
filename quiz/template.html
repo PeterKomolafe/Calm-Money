@@ -429,8 +429,10 @@ $('btnRetake').addEventListener('click', () => { currentQ = 0; answers = new Arr
 function showResults() {
   showPage('pageLoading');
   const scores = Object.fromEntries(ORDER.map((t) => [t, 0]));
-  answers.forEach((a, qi) => { if (a !== null) scores[SCORE_MAP[qi][a]]++; });
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const lastPick = Object.fromEntries(ORDER.map((t) => [t, -1]));
+  answers.forEach((a, qi) => { if (a !== null) { const t = SCORE_MAP[qi][a]; scores[t]++; lastPick[t] = qi; } });
+  // Highest score wins. A tie goes to the type they picked most recently, so it reflects their answers, not list order
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1] || lastPick[b[0]] - lastPick[a[0]]);
   const primary = sorted[0][0], secondary = sorted[1][0];
   if (!isBot) saveResult(userEmail, userName, primary, secondary, scores);
 
