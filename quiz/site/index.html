@@ -99,8 +99,8 @@ form .btn { width: 100%; margin-top: 6px; }
 .item.done { border-color: #d6e2df; }
 .item.missing { border-color: var(--terracotta); }
 .item p { margin: 0 0 14px; font-size: 1.1rem; line-height: 1.45; font-weight: 500; color: var(--ink); }
-.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.scale button { height: 46px; border: 1.5px solid #d9d4cd; border-radius: 8px; background: #fff; color: var(--muted); font-size: 1rem; font-weight: 500; cursor: pointer; transition: background-color .12s, border-color .12s, color .12s; }
+.scale { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.scale button { min-height: 46px; padding: 6px 4px; line-height: 1.2; border: 1.5px solid #d9d4cd; border-radius: 8px; background: #fff; color: var(--muted); font-size: 1rem; font-weight: 500; cursor: pointer; transition: background-color .12s, border-color .12s, color .12s; }
 .scale button:hover { border-color: var(--teal); color: var(--teal-dark); }
 .scale button[aria-checked=true] { background: var(--teal); border-color: var(--teal); color: #fff; }
 .ends { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
@@ -298,6 +298,7 @@ const GUIDE_URL = (t) => `https://calmmoneycommunity.com/test/reports/${t}_Perso
 // Works at calmmoneycommunity.com/test, /test/ and the netlify.app address
 const GUIDE_PATH = (t) => `${location.pathname.replace(/\/?$/, '/')}reports/${t}_Personality_Guide.pdf`;
 const PER_PAGE = 5, PAGES = 6;
+const ANSWERS = ['Not me', 'Rarely me', 'Often me', 'Exactly me']; // scored 1 to 4, same as the learning platform
 // Part k holds statement k of every type, with the type order rotated so no type is always first
 const ITEMS = [];
 for (let k = 0; k < PAGES; k++) {
@@ -309,22 +310,22 @@ for (let k = 0; k < PAGES; k++) {
   }
 }
 
-// Score per type, 0 to 100. 1 = "Not me", 5 = "Exactly me"; reversed statements are flipped
+// Score per type, 0 to 100. Answers score 1 (Not me) to 4 (Exactly me); reversed statements are flipped
 function score(answers) {
   const raw = Object.fromEntries(ORDER.map((t) => [t, 0]));
   const strong = Object.fromEntries(ORDER.map((t) => [t, 0]));
   const agree = Object.fromEntries(ORDER.map((t) => [t, 0]));
   const core = Object.fromEntries(ORDER.map((t) => [t, 0]));
   ITEMS.forEach((it, i) => {
-    const v = it.reversed ? 6 - answers[i] : answers[i];
+    const v = it.reversed ? 5 - answers[i] : answers[i];
     raw[it.type] += v;
-    if (v === 5) strong[it.type]++;
-    if (v >= 4) agree[it.type]++;
+    if (v === 4) strong[it.type]++;
+    if (v >= 3) agree[it.type]++;
     if (!it.reversed) core[it.type] += answers[i];
   });
   const per = ITEMS.length / ORDER.length;
-  const scores = Object.fromEntries(ORDER.map((t) => [t, Math.round(((raw[t] - per) / (per * 4)) * 100)]));
-  // Highest score wins. On an exact tie, in turn: more "Exactly me" answers, more statements agreed with (4 or 5),
+  const scores = Object.fromEntries(ORDER.map((t) => [t, Math.round(((raw[t] - per) / (per * 3)) * 100)]));
+  // Highest score wins. On an exact tie, in turn: more "Exactly me" answers, more statements agreed with (Often or Exactly me),
   // then the higher total on the guide's own five statements. Only if all of those match does list order decide
   const sorted = ORDER.slice().sort((a, b) => raw[b] - raw[a] || strong[b] - strong[a] || agree[b] - agree[a] || core[b] - core[a]);
   return { scores, sorted, raw, strong, agree, core };
@@ -462,17 +463,15 @@ function renderPage() {
     p.id = `s${i}`; p.textContent = ITEMS[i].text;
     const scale = document.createElement('div');
     scale.className = 'scale'; scale.setAttribute('role', 'radiogroup'); scale.setAttribute('aria-labelledby', p.id);
-    for (let v = 1; v <= 5; v++) {
+    ANSWERS.forEach((label, k) => {
+      const v = k + 1;
       const b = document.createElement('button');
-      b.type = 'button'; b.textContent = v; b.setAttribute('role', 'radio');
+      b.type = 'button'; b.textContent = label; b.setAttribute('role', 'radio');
       b.setAttribute('aria-checked', answers[i] === v ? 'true' : 'false');
-      b.setAttribute('aria-label', `${v}${v === 1 ? ', not me' : v === 5 ? ', exactly me' : ''}`);
       b.addEventListener('click', () => answer(i, v, card));
       scale.appendChild(b);
-    }
-    const ends = document.createElement('div');
-    ends.className = 'ends'; ends.innerHTML = '<span>Not me</span><span>Exactly me</span>';
-    card.append(p, scale, ends);
+    });
+    card.append(p, scale);
     wrap.appendChild(card);
   }
   updateNav();
