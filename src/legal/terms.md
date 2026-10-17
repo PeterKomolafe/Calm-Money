@@ -18,23 +18,31 @@ Your account, login details, and access to Calm Money are personal to you and ma
 
 ## 4. Options, Pricing and Payment
 
-Calm Money is available in three options. Every option includes the five modules (Module 0, Reset, to Module 4, From Stability to Investing), the money personality test, the practical tools, and lifetime access to the content library.
+Calm Money is available in three options. Every option includes the five modules (Module 0, Reset, to Module 4, From Stability to Investing), the money personality test, the practical tools, membership of the Calm Money community, a recorded monthly update from Peter, the workshop library, and 12 months’ access to all of these.
 
-- **At your pace (£297).** The content library only, worked through at your own pace.
-- **At your pace with coaching (£1,297).** Everything in At your pace, plus four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
-- **12 months of full support (£2,497).** Everything in At your pace, plus, for 12 months from the start of your intake: an onboarding call with Peter, 24 live online coaching calls (one every two weeks), direct access to Peter on WhatsApp, and two in-person meet-ups in the UK during those 12 months. This option runs in intakes with limited places. Joining the waitlist does not reserve a place or commit you to buying. When an intake opens, we review applications and may decline one without giving a reason. No payment is taken unless your application is accepted.
+- **At your pace (£397).** The content library, community, monthly update and workshop library, worked through at your own pace. It does not include coaching sessions, live calls or direct access to Peter.
+- **At your pace with coaching (£1,297).** Everything in At your pace, plus an onboarding call and four coaching sessions with Peter, one every three months across 12 months from the date of purchase.
+- **12 months of full support (£2,997).** Everything in At your pace with coaching, plus a professional review of your practical exercises at your onboarding call, 12 live online group calls (one a month), direct access to Peter on WhatsApp, and two in-person meet-ups in the UK. For this option, the onboarding call, the four coaching sessions and everything else run for 12 months from the start of your intake. This option runs in intakes of up to 10 people. Joining the waitlist does not reserve a place or commit you to buying. When an intake opens, we review applications and may decline one without giving a reason. No payment is taken unless your application is accepted.
 
 **The Calm Money Sprint (£47).** A separate, shorter programme: three live 90-minute online sessions on Zoom, on consecutive days, hosted by Peter. One ticket covers two people from the same household. The dates and times are shown on the booking page. The Sprint does not include access to the content library or any of the options above.
 
-Prices are in pounds sterling and include any VAT that applies. Payment is taken in full at checkout, or in instalments where an instalment option is shown at checkout. At your pace with coaching can be paid as £697 at checkout followed by two monthly payments of £300, £1,297 in total, with no interest or other charges. If you pay in instalments, you agree to pay each instalment when it falls due, and we may pause your access to coaching and support while a payment is overdue. Payment is processed through our third-party payment processor, Stripe; we do not store your full card details ourselves.
+Prices are in pounds sterling and include any VAT that applies. Payment is taken in full at checkout, or in instalments where an instalment option is shown at checkout. At your pace with coaching can be paid as £397 at checkout followed by nine monthly payments of £100, £1,297 in total, with no interest or other charges. 12 months of full support can also be paid in instalments, with no interest or other charges; we will confirm the amounts and dates before you pay. If you pay in instalments, you agree to pay each instalment when it falls due, and we may pause your access to coaching and support while a payment is overdue. Payment is processed through our third-party payment processor, Stripe; we do not store your full card details ourselves.
 
-## 5. Lifetime Access and the Support Period
+## 5. Your 12 Months and Renewal
 
-"Lifetime access" means access to the content library for as long as we continue to run Calm Money. If we ever close the programme, we will give you reasonable notice before your access ends.
+Your access lasts 12 months from the date you join, or, for 12 months of full support, from the start of your intake. This covers the content library, community, monthly update and workshop library and, depending on your option, coaching sessions, live calls, WhatsApp access and meet-ups. Any sessions, calls or meet-ups you have not used by the end of the 12 months expire.
 
-Coaching sessions, live calls, WhatsApp access and meet-ups are provided for 12 months from the date you join, or, for 12 months of full support, from the start of your intake. Any that you have not used by the end of that period expire. Your access to the content library continues after the 12 months end, and no further payment is taken.
+Before your 12 months end, we will email you with the option to renew your access to the content library, community, monthly update and workshop library for a further 12 months, and the price of doing so. Renewal is optional and never automatic: we will not take any payment unless you choose to renew. If you do not renew, your access ends when your 12 months end.
 
-## 6. Coaching Sessions, Live Calls and Meet-ups
+If we ever close the programme while your access is active, we will give you reasonable notice before it ends.
+
+## 6. Community, Monthly Update, Coaching Sessions, Live Calls and Meet-ups
+
+**The monthly update** is a recorded video from Peter, published once a month during your 12 months. It is general financial education, not financial advice, and it is not interactive: it does not answer individual questions.
+
+**The workshop library** contains recordings of past workshops. We may add to it, and we may remove or replace recordings that become out of date.
+
+**The community** is a space for members to support each other. Peter does not answer individual questions there; questions for Peter belong in coaching sessions and live calls, for the options that include them. You must treat other members with respect and keep what they share private. We may remove posts, or suspend your access to the community, if you do not.
 
 We will give you the dates for coaching sessions, live calls and meet-ups in advance. If you cannot attend a one-to-one session, tell us at least 24 hours before it starts and we will rearrange it. A session missed without that notice may not be rearranged.
 
@@ -54,20 +62,30 @@ Meet-ups take place in the UK. You are responsible for your own travel, accommod
 
 Not attending a session does not cancel your booking, and sessions you miss are not refunded. If we need to move or cancel a session, we will offer you another date or a refund for that session. To cancel, email us at the address in Section 14 and tell us that you want to cancel. Refunds are paid to the card you paid with within 14 days of us receiving your request.
 
-**Our 30-day guarantee on the coaching options.** Our coaching options are built around action, so our guarantee is too. If you have taken the first steps and still feel Calm Money is not right for you, email us within 30 days of joining and we will give you a full refund, provided that:
+**Our 30-day coaching guarantee.** Our coaching options are built around action, so our guarantee is too. If you have completed Module 0 and attended your onboarding call, and still feel the coaching is not right for you, email us within 30 days of joining and we will refund your coaching fee.
 
-- **At your pace with coaching:** you have completed Module 0 and attended your first coaching session.
-- **12 months of full support:** you have completed Module 0 and attended your onboarding call.
+Your coaching fee is the price of your option less the At your pace price of £397: £900 for At your pace with coaching and £2,600 for 12 months of full support. The £397 covers the content library, which you have full access to from the day you join, so it is not refunded. You keep At your pace (the content library, community, monthly update and workshop library) for the rest of your 12 months; your coaching sessions, calls, WhatsApp access and meet-ups end.
 
-**At your pace.** Because At your pace gives you instant access to all the content, it is not eligible for a refund once your access has started.
+If you are paying in instalments, we refund anything you have paid above £397 and cancel any payments still to come.
 
-If you are paying in instalments and receive a refund under the guarantee, we refund what you have paid and cancel any payments still to come.
+The guarantee does not apply if you have broken Section 8, for example by recording, downloading or sharing the content.
+
+**At your pace.** At your pace is the content library itself, and you get all of it as soon as you join, so it is not refundable once your access has started, unless it is faulty or not as described.
 
 To ask for a refund, email us at the address in Section 14. This does not affect your statutory rights.
 
 ## 8. Access and Licence
 
 Subject to your compliance with these Terms, we grant you a personal, non-transferable, non-exclusive licence to access and use the Calm Money programme content, coaching and support included in your option, for your own personal financial education. You may not resell, redistribute, publicly share, or use the content for any commercial purpose without our prior written consent.
+
+**Copying, recording and downloading.** The programme is for you to use inside Calm Money. You must not:
+
+- record, screen-record or capture audio from any lesson, video, workshop, live call or coaching session;
+- download, save or scrape the content, except materials we offer as downloads (such as worksheets and guides), which are for your own personal use only;
+- copy or transcribe the content, or upload any of it to a website, file-sharing service, social media platform or AI tool;
+- share the content, downloads or any recording with anyone who has not bought Calm Money.
+
+If you do, we may end your access straight away without a refund, including under our guarantee, and we may take legal action to protect our content.
 
 ## 9. Conduct in Calls, WhatsApp and Meet-ups
 

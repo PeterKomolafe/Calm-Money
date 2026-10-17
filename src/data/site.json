@@ -8,6 +8,10 @@
   "disclaimer": "Calm Money is financial education, not regulated financial advice. Nothing on this page or within the programme constitutes personalised advice under the Financial Services and Markets Act 2000. Always consider your own circumstances, and seek regulated advice where appropriate. The value of investments can go down as well as up, and you may get back less than you invest.",
   "description": "You earn well. Calm Money is a programme by Peter Komolafe that builds the money system to clear debt, create your safety net and get you investing.",
   "company": "Conversation of Money Ltd",
+  "join_url": "https://app.calmmoneycommunity.com/register",
   "klaviyo_public_key": "R8VR9k",
-  "klaviyo_waitlist_list_id": "XRiYq3"
+  "klaviyo_waitlist_list_id": "XRiYq3",
+  "klaviyo_calculator_list_id": "VG43J7",
+  "intro_video_embed": "https://player.mediadelivery.net/embed/703347/d506b64c-047c-46a9-8415-c2ab6f8c0224",
+  "umami_website_id": ""
 }

@@ -1,0 +1,29 @@
+---
+import site from '../data/site.json';
+// Peter's intro video, between the hero and "This is for you if".
+// Bunny's own player shows the video's thumbnail until it's played. It loads lazily, as the visitor
+// scrolls near it. The embed URL lives in src/data/site.json.
+---
+<section class="intro" aria-label="Meet Peter">
+  <figure>
+    <div class="frame">
+      <iframe src={`${site.intro_video_embed}?autoplay=false&preload=false&responsive=true`} title="Meet Peter" loading="lazy"
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    </div>
+    <figcaption><b>Meet Peter.</b> Why money can feel hard even when you earn well, and how Calm Money helps.</figcaption>
+  </figure>
+</section>
+
+<style>
+  .intro { max-width: 1120px; margin: 0 auto; padding: var(--section-gap) 28px 0; }
+  figure { margin: 0 auto; max-width: 860px; }
+  .frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; box-shadow: var(--lift); background: var(--ink); }
+  iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  figcaption { margin-top: var(--space-content); color: var(--muted); font-size: 1.05rem; text-align: center; }
+  figcaption b { color: var(--ink); font-weight: var(--w-medium); }
+  @media (max-width: 800px) {
+    .intro { padding-inline: 24px; }
+    .frame { border-radius: 14px; }
+    figcaption { font-size: 17px; text-align: left; }
+  }
+</style>

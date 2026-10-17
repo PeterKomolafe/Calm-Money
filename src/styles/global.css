@@ -143,3 +143,11 @@ body::before {
 @media (max-width: 800px) {
   *:not(.kicker, .kicker *, .hero h1, .hero h1 *) { text-wrap-style: auto !important; }
 }
+
+/* The hand-drawn terracotta stroke under key words (the hero's "investing", "This isn't for you if").
+   Sized in em, so it scales with whatever text it sits under */
+.stroke { position: relative; white-space: nowrap; }
+.stroke::after {
+  content: ''; position: absolute; left: -2%; right: -2%; bottom: -0.12em; height: 0.16em;
+  background: var(--terracotta); border-radius: 99px; rotate: -1.2deg; opacity: 0.9; pointer-events: none;
+}

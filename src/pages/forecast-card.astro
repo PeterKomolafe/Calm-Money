@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import MoneyForecast from '../components/MoneyForecast.astro';
+// Not a page for visitors. The money forecast loads this in a hidden frame when someone asks for their forecast
+// by email: it draws their card at email width, at the end of the forecast, takes a picture of it and stores it
+// (netlify/functions/forecast-card.mjs). The forecast email shows that picture.
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Forecast card</title>
+  </head>
+  <body style="margin:0;background:#fff">
+    <MoneyForecast still />
+    <script>
+      import { toJpeg } from 'html-to-image';
+      const q = new URLSearchParams(location.search);
+      const reply = (forecastCard: { url?: string; error?: string }) => parent.postMessage({ forecastCard }, location.origin);
+      const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+      const sky = document.getElementById('sky')!;
+      // Puts a line break wherever the text wraps now, then stops it wrapping anywhere else
+      const keepLines = (el: Element) => {
+        if (/flex|grid/.test(getComputedStyle(el).display)) return; // laid out in a row: each word would become its own item
+        const words: HTMLElement[] = [];
+        const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        const texts: Text[] = [];
+        while (walk.nextNode()) texts.push(walk.currentNode as Text);
+        for (const text of texts) {
+          const parts = text.data.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          for (const part of parts) {
+            if (!part) continue;
+            if (/^\s+$/.test(part)) { frag.append(part); continue; }
+            const span = document.createElement('x-w'); // not a span, so no span styles apply
+            span.textContent = part;
+            words.push(span); frag.append(span);
+          }
+          text.replaceWith(frag);
+        }
+        let top = -Infinity;
+        for (const w of words) {
+          const y = w.getBoundingClientRect().top;
+          if (top !== -Infinity && y > top + 2) w.before(document.createElement('br'));
+          top = Math.max(top, y);
+        }
+        (el as HTMLElement).style.whiteSpace = 'nowrap';
+      };
+      (async () => {
+        try {
+          for (const id of ['owe', 'apr', 'pay', 'ess', 'saved', 'inv']) {
+            const input = document.getElementById(id) as HTMLInputElement;
+            if (!q.has(id)) continue;
+            input.value = q.get(id)!;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+          // The end of the forecast: sunny
+          const t = document.getElementById('t') as HTMLInputElement;
+          t.value = t.max;
+          t.dispatchEvent(new Event('input', { bubbles: true }));
+          await document.fonts.ready;
+          await wait(700); // let the sky's colour change finish
+          // The play button does nothing in an email, so it's left out of the picture
+          document.getElementById('play')!.style.display = 'none';
+          // The picture can break a line that only just fits in a different place, so keep the lines as shown
+          sky.querySelectorAll('h2, p, .day span').forEach(keepLines);
+          const jpg = await toJpeg(sky, { pixelRatio: 2, quality: 0.86, backgroundColor: '#ffffff' });
+          const res = await fetch('/api/forecast-card', { method: 'POST', headers: { 'Content-Type': 'image/jpeg' }, body: await (await fetch(jpg)).blob() });
+          if (!res.ok) throw new Error(String(res.status));
+          reply({ url: (await res.json()).url });
+        } catch (e) {
+          reply({ error: String(e) });
+        }
+      })();
+    </script>
+  </body>
+</html>

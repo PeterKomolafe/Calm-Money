@@ -1,30 +1,35 @@
 // Starts Stripe Checkout for the At your pace with coaching payment plan:
-// £697 today, then two monthly payments of £300. £1,297 in total, with no interest or extra charge.
-// The subscription is told to stop after the second £300 by stripe-webhook.mjs.
+// £397 today, then nine monthly payments of £100. £1,297 in total, with no interest or extra charge.
+// The subscription is told to stop after the ninth £100 by stripe-webhook.mjs.
+// Ten payments, all within 12 months and with no charges, keeps the plan outside consumer credit rules.
 // Needs STRIPE_SECRET_KEY set in Netlify (Site configuration > Environment variables).
 
 export const PLAN = {
-  firstPayment: 69700, // pence, charged at checkout
-  monthlyPayment: 30000, // pence, charged a month later and a month after that
-  monthlyPayments: 2,
+  firstPayment: 39700, // pence, charged at checkout (the same as At your pace)
+  monthlyPayment: 10000, // pence, charged every month from a month after checkout
+  monthlyPayments: 9,
 };
+const gbp = (pence) => `£${(pence / 100).toLocaleString('en-GB')}`;
+export const PLAN_TOTAL = PLAN.firstPayment + PLAN.monthlyPayment * PLAN.monthlyPayments; // 129700, £1,297
 
-// The same day next month, in seconds (short months fall back to their last day, as Stripe does)
-export const oneMonthFrom = (date) => {
+// The same day n months later, in seconds (short months fall back to their last day, as Stripe does).
+// Always counted from the original date, so the 31st stays the 31st after a short month
+export const monthsFrom = (date, n) => {
   const d = new Date(date);
   const day = d.getUTCDate();
   d.setUTCDate(1);
-  d.setUTCMonth(d.getUTCMonth() + 1);
+  d.setUTCMonth(d.getUTCMonth() + n);
   const last = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0)).getUTCDate();
   d.setUTCDate(Math.min(day, last));
   return Math.floor(d.getTime() / 1000);
 };
+export const oneMonthFrom = (date) => monthsFrom(date, 1);
 
 // The terms tickbox wording, shared with coaching-full.mjs
 export const CONSENT = 'I agree to the Terms and Conditions. I want my access to the Calm Money content library to start straight away, and I understand that once it starts I lose my right to cancel it within 14 days. If my coaching starts within 14 days and I then cancel, I will pay for the sessions already provided.';
 
 export const checkoutForm = (origin, now = Date.now()) => {
-  const anchor = oneMonthFrom(now); // first £300 is taken a month after checkout
+  const anchor = oneMonthFrom(now); // the first monthly payment is taken a month after checkout
   const f = new URLSearchParams();
   f.set('mode', 'subscription');
   // Today: the first payment, as a one-off item on the first invoice
@@ -32,17 +37,18 @@ export const checkoutForm = (origin, now = Date.now()) => {
   f.set('line_items[0][price_data][product_data][name]', 'At your pace with coaching: first payment');
   f.set('line_items[0][price_data][unit_amount]', String(PLAN.firstPayment));
   f.set('line_items[0][quantity]', '1');
-  // Then: £300 a month, starting a month from today
+  // Then: the monthly payment, starting a month from today
   f.set('line_items[1][price_data][currency]', 'gbp');
-  f.set('line_items[1][price_data][product_data][name]', 'At your pace with coaching: 2 monthly payments of £300');
+  f.set('line_items[1][price_data][product_data][name]', `At your pace with coaching: ${PLAN.monthlyPayments} monthly payments of ${gbp(PLAN.monthlyPayment)}`);
   f.set('line_items[1][price_data][unit_amount]', String(PLAN.monthlyPayment));
   f.set('line_items[1][price_data][recurring][interval]', 'month');
   f.set('line_items[1][quantity]', '1');
   f.set('subscription_data[billing_cycle_anchor]', String(anchor));
   f.set('subscription_data[proration_behavior]', 'none');
-  f.set('subscription_data[description]', 'At your pace with coaching: £697 today, then 2 monthly payments of £300 (£1,297 in total)');
+  f.set('subscription_data[description]', `At your pace with coaching: ${gbp(PLAN.firstPayment)} today, then ${PLAN.monthlyPayments} monthly payments of ${gbp(PLAN.monthlyPayment)} (${gbp(PLAN_TOTAL)} in total)`);
   f.set('metadata[plan]', 'coaching-payment-plan');
   f.set('metadata[anchor]', String(anchor));
+  f.set('metadata[payments]', String(PLAN.monthlyPayments)); // so a plan keeps its own length if PLAN changes later
   // The terms tickbox (needs the Terms of service URL set in Stripe's public business details)
   f.set('consent_collection[terms_of_service]', 'required');
   f.set('custom_text[terms_of_service_acceptance][message]', CONSENT);

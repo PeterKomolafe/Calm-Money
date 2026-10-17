@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     q: 'I’m in debt. Is this still for me?',
-    a: 'Yes. Module 2, Breaking the Debt Cycle, gives you a clear plan to pay it off, and the programme shows you how to balance clearing debt with building savings and, later, investing.',
+    a: 'Yes. Module 2, Breaking the Debt Cycle, gives you a clear plan to pay it off, and the programme shows you how to balance clearing debt with building savings and, later, investing.\n“I realise some things take time to resolve. As long as I’m engaging with my creditors, and not burying my head in the sand, they do understand.” Jean M., founding member',
   },
   {
     q: 'I’m self-employed. Does it still work?',
@@ -20,7 +20,11 @@ const faqs = [
   },
   {
     q: 'What’s the difference between the three options?',
-    a: 'Whichever option you choose, you get all five modules, the money personality test and lifetime access to the content library.\nAt your pace with coaching adds four quarterly coaching sessions with Peter, helping you put what you learn into practice and keeping you accountable to the goals you set in Module 0.\n12 months of full support adds an onboarding call, 24 live coaching calls, WhatsApp access to Peter and two in-person meet-ups.',
+    a: 'Whichever option you choose, you get all five modules, the money personality test, the practical tools, the Calm Money community, Peter’s monthly update and the workshop library, with 12 months’ access that you can renew at the end.\nAt your pace with coaching adds an onboarding call and four quarterly coaching sessions with Peter, helping you put what you learn into practice and keeping you accountable to the goals you set in Module 0.\n12 months of full support includes everything in At your pace with coaching, plus 12 monthly live group calls, WhatsApp access to Peter and two in-person meet-ups.',
+  },
+  {
+    q: 'What is the monthly update?',
+    a: 'A short recorded video from Peter each month on what’s changed in UK money, such as interest rates, inflation or the Budget, and what it means for your debt, your safety net and your investing. It also includes a seasonal check of your system and one action for the month.\nIt’s general education, not financial advice. It isn’t live, so questions for Peter belong in your coaching sessions or live calls.',
   },
   {
     q: 'Where are the meet-ups?',
@@ -28,12 +32,12 @@ const faqs = [
   },
   {
     q: 'Can I pay in instalments?',
-    a: 'Yes. At your pace with coaching can be paid as £697 today, then 2 monthly payments of £300. That’s £1,297 in total, with no interest and no extra charge. At your pace is paid upfront, and payment for 12 months of full support is arranged when your place in an intake is confirmed.\nIf you’re currently paying off high-interest debt, don’t put this on a credit card. Start with At your pace and focus on Module 2 first. You can move up to coaching later.',
+    a: 'Yes. At your pace with coaching can be paid as £397 today, then 9 monthly payments of £100. That’s £1,297 in total, with no interest and no extra charge. 12 months of full support can also be paid in instalments, and we’ll set out the options when your place in an intake is confirmed. At your pace is paid upfront.\nIf you’re currently paying off high-interest debt, don’t put this on a credit card. Start with At your pace and focus on Module 2 first. You can move up to coaching later.',
   },
   {
     id: 'guarantee', // the pricing section's guarantee line links here
     q: 'What if it’s not right for me?',
-    a: 'Our coaching options are built around action, so our guarantee is too. If you’ve taken the first steps and still feel it isn’t right for you, let us know within 30 days of joining and we’ll give you a full refund.\nAt your pace with coaching: complete Module 0 and attend your first coaching session.\n12 months of full support: complete Module 0 and attend your onboarding call.\nNo awkward conversations, no pressure.\nThe At your pace option gives you instant access to all the content, so it isn’t eligible for a refund once you’ve started.',
+    a: 'Our coaching options are built around action, so our guarantee is too. Complete Module 0 and attend your onboarding call. If the coaching still isn’t right for you, let us know within 30 days of joining and we’ll refund your coaching fee: £900 on At your pace with coaching, or £2,600 on 12 months of full support. You keep At your pace for the rest of your 12 months.\nNo awkward conversations, no pressure.\nAt your pace is the content library itself, and you get all of it the moment you join, so it isn’t refundable once you’ve started.',
   },
 ];
 const isPlaceholder = (a: string) => a.includes('[');
@@ -45,7 +49,7 @@ const isPlaceholder = (a: string) => a.includes('[');
     {faqs.map((f) => (
       <details name="faq" id={f.id}>
         <summary>{f.q}</summary>
-        {f.a.split('\n').map((para) => <p class:list={{ placeholder: isPlaceholder(para) }}>{para}</p>)}
+        {f.a.split('\n').map((para) => <p class:list={{ placeholder: isPlaceholder(para), member: para.startsWith('“') }}>{para}</p>)}
       </details>
     ))}
   </div>
@@ -99,4 +103,6 @@ const isPlaceholder = (a: string) => a.includes('[');
     .faq { padding-inline: 24px; }
     summary { font-size: 19px; padding: 18px 0; }
   }
+  /* A member's words inside an answer */
+  .member { font-style: italic; padding-left: 14px; border-left: 2px solid var(--blush); }
 </style>

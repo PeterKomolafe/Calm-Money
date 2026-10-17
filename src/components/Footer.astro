@@ -34,5 +34,11 @@ const year = new Date().getFullYear();
   .disclaimer { margin: 0; font-size: 13px; line-height: 1.55; }
   .bottom { font-size: 13px; padding-top: 20px; border-top: 1px dashed rgb(31 38 36 / 0.14); }
   .bottom p { margin: 0; }
-  @media (max-width: 760px) { .inner { padding: 0 24px; } }
+  @media (max-width: 760px) {
+    .inner { padding: 0 24px; }
+    /* Ring and byline stay on one row on every phone: the byline scales with the screen */
+    .top { flex-wrap: nowrap; justify-content: flex-start; gap: 14px; }
+    .brand :global(svg) { width: 30px; height: 30px; }
+    .top :global(.peter-byline) { font-size: clamp(12px, 3.9vw, 15px); white-space: nowrap; min-width: 0; }
+  }
 </style>

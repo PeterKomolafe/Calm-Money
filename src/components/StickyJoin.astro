@@ -1,8 +1,9 @@
 ---
+import site from '../data/site.json';
 // Phones only: a join button that follows the reader once they're past the calculator.
 // It steps aside whenever another join button or the pricing is on screen, so there's never two.
 ---
-<a class="sticky-join btn btn--primary" href="#pricing" aria-hidden="true" tabindex="-1">Join Calm Money</a>
+<a class="sticky-join btn btn--primary" href={site.join_url} aria-hidden="true" tabindex="-1">Join Calm Money</a>
 
 <script>
   const btn = document.querySelector<HTMLAnchorElement>('.sticky-join');

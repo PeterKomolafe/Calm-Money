@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calm Money: Your money forecast</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f3ee;">
+<!-- Calm Money money forecast email. Works for every result, so the same file goes in all three emails in the flow. Paste the whole file into the email's HTML editor in Klaviyo -->
+<div style="display:none;max-height:0;overflow:hidden;">And the one thing to do this week.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f3ee;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;background:#ffffff;border-radius:14px;">
+<tr><td style="padding:34px 34px 8px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 28px;"><tr>
+    <td style="padding-right:12px;"><img src="https://www.calmmoneycommunity.com/images/email/peter.jpg" width="48" height="48" alt="Peter Komolafe" style="display:block;width:48px;height:48px;border-radius:50%;border:0;"></td>
+    <td style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;"><b>Peter Komolafe</b><br><span style="font-size:13px;color:#5b6664;">Calm Money</span></td>
+  </tr></table>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Hi,</p>
+  <p style="margin:0 0 22px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Here's the money forecast you asked for.</p>
+
+  <!-- The forecast card: a picture of their card from the site. If the picture couldn't be made, the same card in email code -->
+  {% if event.card_image %}
+  <a href="https://www.calmmoneycommunity.com/#calculator" style="display:block;margin:0 0 26px;"><img src="{{ event.card_image }}" width="512" alt="Your money forecast: {{ event.forecast_headline }}" style="display:block;width:100%;max-width:512px;height:auto;border:0;"></a>
+  {% else %}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 26px;">
+  <tr><td bgcolor="#4c6b67" style="background-color:#4c6b67;background-image:linear-gradient(180deg,#435f5c 0%,#4c6b67 55%,#a7825e 100%);border-radius:18px;padding:22px 18px 20px;">
+    <p style="margin:0 0 14px;font-family:Helvetica,Arial,sans-serif;font-size:11px;line-height:14px;letter-spacing:1.5px;text-transform:uppercase;font-weight:bold;color:#cfd9d4;">Your money forecast</p>
+    <p style="margin:0 0 10px;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:32px;letter-spacing:-0.5px;font-weight:bold;color:#f5e8d8;">{{ event.forecast_headline }}</p>
+    <p style="margin:0 0 22px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:22px;color:#e3ddd2;">{{ event.forecast_sub }}</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;">
+    <tr>{% for day in event.days %}{% if not forloop.first %}<td width="6"></td>{% endif %}<td align="center" valign="bottom" height="24" style="padding-bottom:6px;">{% if day.next %}<span style="display:inline-block;padding:2px 6px;border-radius:999px;background:#f6cda0;color:#1f2624;font-family:Helvetica,Arial,sans-serif;font-size:9px;line-height:13px;font-weight:bold;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;">Next stop</span>{% endif %}</td>{% endfor %}</tr>
+    <tr>{% for day in event.days %}{% if not forloop.first %}<td width="6"></td>{% endif %}
+      <td align="center" valign="top" bgcolor="{% if day.next %}#5d756f{% else %}#3d5250{% endif %}" style="background-color:{% if day.next %}#5d756f{% else %}#3d5250{% endif %};border-radius:12px;padding:10px 3px 12px;font-family:Helvetica,Arial,sans-serif;color:#f5e8d8;">
+        <span style="font-size:12px;line-height:16px;color:#cfd9d4;">{{ day.when }}</span><br>
+        <img src="https://www.calmmoneycommunity.com/images/email/{{ day.icon }}.png" width="40" height="40" alt="" style="display:inline-block;width:40px;height:40px;border:0;margin:4px 0;"><br>
+        <b style="font-size:14px;line-height:18px;">{{ day.name }}</b><br>
+        <span style="font-size:11px;line-height:15px;color:#cfd9d4;">{{ day.text }}</span>
+      </td>{% endfor %}
+    </tr></table>
+  </td></tr>
+  </table>
+  {% endif %}
+
+  {% if event.goal == 'debt' %}<p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">The first stop matters most. {{ event.note }} That interest is money you've already earned, going to someone else.</p>{% endif %}
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;"><b>The one thing to do this week:</b> {{ event.first_step }}</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">The hard part isn't the maths. It's keeping going every month, through big bills, birthdays and tough months. Willpower won't carry you that far. A system will.</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">That's what Calm Money builds with you. <a href="https://www.calmmoneycommunity.com/#pricing" style="color:#a0584a;font-weight:bold;text-decoration:underline;">See how it works</a>.</p>
+  <p style="margin:26px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Peter</p>
+</td></tr>
+<tr><td style="padding:22px 34px 32px;">
+  <p style="margin:0;padding-left:14px;border-left:3px solid #7d9d90;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:19px;color:#5b6664;">This is an estimate, not financial advice. It assumes a fixed interest rate, no new borrowing and a 7% a year investment return, which is not guaranteed. Investments can go down as well as up.</p>
+</td></tr>
+</table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;">
+<tr><td align="center" style="padding:18px 12px 8px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:18px;color:#5b6664;">
+  {{ organization.name }}, {{ organization.full_address }}<br>
+  You're getting this because you asked for your money forecast on calmmoneycommunity.com.<br>
+  {% unsubscribe 'Unsubscribe' %}
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>
