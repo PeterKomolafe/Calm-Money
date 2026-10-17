@@ -1,4 +1,5 @@
-# Builds quiz/site/index.html (one self-contained file) from template.html. Run: python3 quiz/build.py. Netlify publishes quiz/site.
+# Builds quiz/site/index.html (one self-contained file) from template.html and copies it, with the guides, to public/test
+# so it is live at calmmoneycommunity.com/test. Run: python3 quiz/build.py
 import base64, math, pathlib
 
 here = pathlib.Path(__file__).parent
@@ -28,4 +29,13 @@ html = (html.replace('{{RING}}', ring).replace('{{FAVICON}}', fav)
 assert '{{' not in html
 out = here / 'site' / 'index.html'
 out.write_text(html)
+
+# Also publish it on the Calm Money website at calmmoneycommunity.com/test, with the guides
+import shutil
+web = here.parent / 'public' / 'test'
+(web / 'reports').mkdir(parents=True, exist_ok=True)
+shutil.copy(out, web / 'index.html')
+for pdf in (here / 'site' / 'reports').glob('*.pdf'):
+    shutil.copy(pdf, web / 'reports' / pdf.name)
+print(web)
 print(out, len(html) // 1024, 'KB')
