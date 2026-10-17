@@ -294,7 +294,9 @@ const STATEMENTS = {
   ],
 };
 const ORDER = ['Avoider','Spender','Overthinker','Planner','Cautioneer'];
-const GUIDE_URL = (t) => `https://quiz.calmmoneycommunity.com/reports/${t}_Personality_Guide.pdf`;
+const GUIDE_URL = (t) => `https://calmmoneycommunity.com/test/reports/${t}_Personality_Guide.pdf`;
+// Works at calmmoneycommunity.com/test, /test/ and the netlify.app address
+const GUIDE_PATH = (t) => `${location.pathname.replace(/\/?$/, '/')}reports/${t}_Personality_Guide.pdf`;
 const PER_PAGE = 5, PAGES = 6;
 // Part k holds statement k of every type, with the type order rotated so no type is always first
 const ITEMS = [];
@@ -515,7 +517,7 @@ function showResults() {
     $('rBody').innerHTML = '';
     pt.body.forEach((t) => { const p = document.createElement('p'); p.textContent = t; $('rBody').appendChild(p); });
     $('rShadowName').textContent = `The ${secondary}`;
-    $('guideLink').href = `reports/${primary}_Personality_Guide.pdf`;
+    $('guideLink').href = GUIDE_PATH(primary);
     $('guideLink').firstChild.textContent = `Download your ${primary} guide `;
     $('rShadowDesc').textContent = st.body[0];
 
