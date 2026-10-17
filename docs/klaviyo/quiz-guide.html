@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calm Money: Your money personality guide</title>
+</head>
+<body style="margin:0;padding:0;background:#f6f3ee;">
+<!-- Calm Money money personality guide email. Sent by the flow triggered by "Quiz Completed". One file for all five types: it reads Primary Type, Shadow Type and Guide URL from the event -->
+<div style="display:none;max-height:0;overflow:hidden;">Eight pages on your money personality, and one thing to try this week.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f3ee;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;background:#ffffff;border-radius:14px;">
+<tr><td style="padding:34px 34px 8px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 28px;"><tr>
+    <td style="padding-right:12px;"><img src="https://www.calmmoneycommunity.com/images/email/peter.jpg" width="48" height="48" alt="Peter Komolafe" style="display:block;width:48px;height:48px;border-radius:50%;border:0;"></td>
+    <td style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:20px;color:#1f2624;"><b>Peter Komolafe</b><br><span style="font-size:13px;color:#5b6664;">Calm Money</span></td>
+  </tr></table>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Hi {{ first_name|default:'there' }},</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Thanks for taking the money personality test. You came out as <b>{{ event|lookup:'Primary Type' }}</b>: {% if event|lookup:'Primary Type' == 'Avoider' %}the one who looks away{% elif event|lookup:'Primary Type' == 'Spender' %}the one who lives for now{% elif event|lookup:'Primary Type' == 'Overthinker' %}the one who knows but doesn't act{% elif event|lookup:'Primary Type' == 'Planner' %}the one who has a system{% elif event|lookup:'Primary Type' == 'Cautioneer' %}the one who plays it safe{% endif %}.</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Here's your full guide. Eight pages on why the pattern happens, what it costs you, the strengths you already have, and what progress looks like.</p>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:4px 0 26px;"><tr><td bgcolor="#a0584a" style="background:#a0584a;border-radius:6px;">
+    <a href="{{ event|lookup:'Guide URL'|default:'https://www.calmmoneycommunity.com/test/' }}" style="display:inline-block;padding:14px 24px;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;">Download your {{ event|lookup:'Primary Type' }} guide</a>
+  </td></tr></table>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;"><b style="color:#3e5553;">One thing to try this week</b><br>{% if event|lookup:'Primary Type' == 'Avoider' %}<b>Open one thing.</b> One statement, one balance, one number written down. That is progress.{% elif event|lookup:'Primary Type' == 'Spender' %}<b>Automate saving before you see the money.</b> Set up a direct debit into savings that leaves your account on payday, before the money feels available.{% elif event|lookup:'Primary Type' == 'Overthinker' %}<b>Set a decision deadline.</b> Pick a date two weeks from now. Whatever you have been researching, choose one option and set it up by that date. Good enough to begin beats perfect.{% elif event|lookup:'Primary Type' == 'Planner' %}<b>Audit the plan against your net worth.</b> Look at how much your net worth has actually grown over the last three years. Is the planning producing wealth, or the feeling of wealth?{% elif event|lookup:'Primary Type' == 'Cautioneer' %}<b>Remember that cash carries risk too.</b> Keeping money in savings is a decision, and inflation is its cost. Your guide shows how to start investing small enough that you barely notice.{% endif %}</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Your shadow type was <b>{{ event|lookup:'Shadow Type' }}</b>, the pattern that shows up when things get stressful. It's worth a read too: <a href="https://www.calmmoneycommunity.com/test/reports/{{ event|lookup:'Shadow Type' }}_Personality_Guide.pdf" style="color:#a0584a;font-weight:bold;text-decoration:underline;">your shadow type guide</a>.</p>
+  <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Knowing your pattern is the start. Changing it takes a system that works with your personality, not against it. That's what Calm Money builds with you. <a href="https://www.calmmoneycommunity.com/#pricing" style="color:#a0584a;font-weight:bold;text-decoration:underline;">See how it works</a>.</p>
+  <p style="margin:26px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:26px;color:#1f2624;">Peter</p>
+</td></tr>
+<tr><td style="padding:22px 34px 32px;">
+  <p style="margin:0;padding-left:14px;border-left:3px solid #7d9d90;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:19px;color:#5b6664;">Calm Money is financial education, not regulated financial advice. Always consider your own circumstances, and seek regulated advice where appropriate. Investments can go down as well as up.</p>
+</td></tr>
+</table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;">
+<tr><td align="center" style="padding:18px 12px 8px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:18px;color:#5b6664;">
+  {{ organization.name }}, {{ organization.full_address }}<br>
+  You're getting this because you took the money personality test on calmmoneycommunity.com.<br>
+  {% unsubscribe 'Unsubscribe' %}
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>
