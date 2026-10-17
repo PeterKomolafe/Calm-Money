@@ -457,6 +457,32 @@ function suggestDomain(domain) {
   const fixed = domain.replace(/\.(con|cmo|cpm|om|vom|xom)$/, '.com').replace(/\.co\.k$|\.couk$|\.co\.ukk$/, '.co.uk');
   return fixed !== domain ? fixed : null;
 }
+// Junk addresses: test emails, number runs, keyboard mashing and random strings
+// Always junk, whatever the domain
+const JUNK_WORDS = ['test','testing','tester','tests','asdf','asdfg','asdfgh','qwerty','qwert','zxcv','zxcvb','abc','abcd','abcde','abcdef',
+  'fake','none','nope','nobody','noreply','example','sample','demo','spam','junk','null','xx','xxx','aaa','blah','foo','bar','foobar','random','anon','anonymous'];
+// Junk on free providers (hello@gmail.com), fine on a company domain (hello@peterkomolafe.com)
+const SOFT_JUNK = ['hello','hi','no','na','me','you','name','email','mail','user','someone','info','contact','admin'];
+const JUNK_DOMAINS = ['example.com','example.org','example.net','example.co.uk','test.com','testing.com','test.co.uk','fake.com','fakeemail.com',
+  'abc.com','xyz.com','domain.com','email.test','mailinator.net'];
+const KEYBOARD = ['qwertyuiop','asdfghjkl','zxcvbnm','1234567890','0987654321','abcdefghijklmnopqrstuvwxyz'];
+function looksJunk(local, domain) {
+  const plain = local.replace(/[._+-]/g, '');
+  const letters = plain.replace(/\d/g, '');
+  if (JUNK_DOMAINS.includes(domain)) return true;
+  if (/^\d+$/.test(plain)) return true;                                   // 123, 07700900123
+  if (JUNK_WORDS.some((w) => w.length >= 3 && new RegExp(`^(${w})+$`).test(letters))) return true; // test, test123, test.test, asdf99
+  if (SOFT_JUNK.includes(letters) && COMMON.includes(domain)) return true; // hello@gmail.com
+  if (/^(.)\1+$/.test(plain)) return true;                                // aaaa, 1111
+  if (plain.length >= 4 && KEYBOARD.some((row) => row.includes(plain))) return true; // asdfgh, qwerty, 12345
+  if (local.split(/[._+\-\d]+/).some((part) => /[bcdfghjklmnpqrstvwxz]{5,}/.test(part))) return true; // xkqwzpt: no name part has 5 consonants in a row
+  if ((plain.match(/[a-z]\d|\d[a-z]/g) || []).length >= 4) return true;   // a1b2c3, x7k9q2
+  return false;
+}
+function nameLooksJunk(name) {
+  const n = name.toLowerCase().replace(/[^a-z]/g, '');
+  return n.length < 2 || JUNK_WORDS.includes(n) || ['hello','hi','name','none','na','me'].includes(n) || /^(.)\1+$/.test(n) || /[bcdfghjklmnpqrstvwxz]{5,}/.test(n) || KEYBOARD.some((row) => n.length >= 4 && row.includes(n));
+}
 let typoChecked = '';
 function showHint(html, block) { const h = $('emailHint'); h.innerHTML = html; h.classList.toggle('block', !!block); h.hidden = false; }
 
@@ -469,6 +495,14 @@ $('startForm').addEventListener('submit', (e) => {
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('formError').style.display = 'block'; return; }
   $('formError').style.display = 'none';
   const [local, domain] = email.split('@');
+  if (nameLooksJunk(name)) {
+    showHint('Please add your real first name. We use it in your results and your guide.', true);
+    return;
+  }
+  if (looksJunk(local, domain)) {
+    showHint("That doesn't look like a real email address. Please use one you check: your full guide will be sent there.", true);
+    return;
+  }
   if (THROWAWAY.includes(domain)) {
     showHint('That looks like a temporary inbox. Please use an email address you check: your full guide will be sent there.', true);
     return;
