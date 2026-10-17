@@ -1,0 +1,4 @@
+# Netlify settings for the money personality test (deployed from quiz/site).
+# Static files only: nothing to build, publish this folder as it is.
+[build]
+  publish = "."

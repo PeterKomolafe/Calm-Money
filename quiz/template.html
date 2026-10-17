@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's Your Money Personality? | Calm Money</title>
+<meta name="description" content="15 questions, instant results. Find the money personality shaping your financial life, and what to do about it.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,{{FAVICON}}">
+<style>
+@font-face { font-family: 'Satoshi'; src: url(data:font/woff2;base64,{{SATOSHI}}) format('woff2'); font-weight: 300 900; font-style: normal; font-display: swap; }
+
+/* Calm Money brand tokens, copied from the main site */
+:root {
+  --teal: #557170;
+  --teal-dark: #3e5553;
+  --sage: #7d9d90;
+  --blush: #e6a89c;
+  --terracotta: #b5695a;
+  --terracotta-dark: #a0584a;
+  --cream: #f5e8d8;
+  --mint: #e8f8f5;
+  --cream-deep: #ebd9c3;
+  --paper: #ffffff;
+  --ink: #1f2624;
+  --muted: #5b6664;
+  --line: #ebe6e0;
+  --rule: #e9ecea;
+  --font: 'Satoshi', system-ui, -apple-system, sans-serif;
+  --track-display: -0.03em;
+  --track-heading: -0.02em;
+  --track-label: 0.12em;
+  --lift: inset 0 1px 0 rgb(255 255 255 / 0.10), 0 3px 6px rgb(31 38 36 / 0.08),
+    0 12px 24px -4px rgb(31 38 36 / 0.16), 0 32px 56px -12px rgb(31 38 36 / 0.24), 0 64px 96px -32px rgb(31 38 36 / 0.30);
+  --radius: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--paper); }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: transparent; color: var(--ink); font-family: var(--font); font-size: 1.125rem; line-height: 1.65; }
+/* Faint ledger grid behind the page, as on the main site */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px), linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: calc(100vw / 8) calc(100vw / 8); opacity: 0.6;
+}
+@media (max-width: 760px) { body::before { background-size: 25vw 25vw; } }
+button, input { font: inherit; }
+:focus-visible { outline: 3px solid var(--terracotta); outline-offset: 3px; }
+
+.top { display: flex; justify-content: center; padding: 28px 16px 0; }
+.ring { display: block; width: 48px; height: 48px; }
+main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.page { display: none; }
+.page.active { display: block; animation: fade .35s ease-out; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.eyebrow { margin: 0 0 14px; font-size: 0.8rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--terracotta-dark); }
+h1, h2 { font-weight: 700; color: var(--teal-dark); margin: 0; }
+h1 { font-size: clamp(2.5rem, 7vw, 4rem); line-height: 1.04; letter-spacing: var(--track-display); text-wrap: balance; }
+/* Hand-drawn terracotta stroke under the payoff word, as in the main site's hero */
+h1 em { font-style: normal; position: relative; white-space: nowrap; }
+h1 em::after { content: ''; position: absolute; left: -2%; right: -2%; bottom: -0.1em; height: 0.15em; background: var(--terracotta); border-radius: 99px; rotate: -1.2deg; opacity: 0.9; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6em; padding: 0.85em 1.5em; border-radius: 6px; border: 2px solid transparent; font-weight: 500; font-size: 1.05rem; line-height: 1.2; cursor: pointer; text-decoration: none; transition: background-color .15s, color .15s, border-color .15s, opacity .15s; }
+.btn--primary { background: var(--terracotta-dark); color: #fff; }
+.btn--primary:hover { background: #8a4a3e; }
+.btn--primary:disabled { opacity: .4; cursor: default; background: var(--terracotta-dark); }
+.btn--ghost { background: transparent; border-color: var(--teal); color: var(--teal); }
+.btn--ghost:hover { background: var(--teal); color: #fff; }
+.btn--light { background: var(--cream); color: var(--ink); }
+
+/* ── Intro ── */
+#pageIntro { text-align: center; padding: 6vh 0 48px; }
+#pageIntro h1 { margin: 0 auto 22px; max-width: 11em; }
+.lede { margin: 0 auto 28px; max-width: 30em; font-size: 1.2rem; color: var(--muted); }
+.pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 36px; }
+.pill { padding: 6px 14px; border-radius: 99px; font-size: 0.9rem; font-weight: 500; color: var(--teal-dark); background: var(--paper); border: 1px solid var(--line); }
+.pill i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; translate: 0 -1px; }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(24px, 4vw, 36px); box-shadow: 0 1px 2px rgb(31 38 36 / .04), 0 12px 32px -12px rgb(31 38 36 / .14); }
+form.card { max-width: 440px; margin: 0 auto; display: grid; gap: 12px; text-align: left; }
+label span { display: block; margin-bottom: 6px; font-size: 0.95rem; font-weight: 500; }
+input[type=text], input[type=email] { width: 100%; padding: 14px 16px; border: 1.5px solid #d9d4cd; border-radius: 8px; background: #fff; color: var(--ink); font-size: 1.05rem; }
+input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgb(85 113 112 / .18); }
+form .btn { width: 100%; margin-top: 6px; }
+.err { display: none; margin: 0; color: var(--terracotta-dark); font-size: 0.95rem; font-weight: 500; }
+.consent { margin: 4px 0 0; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
+.consent a { color: var(--teal); }
+.trap { position: absolute; left: -9999px; }
+
+/* ── Quiz ── */
+#pageQuiz { padding: 6vh 0 48px; }
+.progress { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px; font-size: 0.8rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--muted); }
+.bar { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; margin-bottom: 40px; }
+.bar i { display: block; height: 100%; width: 0; background: var(--teal); border-radius: inherit; transition: width .35s ease; }
+#qText { font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.2; letter-spacing: var(--track-heading); margin-bottom: 10px; text-wrap: balance; }
+.howto { margin: 0 0 28px; color: var(--muted); font-size: 1rem; }
+.items { display: grid; gap: 14px; margin-bottom: 28px; }
+.item { padding: 20px 22px 18px; background: var(--paper); border: 1.5px solid var(--line); border-radius: 14px; transition: border-color .15s, background-color .15s; }
+.item.done { border-color: #d6e2df; }
+.item.missing { border-color: var(--terracotta); }
+.item p { margin: 0 0 14px; font-size: 1.1rem; line-height: 1.45; font-weight: 500; color: var(--ink); }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.scale button { height: 46px; border: 1.5px solid #d9d4cd; border-radius: 8px; background: #fff; color: var(--muted); font-size: 1rem; font-weight: 500; cursor: pointer; transition: background-color .12s, border-color .12s, color .12s; }
+.scale button:hover { border-color: var(--teal); color: var(--teal-dark); }
+.scale button[aria-checked=true] { background: var(--teal); border-color: var(--teal); color: #fff; }
+.ends { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
+.nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.left { font-size: 0.95rem; color: var(--muted); text-align: center; flex: 1; }
+.nav .btn--ghost:disabled { visibility: hidden; }
+
+/* ── Loading ── */
+#pageLoading { text-align: center; padding: 22vh 0; }
+#pageLoading .ring { width: 64px; height: 64px; margin: 0 auto 24px; animation: spin 1.4s linear infinite; }
+@keyframes spin { to { rotate: 360deg; } }
+#pageLoading p { color: var(--muted); }
+
+/* ── Results ── */
+#pageResults { padding: 6vh 0 48px; }
+#pageResults .head { text-align: center; margin-bottom: 36px; }
+#rName { font-size: clamp(3rem, 10vw, 5rem); margin-bottom: 18px; }
+#rTagline { margin: 0; font-size: 0.85rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--teal); }
+#rBody p { margin: 0 0 1em; }
+#rBody p:first-child { font-size: 1.25rem; line-height: 1.55; color: var(--teal-dark); font-weight: 500; }
+.guide { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; margin: 28px 0 0; padding: 22px 24px; background: var(--paper); border: 1.5px solid var(--line); border-radius: var(--radius); }
+.guide > div { flex: 1 1 260px; min-width: 0; }
+.guide .eyebrow { margin-bottom: 6px; }
+.guide-text { margin: 0; font-size: 1rem; color: var(--muted); }
+.guide .btn { flex: none; }
+.shadow { margin: 28px 0 20px; padding: clamp(24px, 4vw, 36px); border-radius: 22px; background: linear-gradient(180deg, #3d5453, #34494a 40%); color: var(--cream); box-shadow: var(--lift); }
+.shadow .eyebrow { color: var(--blush); }
+.shadow h2 { color: var(--cream); font-size: 1.6rem; letter-spacing: var(--track-heading); margin-bottom: 10px; }
+.shadow p { margin: 0; color: #e4dccf; font-size: 1.02rem; }
+.scores h2 { font-size: 1.25rem; letter-spacing: var(--track-heading); margin-bottom: 18px; }
+.row { display: grid; grid-template-columns: 110px 1fr 32px; align-items: center; gap: 14px; margin-bottom: 12px; font-size: 1rem; }
+.row .track { height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.row .fill { display: block; height: 100%; border-radius: inherit; width: 0; transition: width .8s ease .2s; }
+.row .n { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--teal-dark); }
+.row.top-type { font-weight: 700; color: var(--teal-dark); }
+.again { display: flex; justify-content: center; margin-top: 32px; }
+
+footer { width: 100%; max-width: 720px; margin: 0 auto; padding: 32px 24px 36px; border-top: 1px solid rgb(31 38 36 / 0.14); font-size: 13px; line-height: 1.55; color: var(--muted); }
+.byline { display: inline-flex; align-items: center; gap: 0.45em; margin-bottom: 16px; color: var(--ink); text-decoration: none; font-size: 0.95rem; }
+.byline img { width: 2em; height: 2em; border-radius: 50%; object-fit: cover; border: 1.5px solid #fff; box-shadow: 0 1px 2px rgb(31 38 36 / .12), 0 4px 10px rgb(31 38 36 / .14); }
+.byline .wm { height: 0.92em; aspect-ratio: 467 / 57; background: currentColor; translate: 0 0.04em; -webkit-mask: url(data:image/png;base64,{{WORDMARK}}) center / contain no-repeat; mask: url(data:image/png;base64,{{WORDMARK}}) center / contain no-repeat; }
+footer p { margin: 0 0 10px; }
+footer a { color: var(--ink); text-underline-offset: 3px; }
+
+@media (max-width: 560px) {
+  main { padding: 0 16px; }
+  footer { padding-inline: 16px; }
+  .top { padding-top: 20px; }
+  .ring { width: 40px; height: 40px; }
+  .item { padding: 18px 16px 16px; }
+  .scale { gap: 6px; }
+  .left { display: none; }
+  .row { grid-template-columns: 96px 1fr 28px; gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">{{RING}}</header>
+
+<main>
+  <!-- Intro -->
+  <section class="page active" id="pageIntro">
+    <p class="eyebrow">The Calm Money test</p>
+    <h1>What's your money <em>personality?</em></h1>
+    <p class="lede">30 short statements, about 4 minutes. Instant results. Discover the patterns shaping your financial life, and what to do about them.</p>
+    <div class="pills" aria-label="The five money personalities">
+      <span class="pill"><i style="background:var(--teal)"></i>Avoider</span>
+      <span class="pill"><i style="background:var(--terracotta)"></i>Spender</span>
+      <span class="pill"><i style="background:var(--blush)"></i>Overthinker</span>
+      <span class="pill"><i style="background:var(--sage)"></i>Planner</span>
+      <span class="pill"><i style="background:var(--cream-deep)"></i>Cautioneer</span>
+    </div>
+    <form class="card" id="startForm" novalidate>
+      <label><span>First name</span><input type="text" id="firstName" autocomplete="given-name" required></label>
+      <label><span>Email address</span><input type="email" id="email" autocomplete="email" required></label>
+      <label class="trap" aria-hidden="true">Leave this empty <input type="text" id="company" tabindex="-1" autocomplete="off"></label>
+      <p class="err" id="formError" role="alert">Please add your first name and a valid email address.</p>
+      <button class="btn btn--primary" type="submit">Discover my money type <span aria-hidden="true">→</span></button>
+      <p class="consent">By starting, you agree to receive emails from Calm Money. Unsubscribe at any time. <a href="https://www.calmmoneycommunity.com/privacy" target="_blank" rel="noopener">Privacy policy</a></p>
+    </form>
+  </section>
+
+  <!-- Quiz -->
+  <section class="page" id="pageQuiz">
+    <div class="progress"><span id="qLabel">Part 1 of 6</span><span id="qPct">0%</span></div>
+    <div class="bar"><i id="barFill"></i></div>
+    <h2 id="qText">How true is each statement for you?</h2>
+    <p class="howto">Answer as you are now, not as you'd like to be. There are no right answers.</p>
+    <div class="items" id="items"></div>
+    <div class="nav">
+      <button class="btn btn--ghost" id="btnBack" type="button">← Back</button>
+      <span class="left" id="left" aria-live="polite"></span>
+      <button class="btn btn--primary" id="btnNext" type="button">Next <span aria-hidden="true">→</span></button>
+    </div>
+  </section>
+
+  <!-- Loading -->
+  <section class="page" id="pageLoading">
+    {{RING}}
+    <p>Working out your money personality…</p>
+  </section>
+
+  <!-- Results -->
+  <section class="page" id="pageResults">
+    <div class="head">
+      <p class="eyebrow">Your money personality</p>
+      <h1 id="rName"></h1>
+      <p id="rTagline"></p>
+    </div>
+    <div id="rBody"></div>
+    <div class="guide">
+      <div>
+        <p class="eyebrow">Your full guide</p>
+        <p class="guide-text">Eight pages on your pattern: why it happens, what it costs, your strengths and what progress looks like.</p>
+      </div>
+      <a class="btn btn--primary" id="guideLink" href="#" target="_blank" rel="noopener">Download your guide <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="shadow">
+      <p class="eyebrow">Your shadow type</p>
+      <h2 id="rShadowName"></h2>
+      <p id="rShadowDesc"></p>
+    </div>
+    <div class="card scores">
+      <h2>Your score breakdown <span style="font-weight:500;font-size:0.9rem;color:var(--muted)">out of 100</span></h2>
+      <div id="scoreRows"></div>
+    </div>
+    <div class="again"><button class="btn btn--ghost" id="btnRetake" type="button">Retake the test</button></div>
+  </section>
+</main>
+
+<footer>
+  <a class="byline" href="https://www.peterkomolafe.com/" target="_blank" rel="noopener" aria-label="By Peter Komolafe. Visit peterkomolafe.com">
+    <img src="data:image/webp;base64,{{PETER}}" width="120" height="120" alt="">
+    <span>By</span><span class="wm" aria-hidden="true"></span>
+  </a>
+  <p>Calm Money is financial education, not regulated financial advice. Nothing here constitutes personalised advice under the Financial Services and Markets Act 2000. Always consider your own circumstances, and seek regulated advice where appropriate.</p>
+  <p>&copy; <span id="yr">2026</span> Conversation of Money Ltd</p>
+</footer>
+
+<script>
+// Klaviyo: sign-ups go straight to the "Money Personality Test" list through Klaviyo's public endpoints.
+// No Klaviyo script is loaded, so no Klaviyo pop-ups can appear on this page.
+const KLAVIYO_KEY = 'R8VR9k';
+const KLAVIYO_LIST = 'XYHXwA';
+
+// 30 statements, 6 per personality. The first five for each type are the "Do you recognise yourself?"
+// statements from that type's guide. The sixth is reversed (agreeing counts against the type), to catch
+// people who agree with everything. Each part of the test shows one statement from every type.
+const STATEMENTS = {
+  Avoider: [
+    "I put off opening bank statements, credit card bills or pension letters.",
+    "I have a rough sense of my finances, but I couldn't give you accurate figures.",
+    "Thinking about money in detail makes me anxious, so I tend not to.",
+    "I've been telling myself I'll sort my finances out for a long time.",
+    "There are money problems I know about but haven't dealt with yet.",
+    ["Right now, I could tell you to within a few hundred pounds what I owe and what I have saved.", true],
+  ],
+  Spender: [
+    "My lifestyle tends to match, or slightly exceed, whatever I earn.",
+    "I often reach the end of the month unsure where the money went.",
+    "Buying something gives me a lift, at least in the moment.",
+    "I find it hard to save consistently, even when I tell myself I will.",
+    "My credit card balance is rarely, if ever, fully cleared.",
+    ["I rarely spend money to cheer myself up or reward myself.", true],
+  ],
+  Overthinker: [
+    "I understand a lot about personal finance but haven't done much with it.",
+    "I've started setting up a pension, investment or savings plan more than once without finishing.",
+    "I worry about making a money decision I can't undo.",
+    "When I face a money decision, I research it a lot and still feel unsure.",
+    "I know what I should be doing. I just can't seem to start.",
+    ["Once I've done enough research, I make the money decision and move on.", true],
+  ],
+  Planner: [
+    "I track my spending in detail, and it unsettles me when reality doesn't match the budget.",
+    "Unexpected costs cause me a lot of stress.",
+    "I have a clear financial plan and I think about it regularly.",
+    "I get frustrated with partners, friends or family who handle money differently from me.",
+    "Planning my finances makes me feel in control, even when the results aren't quite right.",
+    ["I don't keep a budget or track my spending.", true],
+  ],
+  Cautioneer: [
+    "I save consistently, but I've never really invested.",
+    "I'd rather my money sat in a savings account than take any risk with it.",
+    "I feel uncomfortable, even anxious, when people suggest I should be investing.",
+    "I know my savings aren't growing much, but at least they're safe.",
+    "I tend not to talk about money, even with people I trust.",
+    ["I'm comfortable seeing my investments fall for a while, because I'm investing for the long term.", true],
+  ],
+};
+const ORDER = ['Avoider','Spender','Overthinker','Planner','Cautioneer'];
+const GUIDE_URL = (t) => `https://quiz.calmmoneycommunity.com/reports/${t}_Personality_Guide.pdf`;
+const PER_PAGE = 5, PAGES = 6;
+// Part k holds statement k of every type, with the type order rotated so no type is always first
+const ITEMS = [];
+for (let k = 0; k < PAGES; k++) {
+  for (let j = 0; j < ORDER.length; j++) {
+    const type = ORDER[(j + k * 2) % ORDER.length];
+    const st = STATEMENTS[type][k];
+    const [text, reversed] = Array.isArray(st) ? st : [st, false];
+    ITEMS.push({ type, text, reversed });
+  }
+}
+
+// Score per type, 0 to 100. 1 = "Not me", 5 = "Exactly me"; reversed statements are flipped
+function score(answers) {
+  const raw = Object.fromEntries(ORDER.map((t) => [t, 0]));
+  const strong = Object.fromEntries(ORDER.map((t) => [t, 0]));
+  const agree = Object.fromEntries(ORDER.map((t) => [t, 0]));
+  const core = Object.fromEntries(ORDER.map((t) => [t, 0]));
+  ITEMS.forEach((it, i) => {
+    const v = it.reversed ? 6 - answers[i] : answers[i];
+    raw[it.type] += v;
+    if (v === 5) strong[it.type]++;
+    if (v >= 4) agree[it.type]++;
+    if (!it.reversed) core[it.type] += answers[i];
+  });
+  const per = ITEMS.length / ORDER.length;
+  const scores = Object.fromEntries(ORDER.map((t) => [t, Math.round(((raw[t] - per) / (per * 4)) * 100)]));
+  // Highest score wins. On an exact tie, in turn: more "Exactly me" answers, more statements agreed with (4 or 5),
+  // then the higher total on the guide's own five statements. Only if all of those match does list order decide
+  const sorted = ORDER.slice().sort((a, b) => raw[b] - raw[a] || strong[b] - strong[a] || agree[b] - agree[a] || core[b] - core[a]);
+  return { scores, sorted, raw, strong, agree, core };
+}
+
+const TYPES = {
+  Avoider: {
+    tagline: "The one who looks away", colour: 'var(--teal)',
+    body: [
+      "You know your finances need attention, but facing them feels harder than it should. It's not laziness. It's usually anxiety, overwhelm, or a fear of what you might find. So you carry on, hoping things will sort themselves out.",
+      "The problem is that avoidance quietly costs you. Opportunities slip by, small problems grow, and the weight of not knowing becomes its own kind of stress.",
+      "The good news? Once you start looking, it's almost never as bad as you feared. And having the right support makes it much easier to face. Calm Money was built for people exactly like you."
+    ]
+  },
+  Spender: {
+    tagline: "The one who lives for now", colour: 'var(--terracotta)',
+    body: [
+      "You know how to enjoy money, and there's nothing wrong with that. But spending can also be emotional: a response to stress, boredom, or a need for comfort. Sometimes the purchase feels good in the moment and hollow shortly after.",
+      "The pattern isn't about willpower. It's about understanding what's driving the behaviour and building a different relationship with money that doesn't feel like restriction.",
+      "Calm Money helps you spend in a way that genuinely aligns with what you want, without the guilt."
+    ]
+  },
+  Overthinker: {
+    tagline: "The one who knows but doesn't act", colour: 'var(--blush)',
+    body: [
+      "You've done the research. You understand the concepts. You know what you probably should do. But somehow, the right moment to start never quite arrives. The options feel too many, the stakes too high.",
+      "Analysis paralysis is real. And it costs just as much as avoidance, just in a different way. Every month of waiting is a month of compounding you're not accessing.",
+      "Calm Money is designed to cut through the noise, give you a clear path, and make it safe to take that first step."
+    ]
+  },
+  Planner: {
+    tagline: "The one who has a system", colour: 'var(--sage)',
+    body: [
+      "You're methodical, disciplined, and future-focused. You track, you save, you think ahead. In many ways, you're ahead of most people, and that's genuinely worth recognising.",
+      "But planners can sometimes get so focused on the destination that they forget to enjoy the journey. Or they hit a ceiling, optimising the same system without knowing what the next level looks like.",
+      "Calm Money helps you go from good to great: refining your approach and making sure your money is truly working as hard as you are."
+    ]
+  },
+  Cautioneer: {
+    tagline: "The one who plays it safe", colour: '#cdb594',
+    body: [
+      "Security is your priority. You're careful, risk-aware, and protective of what you've built. That caution has kept you out of trouble, and that matters more than people realise.",
+      "But there's a cost to playing it too safe. Inflation quietly erodes cash savings. Missed opportunities compound over time. And a life spent protecting what you have can sometimes mean not growing it.",
+      "Calm Money helps you find the balance: protecting your security while giving you the confidence to move forward."
+    ]
+  }
+};
+let userName = '', userEmail = '', isBot = false;
+let page = 0, answers = new Array(ITEMS.length).fill(null);
+const $ = (id) => document.getElementById(id);
+
+// ── Klaviyo (public client endpoints, safe to call from the browser) ──
+function kl(path, body) {
+  return fetch(`https://a.klaviyo.com/client/${path}/?company_id=${KLAVIYO_KEY}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/vnd.api+json', 'revision': '2025-07-15' },
+    body: JSON.stringify({ data: body }),
+    keepalive: true,
+  }).catch((e) => console.warn('Klaviyo:', e));
+}
+
+function subscribe(name, email) {
+  // Adds them to the list as soon as they start, so the sign-up isn't lost if they stop part-way
+  kl('subscriptions', {
+    type: 'subscription',
+    attributes: {
+      custom_source: 'Money Personality Test',
+      profile: { data: { type: 'profile', attributes: { email, subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } } } } },
+    },
+    relationships: { list: { data: { type: 'list', id: KLAVIYO_LIST } } },
+  });
+  kl('profiles', { type: 'profile', attributes: { email, first_name: name } });
+}
+
+function saveResult(email, name, primary, secondary, scores) {
+  const props = {
+    'Money Personality': primary,
+    'Money Personality Shadow': secondary,
+    'Money Personality Date': new Date().toISOString().slice(0, 10),
+    'Money Personality Test Version': 2,
+  };
+  kl('profiles', { type: 'profile', attributes: { email, first_name: name, properties: props } });
+  kl('events', {
+    type: 'event',
+    attributes: {
+      properties: { 'Primary Type': primary, 'Shadow Type': secondary, 'Test Version': 2, 'Guide URL': GUIDE_URL(primary), ...Object.fromEntries(ORDER.map((t) => [`Score ${t}`, scores[t]])) },
+      metric: { data: { type: 'metric', attributes: { name: 'Quiz Completed' } } },
+      profile: { data: { type: 'profile', attributes: { email } } },
+    },
+  });
+}
+
+// ── Flow ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach((p) => p.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+$('startForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = $('firstName').value.trim();
+  const email = $('email').value.trim();
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('formError').style.display = 'block'; return; }
+  $('formError').style.display = 'none';
+  userName = name; userEmail = email;
+  isBot = !!$('company').value;
+  if (!isBot) subscribe(name, email);
+  page = 0; answers = new Array(ITEMS.length).fill(null);
+  renderPage(); showPage('pageQuiz');
+});
+
+function answeredOnPage() {
+  return answers.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE).filter((v) => v !== null).length;
+}
+
+function updateNav() {
+  const left = PER_PAGE - answeredOnPage();
+  $('left').textContent = left ? `${left} left on this page` : '';
+  $('btnNext').firstChild.textContent = page === PAGES - 1 ? 'See my results ' : 'Next ';
+}
+
+function renderPage() {
+  $('qLabel').textContent = `Part ${page + 1} of ${PAGES}`;
+  const pct = Math.round((page / PAGES) * 100);
+  $('qPct').textContent = `${pct}%`;
+  $('barFill').style.width = `${pct}%`;
+  $('btnBack').disabled = page === 0;
+  const wrap = $('items');
+  wrap.innerHTML = '';
+  for (let i = page * PER_PAGE; i < page * PER_PAGE + PER_PAGE; i++) {
+    const card = document.createElement('div');
+    card.className = 'item' + (answers[i] !== null ? ' done' : '');
+    const p = document.createElement('p');
+    p.id = `s${i}`; p.textContent = ITEMS[i].text;
+    const scale = document.createElement('div');
+    scale.className = 'scale'; scale.setAttribute('role', 'radiogroup'); scale.setAttribute('aria-labelledby', p.id);
+    for (let v = 1; v <= 5; v++) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.textContent = v; b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', answers[i] === v ? 'true' : 'false');
+      b.setAttribute('aria-label', `${v}${v === 1 ? ', not me' : v === 5 ? ', exactly me' : ''}`);
+      b.addEventListener('click', () => answer(i, v, card));
+      scale.appendChild(b);
+    }
+    const ends = document.createElement('div');
+    ends.className = 'ends'; ends.innerHTML = '<span>Not me</span><span>Exactly me</span>';
+    card.append(p, scale, ends);
+    wrap.appendChild(card);
+  }
+  updateNav();
+}
+
+function answer(i, v, card) {
+  const first = answers[i] === null;
+  answers[i] = v;
+  card.classList.add('done'); card.classList.remove('missing');
+  card.querySelectorAll('.scale button').forEach((b, j) => b.setAttribute('aria-checked', j + 1 === v ? 'true' : 'false'));
+  updateNav();
+  // Bring the next unanswered statement into view
+  if (first) {
+    const next = [...document.querySelectorAll('.item')].find((c) => !c.classList.contains('done'));
+    if (next) next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+$('btnBack').addEventListener('click', () => { if (page > 0) { page--; renderPage(); window.scrollTo(0, 0); } });
+$('btnNext').addEventListener('click', () => {
+  if (answeredOnPage() < PER_PAGE) {
+    const cards = [...document.querySelectorAll('.item')];
+    cards.forEach((c, j) => c.classList.toggle('missing', answers[page * PER_PAGE + j] === null));
+    const miss = cards.find((c) => c.classList.contains('missing'));
+    if (miss) miss.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  if (page < PAGES - 1) { page++; renderPage(); window.scrollTo(0, 0); } else { showResults(); }
+});
+$('btnRetake').addEventListener('click', () => { page = 0; answers = new Array(ITEMS.length).fill(null); renderPage(); showPage('pageQuiz'); });
+
+function showResults() {
+  showPage('pageLoading');
+  const { scores, sorted } = score(answers);
+  const primary = sorted[0], secondary = sorted[1];
+  if (!isBot) saveResult(userEmail, userName, primary, secondary, scores);
+
+  setTimeout(() => {
+    const pt = TYPES[primary], st = TYPES[secondary];
+    $('rName').textContent = primary;
+    $('rTagline').textContent = pt.tagline;
+    $('rBody').innerHTML = '';
+    pt.body.forEach((t) => { const p = document.createElement('p'); p.textContent = t; $('rBody').appendChild(p); });
+    $('rShadowName').textContent = `The ${secondary}`;
+    $('guideLink').href = `reports/${primary}_Personality_Guide.pdf`;
+    $('guideLink').firstChild.textContent = `Download your ${primary} guide `;
+    $('rShadowDesc').textContent = st.body[0];
+
+    const rows = $('scoreRows');
+    rows.innerHTML = '';
+    ORDER.forEach((t) => {
+      const r = document.createElement('div');
+      r.className = 'row' + (t === primary ? ' top-type' : '');
+      r.innerHTML = `<span>${t}</span><span class="track"><span class="fill" style="background:${TYPES[t].colour}"></span></span><span class="n">${scores[t]}</span>`;
+      rows.appendChild(r);
+      requestAnimationFrame(() => requestAnimationFrame(() => { r.querySelector('.fill').style.width = `${Math.max(scores[t], 2)}%`; }));
+    });
+    showPage('pageResults');
+  }, 1600);
+}
+
+$('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

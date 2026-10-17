@@ -1,0 +1,221 @@
+# Text of the five Money Personality Guides. Peter's original wording, with these changes:
+# figure fixes (Spender, Overthinker), research claims corrected (Overthinker, Avoider),
+# and members-only references reworded for people who haven't joined Calm Money yet.
+
+COMMON_CLOSE = [
+    "Reading a guide like this is not the same as acting on it. The point of the guide is not to make you feel seen, though I hope it has. The point is to make the next step obvious enough that you take it.",
+    "Calm Money is the programme that turns this reading of yourself into a structure you can actually use. Three pots. A debt cycle you can break. Savings that happen without you thinking about them. Investing that starts small and compounds. A community of people who are doing the same work.",
+    "The programme is not complicated. But it works because it addresses the pattern, not just the numbers.",
+]
+
+TYPES = {
+"avoider": dict(
+    name="The Avoider", short="Avoider", letter="A",
+    accent="#557170", ink="#3e5553", soft="#e3ecea",
+    cover_pre="A", cover_em="quiet", cover_post="relationship with money. And the cost of it.",
+    cover_sub="Not engaging as a way of managing financial fear.",
+    statements=[
+        "I do not open bank statements, credit card bills, or pension correspondence regularly.",
+        "I have a rough sense of my financial position but I could not give you accurate figures.",
+        "Thinking about money in detail produces anxiety I find difficult to sit with.",
+        "I know I should sort things out financially. I have been saying that for some time.",
+        "There are financial problems I am aware of but have not yet addressed.",
+    ],
+    pattern=[
+        "You are not lazy. You are not irresponsible. You are someone whose relationship with money is governed by anxiety, and the most immediate way to manage that anxiety is to not engage with its source. The non-engagement provides temporary relief. The financial problems it allows to compound are the actual cost.",
+        "The Avoider pattern is one of the most well-documented in financial psychology, and it is not correlated with income or intelligence. High earners avoid their finances. Educated people avoid their finances. The pattern is driven by anxiety, not by a lack of capacity. You are capable of dealing with this. The question is whether you can build enough of a sense of safety to begin looking at what is actually there.",
+    ],
+    quote="I have a pension somewhere from a job I left in 2015. I've never transferred it or found out how much is in it. My credit cards have balances I haven't added up in probably two years. I know it's not good. Every time I think about sitting down and actually looking at it I feel physically sick. So I don't. And then I feel ashamed that I don't. And that makes it harder to look.",
+    quote_by="Aisha, 39, senior nurse",
+    research=[
+        "Financial avoidance has been established as a specific, measurable psychological phenomenon. A 2012 study confirmed it as an identifiable condition, finding that people with higher financial anxiety show a measurable cognitive avoidance of negative financial information. The American Psychological Association's Stress in America research consistently finds money among the leading causes of stress for adults.",
+        "Research published in Psychological Research by Hilbert and colleagues documents the reinforcing cycle precisely: financial scarcity increases financial avoidance, and financial avoidance worsens financial scarcity, producing a downward spiral that becomes progressively harder to exit the longer it continues. This is not a personal failing. It is a documented psychological mechanism.",
+        "Klontz's money avoidance scripts, the belief that money is bad, corrupting, or that you are somehow not entitled to financial wellbeing, are common in this type. These beliefs are rarely conscious. They operate in the background, making financial engagement feel both threatening and somehow inappropriate. The shame that compounds around the avoidance adds another layer: the Avoider often feels too embarrassed to seek help because they believe they should have dealt with it already.",
+    ],
+    costs=[
+        ("Compound debt", "A problem left alone does not stay the same size. Interest accumulates. Late payment charges accrue. Credit scores deteriorate. A manageable problem at the point of avoidance can become genuinely difficult two or three years later."),
+        ("No pension foundation", "The Avoider who reaches 45 without having engaged with their pension is facing a genuine retirement problem. The earlier this is addressed, the more manageable it becomes. The later, the harder."),
+        ("The shame cycle", "Every month of continued avoidance makes the moment of looking more frightening. The anxiety about how bad it might be grows faster than the actual problem in many cases. Breaking the cycle earlier is always easier than later."),
+        ("Missed opportunities", "While the Avoider is not looking, employer pension matching goes unclaimed, savings interest goes unearned, and the gap between where they are and where they could be widens quietly."),
+    ],
+    strengths=[
+        "The fact that you are here, reading this, and that you have taken the test, means the pattern is already beginning to break. That is not a small thing. Most Avoiders do not get this far.",
+        "You are likely to experience disproportionately large gains from relatively small financial actions, precisely because the current baseline is low. The person who starts from the furthest back is rarely the one with the hardest road ahead.",
+        "When Avoiders begin engaging, they often find the reality is less frightening than the anticipation. The thing they were not looking at is frequently more manageable than their anxiety had suggested.",
+    ],
+    progress_intro="Progress for you starts with looking, not fixing. The first step is not to solve everything. It is to find out what is actually there.",
+    progress=[
+        ("Open one thing", "Open one statement. Add up one balance. Write down one number. That is progress."),
+        ("Do not try to solve everything at once", "The anxiety that has been building around your finances will not be resolved in a single session. In Calm Money, the first module, Reset, is designed to create a starting point rather than demand a complete picture immediately."),
+        ("Start with the Financial Health Check", "Calm Money members get it from day one. It walks you through your position in a structured, non-judgmental way. It will show you where you are and what to address first without overwhelming you."),
+        ("You do not have to do this alone", "The Calm Money community is full of people who started where you are, and its coaching sessions are a safe environment to look at your actual financial position with support."),
+    ],
+),
+"spender": dict(
+    name="The Spender", short="Spender", letter="S",
+    accent="#b5695a", ink="#a0584a", soft="#f6e7e3",
+    cover_pre="A", cover_em="free, lively", cover_post="relationship with money. And the cost of it.",
+    cover_sub="Spending as identity, reward, or emotional release.",
+    statements=[
+        "My lifestyle tends to match, or slightly exceed, whatever I earn.",
+        "I often reach the end of the month unsure where the money went.",
+        "Spending gives me a lift, at least in the moment.",
+        "I find it difficult to save consistently even when I tell myself I will.",
+        "My credit card balance is rarely, if ever, fully cleared.",
+    ],
+    pattern=[
+        "You are not reckless. You are not irresponsible. You are someone whose relationship with money has become entangled with how you feel. Spending, for you, is not purely transactional. It is a release valve for stress, a way of rewarding yourself after difficulty, a marker of who you are or who you want to be. None of that makes you a bad person. It does make financial stability harder to build.",
+        "The pattern tends to be consistent regardless of income. If you have always spent freely, you probably spent freely when you earned less, and you will continue to do so at higher earnings unless the underlying relationship with money changes. Lifestyle inflation, where your expenditure rises in step with your income, is the Spender's most reliable financial characteristic.",
+    ],
+    quote="I got a pay rise in January. By April I couldn't understand why I still felt exactly as stretched as I did before. I'd upgraded my phone, started going to a better gym, and somehow the direct debit for savings I'd set up had quietly been cancelled. It wasn't that I was being stupid. I just never sat down and made an actual decision about where the extra money was going. It went anyway.",
+    quote_by="Marcus, 34, account manager",
+    research=[
+        "Research in financial psychology, particularly from Klontz and colleagues, links the Spender pattern to what they term money worship scripts: deep beliefs, formed early and reinforced by experience, that spending, having things, or achieving a certain lifestyle will produce wellbeing. These beliefs are typically not conscious. You do not sit down and decide that buying something will make you feel better. The decision happens below the level of rational thought.",
+        "Neurologically, purchasing triggers dopamine release in the brain's reward circuits. The lift is real. The problem is it is temporary, and the brain learns to expect it, which is why the pattern tends to escalate rather than plateau. Research into compulsive buying published in CNS Spectrums describes this escalation process in terms that will be recognisable to many Spenders: the anticipation of the purchase becomes almost as rewarding as the purchase itself.",
+        "There is also a social dimension. Spending is a language of identity and belonging. What you wear, where you eat, what you drive, and where you holiday are not neutral choices. They communicate something about who you are. For Spenders, this social signalling role of spending is particularly powerful.",
+    ],
+    costs=[
+        ("The income–outcome gap", "You earn well. You have less to show for it than you should. The compounding effect of not saving in your 20s and early 30s is not abstract. At 7% average annual growth, £5,000 invested at 25 is worth roughly £75,000 by 65. Every year of delay is a real cost."),
+        ("Revolving debt interest", "A £5,000 credit card balance at 24% APR, paid at minimum payment only, costs approximately £7,000 in interest over 27 years. The actual item that put you there is long gone."),
+        ("Financial fragility", "A Spender with no savings buffer is one unexpected bill away from crisis. When that crisis comes, the response is often to spend through it, deepening the problem."),
+        ("The salary trap", "Without savings or investments, your lifestyle depends entirely on your income continuing. You are always one redundancy, one health crisis, or one career change away from a very difficult conversation with yourself."),
+    ],
+    strengths=[
+        "You are generous. Spenders give freely, and that is genuinely valuable. The programme will not try to make you stop. It will help you give intentionally rather than reactively.",
+        "You understand the emotional dimension of money better than most. That self-awareness is a foundation, once it is directed toward understanding the pattern rather than feeding it.",
+        "You are typically good with people and relationships, which matters for financial progress. Building money habits is much easier in community with others who share the goal.",
+    ],
+    progress_intro="Progress for you is not becoming someone who never enjoys spending. It is building enough structure that spending becomes a deliberate choice rather than a default.",
+    progress=[
+        ("Start with the Three-Pot system", "In Calm Money, Module 1 will be the most immediately useful tool for you. One pot for essentials, one for non-essentials, one for everything else. The goal is to make the boundary between pots visible, so that spending in one does not invisibly drain another."),
+        ("Automate saving before you see the money", "A savings direct debit that leaves your account on payday, before you see the money as available, will outperform any amount of willpower-based saving. Build the structure, then live inside it."),
+        ("Track spending for 30 days without judging it", "Not to shame yourself, but to see the pattern clearly. You cannot change what you cannot see."),
+        ("Address revolving credit structurally", "If you carry credit card debt, addressing it structurally, rather than paying it off and running it back up, is a significant priority. Calm Money's debt cycle module gives you the mechanics."),
+    ],
+),
+"overthinker": dict(
+    name="The Overthinker", short="Overthinker", letter="O",
+    accent="#e6a89c", ink="#a0584a", soft="#fbefec",
+    cover_pre="A", cover_em="considered, cautious", cover_post="relationship with money. And the cost of it.",
+    cover_sub="More research, more comparison, never quite ready.",
+    statements=[
+        "I understand a lot about personal finance but have not done much about it.",
+        "I have started to set up pensions, investments, or savings plans several times without completing.",
+        "I worry about making a financial decision I cannot reverse or recover from.",
+        "When I face a financial choice I tend to research it extensively and still feel uncertain.",
+        "I know what I should be doing. I just cannot seem to start.",
+    ],
+    pattern=[
+        "You are not disengaged from your finances. You think about money a great deal. The problem is that thinking has become a substitute for doing. You have read the books, listened to the podcasts, and visited the comparison sites. You have a clear general sense of what good financial behaviour looks like. What you have not done is apply it to your own situation, commit to a decision, and move.",
+        "This is not a character flaw. It is a specific cognitive pattern: intolerance of uncertainty combined with choice overload. The financial world offers an overwhelming number of options at every decision point, and your brain, which is wired to find the optimal choice before committing, experiences this as a reason to keep researching rather than a reason to start anywhere. The outcome is that you remain financially inactive while being financially literate.",
+    ],
+    quote="I know exactly how a Stocks and Shares ISA works. I know about global index funds. I have a spreadsheet comparing six different platforms. I opened an account with one of them in 2021 and never put any money in. I keep thinking I'll start when I've worked out the right allocation. I'm still working it out.",
+    quote_by="Priya, 38, marketing director",
+    research=[
+        "Sheena Iyengar's research at Columbia University demonstrated this pattern precisely. In her jam study, consumers presented with 24 choices were far less likely to purchase than those presented with 6. More importantly, the same effect shows up in pensions: a study of almost 800,000 employees found that every 10 extra funds on offer reduced the number of people joining their workplace scheme by around 2 percentage points. You are not unusual. You are displaying a documented human response to complexity.",
+        "Barry Schwartz's paradox of choice framework extends this: the more options available, the more anxious people become about their final selection, and the more likely they are to do nothing. The fear is not just of making the wrong choice. It is of the regret that would follow if you did. Intolerance of uncertainty research finds that individuals who score high on this trait tend to ruminate on unresolved decisions, which depletes the cognitive energy available for other tasks including work.",
+        "For Overthinkers, the research and comparison process also serves a protective function. As long as you are still researching, you have not made a decision that could go wrong. The process feels like progress without carrying the risk of an actual choice.",
+    ],
+    costs=[
+        ("Lost compounding", "Someone who started investing £300 a month at 30 into a diversified portfolio with average 7% annual growth would have approximately £366,000 by 60. Starting at 40 with the same contribution and growth rate produces approximately £156,000. The difference is not the investment. It is the 10 years of inaction."),
+        ("The pension gap", "The Overthinker who does not engage with their pension until they feel they fully understand it may be in their 40s before they meaningfully contribute. The employer matched contributions foregone in that period are significant."),
+        ("The cognitive cost", "Research on decision fatigue shows that unresolved financial decisions do not disappear when you close the browser. They sit in your mental background, consuming cognitive resources. Acting, even imperfectly, frees that capacity."),
+    ],
+    strengths=[
+        "When you do act on a financial decision you have researched, you typically do it well. The knowledge is real. It just needs a starting point rather than an endpoint.",
+        "Your tendency to think carefully makes you less vulnerable to impulsive financial mistakes and to financial products that do not stand up to scrutiny.",
+        "Your financial literacy means you can engage with the programme at a more sophisticated level than most. You will not be starting from scratch on concepts.",
+    ],
+    progress_intro="Progress for you is not becoming someone who makes fast decisions. It is learning to act on good enough rather than waiting for perfect.",
+    progress=[
+        ("Set a decision deadline", "Pick a date two weeks from now. Whatever ISA platform, pension contribution, or savings product you have been researching, you will have chosen one and set it up by that date. Imperfect action now outperforms perfect action never."),
+        ("Reduce your options deliberately", "Instead of comparing ten platforms, compare two. You are not looking for the best. You are looking for good enough to begin."),
+        ("Recognise that inaction has a cost", "There is no neutral position. Every month you delay investing is a month of compounding growth that does not happen. Frame the risk of not acting alongside the risk of acting imperfectly."),
+        ("Go straight to Module 5", "In Calm Money, Module 5, From Stability to Investing, is built for you specifically. It reduces the investment decision to its simplest components and gives you a framework for action rather than continued analysis."),
+    ],
+),
+"planner": dict(
+    name="The Planner", short="Planner", letter="P",
+    accent="#7d9d90", ink="#4f6d62", soft="#e9f0ed",
+    cover_pre="A", cover_em="precise, organised", cover_post="relationship with money. And the cost of it.",
+    cover_sub="Control as the primary financial strategy.",
+    statements=[
+        "I track my spending in detail and find it unsettling when reality diverges from the budget.",
+        "Financial uncertainty, particularly unexpected costs, generates significant stress for me.",
+        "I have a clear financial plan and I think about it regularly.",
+        "I sometimes feel frustrated by partners, friends, or family who approach money differently.",
+        "The act of planning makes me feel in control, even when the outcomes are not quite right.",
+    ],
+    pattern=[
+        "You are organised, proactive, and financially engaged in ways most people are not. You are unlikely to have consumer debt you are not aware of. You know your numbers. These are real strengths that put you ahead of the majority of people who come to Calm Money. The challenge is that your financial organisation has become more than a tool. It has become an identity, and in some cases, a source of rigidity and anxiety that undermines both your finances and your relationships.",
+        "The Planner confuses the act of planning with the act of building wealth. A detailed spreadsheet is satisfying. It creates a sense of control. But if the spreadsheet does not translate into investment growth, pension contributions above the minimum, and a genuine net worth increase year on year, the planning is performing the function of financial action without producing its results.",
+    ],
+    quote="I have a spreadsheet that goes back eight years. I can tell you what I spent on groceries in March 2018. My wife finds it exhausting. She's not wrong that I get stressed when she spends outside the budget. What I've started to realise is that the spreadsheet makes me feel like I'm doing the right things financially, but when I look at my actual pension and investments, they're nowhere near where they should be for my age. The planning replaced the doing.",
+    quote_by="James, 46, operations manager",
+    research=[
+        "Klontz's research on money vigilance describes the Planner at its organised end: diligent saving, financial tracking, and a heightened anxiety response to financial uncertainty. Research in Frontiers in Psychology found that vigilant money attitudes, while protective against disordered spending, do not automatically produce wealth accumulation. Planning without allocation to growth assets produces a well-documented financial position: organised and static.",
+        "The psychological function of control is well established. When external circumstances feel unpredictable, maintaining tight control over something, in this case the budget, provides an emotional stabiliser. The problem is that this emotional function can override the financial function. The Planner maintains the budget because it feels right, not necessarily because it is producing the best financial outcomes.",
+        "The relational dimension is documented in financial psychology research. When financial planning becomes a primary coping mechanism, it can generate significant tension with partners who do not share the same need for control. Research on couple finances consistently identifies financial incompatibility, particularly around control and planning, as a significant source of relationship conflict.",
+    ],
+    costs=[
+        ("Planning as a substitute for growth", "The Planner who has a detailed budget but a minimal investment portfolio is performing financial responsibility rather than building financial security. Organisation is not the same as growth."),
+        ("Missed flexibility", "Financial life includes genuinely unexpected events. Job loss, health costs, family changes, opportunities. A Planner who has optimised for one scenario can find themselves financially and emotionally exposed when a different scenario arrives."),
+        ("Relationship cost", "The stress that rigidity around money creates in close relationships is real and measurable. Financial conflict is one of the most commonly cited sources of relationship difficulty."),
+        ("Anxiety that does not serve you", "If you are anxious about money despite being financially organised, the anxiety is not providing useful information. It is a pattern, and patterns can be changed."),
+    ],
+    strengths=[
+        "Your financial discipline means you are well placed to deploy it toward growth if you redirect it. You already have the habit. You need the direction.",
+        "You have a detailed picture of your financial position, which most people do not. That clarity is the starting point for genuinely useful planning.",
+        "You understand the importance of financial structures and systems. Calm Money builds on that: three-pot budgeting, automated savings, and scheduled investment contributions all suit your working style.",
+    ],
+    progress_intro="Progress for you is not abandoning the plan. It is making sure the plan is serving the financial goals rather than the emotional ones.",
+    progress=[
+        ("Audit the plan against net worth", "Look at your actual net worth growth over the last three years. Is the planning producing wealth, or is it producing the feeling of wealth? The answer will tell you what needs to change."),
+        ("Build explicit flexibility into the budget", "A discretionary pot that either partner can spend without explanation is not financial chaos. It is a pressure valve that makes the overall system sustainable."),
+        ("Redirect into investing", "In Calm Money, Module 5, From Stability to Investing, is where your energy should be redirected. The organisational capacity you apply to the budget can be applied to building and managing an investment strategy."),
+        ("Address the anxiety directly", "If financial anxiety persists despite good organisation, consider whether the planning is addressing the symptom rather than the source. Calm Money's community and coaching sessions are a good place to explore this."),
+    ],
+),
+"cautioneer": dict(
+    name="The Cautioneer", short="Cautioneer", letter="C",
+    accent="#cdb594", ink="#7a6240", soft="#f5eee3",
+    cover_pre="A", cover_em="safe, responsible", cover_post="relationship with money. And the cost of it.",
+    cover_sub="Safety through holding on. Risk through letting go.",
+    statements=[
+        "I save consistently but I have never really invested.",
+        "I would rather my money sit in a savings account than take any risk with it.",
+        "I feel uncomfortable, even anxious, when people suggest I should be investing.",
+        "I know my savings are not growing much but at least they are safe.",
+        "I tend not to talk about money, even with people I trust.",
+    ],
+    pattern=[
+        "You are financially responsible in a way many people admire. You do not overspend. You save. You do not carry debt carelessly. These are genuine strengths. The difficulty is that your definition of financial safety, keeping money where you can see it and where it cannot decrease, is actually preventing you from building real wealth. A savings account at 4% in an economy with persistent inflation is not safety. It is a slower form of decline.",
+        "The Cautioneer's core challenge is that they have conflated caution with safety, and risk with recklessness. The research in behavioural economics is clear on why this happens: loss aversion, the tendency to feel the pain of a loss approximately twice as intensely as the pleasure of an equivalent gain, biases decisions strongly toward protection of what is already held. Your brain is wired to make the cautious choice feel rational even when it is not the optimal one.",
+    ],
+    quote="I have about £35,000 sitting in ISAs. I know I should probably be doing something more with it. Every time I look at investing I feel overwhelmed and slightly sick. What if the market crashes? What if I pick the wrong thing? I know in my head that inflation is eating my savings. I just cannot bring myself to move.",
+    quote_by="Sarah, 41, teacher",
+    research=[
+        "Klontz's research identifies money vigilance as a distinct belief pattern: secretiveness about money, anxiety about financial risk, frugality, and distrust of financial systems. Research in Frontiers in Psychology found this pattern is protective against disordered spending, which is why Cautioneers rarely have debt problems. The same research notes, however, that vigilance does not produce wealth accumulation on its own.",
+        "Loss aversion, first documented rigorously by Kahneman and Tversky in 1979, explains the investment aversion clearly. When you contemplate investing, you are not doing a rational calculation of expected returns. You are experiencing a disproportionate fear response to the possibility of loss. That fear response overrides the rational knowledge that long-term investing has, historically, significantly outperformed cash savings.",
+        "For many Cautioneers, the roots go back to experiences of financial instability, either personal or witnessed in the family of origin. If money felt precarious or frightening at a formative age, the response is often to hold it tightly in adulthood. The savings account becomes a form of emotional security, not just a financial tool.",
+    ],
+    costs=[
+        ("Inflation erosion", "At 3% average inflation, £35,000 in a 4% savings account grows in nominal terms but barely holds value in real terms. Over 20 years, the gap between a savings account and a diversified investment portfolio is typically substantial."),
+        ("Missed compounding", "The Cautioneer who waits until they feel ready to invest typically waits a very long time. Every year of delay is a year of compounding growth foregone."),
+        ("Under-utilisation of pension", "Cautioneers often contribute minimally to pensions, particularly workplace pension schemes with employer matching, because they are uncertain or uncomfortable with the investment element. Unclaimed employer matching is effectively a pay cut."),
+        ("Anxiety that does not serve you", "The stress of monitoring a cash position that is not growing is real. It does not have to be permanent."),
+    ],
+    strengths=[
+        "You have the savings habit, which most people do not. That discipline is the foundation everything else builds on. You are not starting from zero.",
+        "You are unlikely to make impulsive, high-risk financial decisions. This protects you from the category of catastrophic mistakes that derail other types.",
+        "You have probably avoided debt, which means you do not have that cost to address before moving forward. You are further ahead than you feel.",
+    ],
+    progress_intro="Progress for you is not becoming a risk-taker. It is expanding your definition of safety to include long-term growth, not just short-term protection.",
+    progress=[
+        ("Start with one idea", "The key concept: all financial decisions carry risk, including the decision to keep money in cash. Inaction is not a neutral choice."),
+        ("Start small enough that you barely notice", "A Stocks and Shares ISA with a single global index fund and a contribution you will barely notice is a starting point, not a commitment. The psychological barrier is often larger than the financial one."),
+        ("Learn the difference between volatility and risk", "Markets go up and down. That is not the same as losing your money permanently. The research on long-term equity returns is worth reading before you dismiss investing."),
+        ("Use other people as evidence", "Seeing others in the Calm Money community with similar starting points begin to invest, and watching that go well, can be the evidence your brain needs to move."),
+    ],
+),
+}
