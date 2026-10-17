@@ -82,6 +82,11 @@ label span { display: block; margin-bottom: 6px; font-size: 0.95rem; font-weight
 input[type=text], input[type=email] { width: 100%; padding: 14px 16px; border: 1.5px solid #d9d4cd; border-radius: 8px; background: #fff; color: var(--ink); font-size: 1.05rem; }
 input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgb(85 113 112 / .18); }
 form .btn { width: 100%; margin-top: 6px; }
+.hint { padding: 12px 14px; border-radius: 8px; background: var(--mint); color: var(--ink); font-size: 0.95rem; line-height: 1.5; }
+.hint .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.hint button { font: 500 0.92rem/1 var(--font); padding: 9px 12px; border-radius: 6px; border: 1.5px solid var(--teal); background: #fff; color: var(--teal-dark); cursor: pointer; }
+.hint button.yes { background: var(--teal); color: #fff; }
+.hint.block { background: #f6e7e3; }
 .err { display: none; margin: 0; color: var(--terracotta-dark); font-size: 0.95rem; font-weight: 500; }
 .consent { margin: 4px 0 0; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
 .consent a { color: var(--teal); }
@@ -125,7 +130,7 @@ form .btn { width: 100%; margin-top: 6px; }
 .guide > div { flex: 1 1 260px; min-width: 0; }
 .guide .eyebrow { margin-bottom: 6px; }
 .guide-text { margin: 0; font-size: 1rem; color: var(--muted); }
-.guide .btn { flex: none; }
+.guide strong { color: var(--ink); word-break: break-word; }
 .shadow { margin: 28px 0 20px; padding: clamp(24px, 4vw, 36px); border-radius: 22px; background: linear-gradient(180deg, #3d5453, #34494a 40%); color: var(--cream); box-shadow: var(--lift); }
 .shadow .eyebrow { color: var(--blush); }
 .shadow h2 { color: var(--cream); font-size: 1.6rem; letter-spacing: var(--track-heading); margin-bottom: 10px; }
@@ -180,6 +185,7 @@ footer a { color: var(--ink); text-underline-offset: 3px; }
       <label><span>Email address</span><input type="email" id="email" autocomplete="email" required></label>
       <label class="trap" aria-hidden="true">Leave this empty <input type="text" id="company" tabindex="-1" autocomplete="off"></label>
       <p class="err" id="formError" role="alert">Please add your first name and a valid email address.</p>
+      <div class="hint" id="emailHint" role="alert" hidden></div>
       <button class="btn btn--primary" type="submit">Discover my money type <span aria-hidden="true">→</span></button>
       <p class="consent">By starting, you agree to receive emails from Calm Money. Unsubscribe at any time. <a href="https://www.calmmoneycommunity.com/privacy" target="_blank" rel="noopener">Privacy policy</a></p>
     </form>
@@ -215,10 +221,9 @@ footer a { color: var(--ink); text-underline-offset: 3px; }
     <div id="rBody"></div>
     <div class="guide">
       <div>
-        <p class="eyebrow">Your full guide</p>
-        <p class="guide-text">Eight pages on your pattern: why it happens, what it costs, your strengths and what progress looks like.</p>
+        <p class="eyebrow">Your full guide is on its way</p>
+        <p class="guide-text">We've emailed your <strong id="guideType"></strong> guide to <strong id="guideEmail"></strong>. Eight pages on why the pattern happens, what it costs, your strengths and what progress looks like. It should arrive in a few minutes; check your junk folder if you can't see it.</p>
       </div>
-      <a class="btn btn--primary" id="guideLink" href="#" target="_blank" rel="noopener">Download your guide <span aria-hidden="true">↓</span></a>
     </div>
     <div class="shadow">
       <p class="eyebrow">Your shadow type</p>
@@ -295,8 +300,6 @@ const STATEMENTS = {
 };
 const ORDER = ['Avoider','Spender','Overthinker','Planner','Cautioneer'];
 const GUIDE_URL = (t) => `https://calmmoneycommunity.com/test/reports/${t}_Personality_Guide.pdf`;
-// Works at calmmoneycommunity.com/test, /test/ and the netlify.app address
-const GUIDE_PATH = (t) => `${location.pathname.replace(/\/?$/, '/')}reports/${t}_Personality_Guide.pdf`;
 const PER_PAGE = 5, PAGES = 6;
 const ANSWERS = ['Not me', 'Rarely me', 'Often me', 'Exactly me']; // scored 1 to 4, same as the learning platform
 // Part k holds statement k of every type, with the type order rotated so no type is always first
@@ -425,12 +428,59 @@ function showPage(id) {
   window.scrollTo(0, 0);
 }
 
+// ── Email checks: suggest fixes for common typos, turn away throwaway inboxes ──
+const COMMON = ['gmail.com','googlemail.com','hotmail.com','hotmail.co.uk','outlook.com','live.com','live.co.uk','yahoo.com','yahoo.co.uk',
+  'icloud.com','me.com','mac.com','msn.com','aol.com','btinternet.com','btopenworld.com','sky.com','virginmedia.com','talktalk.net','ntlworld.com',
+  'blueyonder.co.uk','tiscali.co.uk','outlook.co.uk','ymail.com','rocketmail.com','protonmail.com','proton.me','pm.me','hey.com','gmx.com','gmx.co.uk',
+  'mail.com','zoho.com','fastmail.com'];
+const THROWAWAY = ['mailinator.com','10minutemail.com','10minutemail.net','guerrillamail.com','guerrillamail.net','guerrillamail.org','guerrillamail.info',
+  'sharklasers.com','grr.la','yopmail.com','yopmail.net','tempmail.com','temp-mail.org','temp-mail.io','tempmailo.com','tempail.com','tmpmail.org',
+  'trashmail.com','trashmail.de','getnada.com','nada.email','dispostable.com','maildrop.cc','throwawaymail.com','fakeinbox.com','mintemail.com',
+  'mohmal.com','emailondeck.com','burnermail.io','spamgourmet.com','mailnesia.com','mytemp.email','mailcatch.com','spam4.me','moakt.com',
+  'discard.email','emailfake.com','fakemail.net','inboxkitten.com','mailpoof.com','tempr.email','33mailbox.com','minuteinbox.com'];
+function editDistance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+    d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function suggestDomain(domain) {
+  if (COMMON.includes(domain)) return null;
+  let best = null, bestD = 3;
+  for (const c of COMMON) {
+    const dist = editDistance(domain, c);
+    if (dist === 2 && Math.abs(domain.length - c.length) > 1) continue; // e.g. acme.com is not a typo of me.com
+    if (dist < bestD) { best = c; bestD = dist; }
+  }
+  if (best && bestD <= (domain.length <= 7 ? 1 : 2)) return best;
+  const fixed = domain.replace(/\.(con|cmo|cpm|om|vom|xom)$/, '.com').replace(/\.co\.k$|\.couk$|\.co\.ukk$/, '.co.uk');
+  return fixed !== domain ? fixed : null;
+}
+let typoChecked = '';
+function showHint(html, block) { const h = $('emailHint'); h.innerHTML = html; h.classList.toggle('block', !!block); h.hidden = false; }
+
+$('email').addEventListener('input', () => { $('emailHint').hidden = true; typoChecked = ''; });
+
 $('startForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = $('firstName').value.trim();
-  const email = $('email').value.trim();
+  const email = $('email').value.trim().toLowerCase();
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('formError').style.display = 'block'; return; }
   $('formError').style.display = 'none';
+  const [local, domain] = email.split('@');
+  if (THROWAWAY.includes(domain)) {
+    showHint('That looks like a temporary inbox. Please use an email address you check: your full guide will be sent there.', true);
+    return;
+  }
+  const fix = suggestDomain(domain);
+  if (fix && typoChecked !== email) {
+    showHint(`Did you mean <strong>${local}@${fix}</strong>?<div class="row"><button type="button" class="yes" id="useFix">Yes, use that</button><button type="button" id="keepMine">No, mine is right</button></div>`);
+    $('useFix').onclick = () => { $('email').value = `${local}@${fix}`; $('emailHint').hidden = true; $('startForm').requestSubmit(); };
+    $('keepMine').onclick = () => { typoChecked = email; $('emailHint').hidden = true; $('startForm').requestSubmit(); };
+    return;
+  }
+  $('emailHint').hidden = true;
   userName = name; userEmail = email;
   isBot = !!$('company').value;
   if (!isBot) subscribe(name, email);
@@ -516,8 +566,8 @@ function showResults() {
     $('rBody').innerHTML = '';
     pt.body.forEach((t) => { const p = document.createElement('p'); p.textContent = t; $('rBody').appendChild(p); });
     $('rShadowName').textContent = `The ${secondary}`;
-    $('guideLink').href = GUIDE_PATH(primary);
-    $('guideLink').firstChild.textContent = `Download your ${primary} guide `;
+    $('guideType').textContent = primary;
+    $('guideEmail').textContent = userEmail;
     $('rShadowDesc').textContent = st.body[0];
 
     const rows = $('scoreRows');
