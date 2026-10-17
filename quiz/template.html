@@ -61,7 +61,7 @@ h1 { font-size: clamp(2.5rem, 7vw, 4rem); line-height: 1.04; letter-spacing: var
 h1 em { font-style: normal; position: relative; white-space: nowrap; }
 h1 em::after { content: ''; position: absolute; left: -2%; right: -2%; bottom: -0.1em; height: 0.15em; background: var(--terracotta); border-radius: 99px; rotate: -1.2deg; opacity: 0.9; }
 
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6em; padding: 0.85em 1.5em; border-radius: 6px; border: 2px solid transparent; font-weight: 500; font-size: 1.05rem; line-height: 1.2; cursor: pointer; transition: background-color .15s, color .15s, border-color .15s, opacity .15s; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6em; padding: 0.85em 1.5em; border-radius: 6px; border: 2px solid transparent; font-weight: 500; font-size: 1.05rem; line-height: 1.2; cursor: pointer; text-decoration: none; transition: background-color .15s, color .15s, border-color .15s, opacity .15s; }
 .btn--primary { background: var(--terracotta-dark); color: #fff; }
 .btn--primary:hover { background: #8a4a3e; }
 .btn--primary:disabled { opacity: .4; cursor: default; background: var(--terracotta-dark); }
@@ -121,7 +121,12 @@ form .btn { width: 100%; margin-top: 6px; }
 #rTagline { margin: 0; font-size: 0.85rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--teal); }
 #rBody p { margin: 0 0 1em; }
 #rBody p:first-child { font-size: 1.25rem; line-height: 1.55; color: var(--teal-dark); font-weight: 500; }
-.shadow { margin: 36px 0 20px; padding: clamp(24px, 4vw, 36px); border-radius: 22px; background: linear-gradient(180deg, #3d5453, #34494a 40%); color: var(--cream); box-shadow: var(--lift); }
+.guide { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; margin: 28px 0 0; padding: 22px 24px; background: var(--paper); border: 1.5px solid var(--line); border-radius: var(--radius); }
+.guide > div { flex: 1 1 260px; min-width: 0; }
+.guide .eyebrow { margin-bottom: 6px; }
+.guide-text { margin: 0; font-size: 1rem; color: var(--muted); }
+.guide .btn { flex: none; }
+.shadow { margin: 28px 0 20px; padding: clamp(24px, 4vw, 36px); border-radius: 22px; background: linear-gradient(180deg, #3d5453, #34494a 40%); color: var(--cream); box-shadow: var(--lift); }
 .shadow .eyebrow { color: var(--blush); }
 .shadow h2 { color: var(--cream); font-size: 1.6rem; letter-spacing: var(--track-heading); margin-bottom: 10px; }
 .shadow p { margin: 0; color: #e4dccf; font-size: 1.02rem; }
@@ -208,6 +213,13 @@ footer a { color: var(--ink); text-underline-offset: 3px; }
       <p id="rTagline"></p>
     </div>
     <div id="rBody"></div>
+    <div class="guide">
+      <div>
+        <p class="eyebrow">Your full guide</p>
+        <p class="guide-text">Eight pages on your pattern: why it happens, what it costs, your strengths and what progress looks like.</p>
+      </div>
+      <a class="btn btn--primary" id="guideLink" href="#" target="_blank" rel="noopener">Download your guide <span aria-hidden="true">↓</span></a>
+    </div>
     <div class="shadow">
       <p class="eyebrow">Your shadow type</p>
       <h2 id="rShadowName"></h2>
@@ -282,6 +294,7 @@ const STATEMENTS = {
   ],
 };
 const ORDER = ['Avoider','Spender','Overthinker','Planner','Cautioneer'];
+const GUIDE_URL = (t) => `https://quiz.calmmoneycommunity.com/reports/${t}_Personality_Guide.pdf`;
 const PER_PAGE = 5, PAGES = 6;
 // Part k holds statement k of every type, with the type order rotated so no type is always first
 const ITEMS = [];
@@ -395,7 +408,7 @@ function saveResult(email, name, primary, secondary, scores) {
   kl('events', {
     type: 'event',
     attributes: {
-      properties: { 'Primary Type': primary, 'Shadow Type': secondary, 'Test Version': 2, ...Object.fromEntries(ORDER.map((t) => [`Score ${t}`, scores[t]])) },
+      properties: { 'Primary Type': primary, 'Shadow Type': secondary, 'Test Version': 2, 'Guide URL': GUIDE_URL(primary), ...Object.fromEntries(ORDER.map((t) => [`Score ${t}`, scores[t]])) },
       metric: { data: { type: 'metric', attributes: { name: 'Quiz Completed' } } },
       profile: { data: { type: 'profile', attributes: { email } } },
     },
@@ -502,6 +515,8 @@ function showResults() {
     $('rBody').innerHTML = '';
     pt.body.forEach((t) => { const p = document.createElement('p'); p.textContent = t; $('rBody').appendChild(p); });
     $('rShadowName').textContent = `The ${secondary}`;
+    $('guideLink').href = `reports/${primary}_Personality_Guide.pdf`;
+    $('guideLink').firstChild.textContent = `Download your ${primary} guide `;
     $('rShadowDesc').textContent = st.body[0];
 
     const rows = $('scoreRows');

@@ -1,4 +1,4 @@
-# Builds quiz/index.html (one self-contained file) from template.html. Run: python3 quiz/build.py, then upload quiz/index.html to Netlify.
+# Builds quiz/site/index.html (one self-contained file) from template.html. Run: python3 quiz/build.py. Netlify publishes quiz/site.
 import base64, math, pathlib
 
 here = pathlib.Path(__file__).parent
@@ -26,6 +26,6 @@ html = (html.replace('{{RING}}', ring).replace('{{FAVICON}}', fav)
         .replace('{{WORDMARK}}', b64(site / 'images/peter/wordmark.png'))
         .replace('{{PETER}}', b64(site / 'images/peter/peter.webp')))
 assert '{{' not in html
-out = here / 'index.html'
+out = here / 'site' / 'index.html'
 out.write_text(html)
 print(out, len(html) // 1024, 'KB')
