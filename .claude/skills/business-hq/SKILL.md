@@ -40,6 +40,7 @@ The page reads everything from its own database, so updating numbers never needs
 
 - `settings/focus`: `{text, set}`, his one focus for the week.
 - `settings/calmMoney`: `{members, set}`, the Calm Money member count Peter types in (the learning platform isn't connected). The Calm Money tile shows it with the date he set it. Change it only when Peter gives a new number.
+- `calmNotes/<id>`: `{text, member, created}`, Peter's notes about Calm Money members, shown newest first in the tile's Details. `member` is optional. Add one when Peter asks; never delete one without being asked.
 - `settings/launch`: `{target, set}`, his 3-Night booking target for Sun 29 Nov. The launch card works out the weekly pace from it and the Stripe booking count.
 - `videos/<id>`: `{title, stage, created, order}`, Peter's YouTube production pipeline. Stages run Idea, Script, Filming, Editing, Ready, then Published (published videos drop off the board). Add or move videos only when Peter asks, for example "add an idea: ..." or "move X to editing".
 
