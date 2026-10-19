@@ -11,6 +11,7 @@ The page reads everything from its own database, so updating numbers never needs
 
 - `metrics/current`: one document with `updated`, `sales`, `bookings`, `list`, `youtube`, `instagram`, `upcoming`.
 - `todos/<id>`: `{text, done, created, order}`. Peter ticks and adds these on the page.
+- `deals/<id>`: `{name, kind ("Brand deal" or "Work"), value, currency ("GBP" or "AED"), stage, created, order}`. The Pipeline tile. Stages: Lead, In talks, Agreed, Delivering, then Done or Lost (hidden). Peter adds these on the page; add or move one when he asks. Never invent a value.
 - `history/<YYYY-MM-DD>`: one small document per day `{youtube, instagram, list}`, used for growth figures.
 
 ## Morning refresh (7am, every day)
