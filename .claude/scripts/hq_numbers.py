@@ -61,6 +61,37 @@ sessions = [s for s in stripe_all('checkout/sessions?limit=100&status=complete')
 paid = [s for s in sessions if (s['amount_total'] or 0) >= TEST_UNDER]
 tests = len(sessions) - len(paid)
 
+# Calm Money revenue, all time. Three kinds of payment count:
+#  - learning-platform payments (founders): checkout sessions with metadata type "learner_payment" (paid in full or a
+#    first instalment), plus payments with metadata type "second_instalment" (those have no checkout session)
+#  - website checkouts paid in one go: checkout session metadata plan "at-your-pace" or "coaching-full"
+#  - the coaching payment plan: subscription payments from customers who checked out with plan "coaching-payment-plan"
+#    (this key can't read invoices, so plan instalments are matched by customer and the "Subscription" payment description)
+# If any of it fails, the refresh carries on and the card keeps yesterday's figure.
+calm = None
+try:
+    CM_START = ts(datetime.datetime(2026, 1, 1, tzinfo=UK))
+    cm = []  # (created, pence, payer)
+    sess = stripe_all(f'checkout/sessions?limit=100&status=complete&created[gte]={CM_START}')
+    plan_customers = {c.get('customer') for c in sess if (c.get('metadata') or {}).get('plan') == 'coaching-payment-plan' and c.get('customer')}
+    for c in sess:
+        m = c.get('metadata') or {}
+        if (m.get('plan') in ('at-your-pace', 'coaching-full') or m.get('type') == 'learner_payment') and (c['amount_total'] or 0) >= TEST_UNDER:
+            cm.append((c['created'], c['amount_total'], m.get('user_id') or c.get('customer') or (c.get('customer_details') or {}).get('email') or c['id']))
+    for p in stripe_all(f'payment_intents?limit=100&created[gte]={CM_START}'):
+        m = p.get('metadata') or {}
+        if p['status'] != 'succeeded' or p['amount_received'] < TEST_UNDER:
+            continue
+        if m.get('type') == 'second_instalment':
+            cm.append((p['created'], p['amount_received'], m.get('user_id') or p.get('customer') or p['id']))
+        elif p.get('customer') in plan_customers and (p.get('description') or '').startswith('Subscription'):
+            cm.append((p['created'], p['amount_received'], p['customer']))
+    calm = {'total': round(sum(x[1] for x in cm) / 100, 2), 'payments': len(cm), 'payers': len({x[2] for x in cm}),
+            'thisMonth': round(sum(x[1] for x in cm if x[0] >= ts(this_m)) / 100, 2),
+            'prevMonth': round(sum(x[1] for x in cm if ts(prev_m) <= x[0] < ts(this_m)) / 100, 2), 'prevLabel': prev_m.strftime('%b')}
+except BaseException as e:  # stripe() exits on an API error; don't let that stop the other numbers
+    print('Calm Money revenue skipped: ' + str(e), file=sys.stderr)
+
 lst = klaviyo(f'lists/{MAIN_LIST}/?additional-fields[list]=profile_count')['data']['attributes']
 
 # every list with its size, biggest first, for the mailing list card's details
@@ -101,4 +132,5 @@ print(json.dumps({
                  },
     'list': {'count': lst['profile_count'], 'note': 'Klaviyo Main List', 'lists': lists},
     'queue': queue[:10],
+    **({'calmMoney': calm} if calm else {}),
 }, indent=1))
