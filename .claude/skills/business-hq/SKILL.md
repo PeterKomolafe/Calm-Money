@@ -15,7 +15,7 @@ The page reads everything from its own database, so updating numbers never needs
 
 ## Morning refresh (7am, every day)
 
-1. Stripe and Klaviyo: `python3 .claude/scripts/hq_numbers.py` prints `updated`, `sales`, `bookings`, `list`.
+1. Stripe and Klaviyo: `python3 .claude/scripts/hq_numbers.py` prints `updated`, `sales`, `bookings`, `list` (including `list.lists`, every Klaviyo list with its size, for the mailing list card).
 2. YouTube: `vidiq_user_channels` (free) gives Conversation of Money's `subscriberCount`. `gained30` = today minus the `history` document from 30 days ago. If there's no history that old yet, use `vidiq_channel_stats` for the last 30 days (5 credits) and take `growth.subscribersGained`.
 3. Instagram: `vidiq_ig_profile` for `conversationofmoney` (5 credits) gives followers and posts; save both (`instagram: {followers, posts, note}`). Set `instagram.note` to the change since yesterday's `history` document (for example "+40 since yesterday"); with no history, "Growth shows from tomorrow".
 4. Zoho Books (the "ZohoBooks_Mine" connector, read-only): `ZohoBooks_list_invoices` with `organization_id: ""` (blank uses Peter's organisation, Conversation of Money Ltd), `status: "unpaid"`, `per_page: 200`. Build `invoices: {total, count, overdueCount, overdueTotal, items}`, where each item is `{customer, number, amount, due, dueText, overdue}` (`due` is the due date as yyyy-mm-dd; the page uses it for the "Needs you" list). `amount` is the invoice's `balance`. `dueText` is "Overdue N days (was due 8 Oct)" when overdue, else the due date ("Wed 21 Oct"). Sort with overdue first, then by due date. Never call any Zoho tool that changes anything. If any are added to the connector, leave them alone.
