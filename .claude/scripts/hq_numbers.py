@@ -64,6 +64,6 @@ print(json.dumps({
               'prevLabel': prev_m.strftime('%b'), 'prevTotal': round(sum(p['amount_received'] for p in prev) / 100, 2)},
     'bookings': {'paid': len(paid), 'revenue': round(sum(s['amount_total'] for s in paid) / 100, 2),
                  'note': (f'Plus {tests} test payment{"s" if tests != 1 else ""}, not counted' if tests else f'£{sum(s["amount_total"] for s in paid) / 100:,.2f} taken'),
-                 'tone': 'warn' if tests else ''},
+                 },
     'list': {'count': lst['profile_count'], 'note': 'Klaviyo Main List'},
 }, indent=1))
