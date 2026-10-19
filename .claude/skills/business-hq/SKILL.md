@@ -39,3 +39,6 @@ The page reads everything from its own database, so updating numbers never needs
 
 - `settings/focus`: `{text, set}`, his one focus for the week.
 - `settings/launch`: `{target, set}`, his 3-Night booking target for Sun 29 Nov. The launch card works out the weekly pace from it and the Stripe booking count.
+- `videos/<id>`: `{title, stage, created, order}`, Peter's YouTube production pipeline. Stages run Idea, Script, Filming, Editing, Ready, then Published (published videos drop off the board). Add or move videos only when Peter asks, for example "add an idea: ..." or "move X to editing".
+
+The 3-Night launch card's "Launch emails" list is the `queue`, filtered on the page to emails with "3-Night" in the name.
