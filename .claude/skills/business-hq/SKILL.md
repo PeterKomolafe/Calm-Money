@@ -42,3 +42,11 @@ The page reads everything from its own database, so updating numbers never needs
 - `videos/<id>`: `{title, stage, created, order}`, Peter's YouTube production pipeline. Stages run Idea, Script, Filming, Editing, Ready, then Published (published videos drop off the board). Add or move videos only when Peter asks, for example "add an idea: ..." or "move X to editing".
 
 The 3-Night launch card's "Launch emails" list is the `queue`, filtered on the page to emails with "3-Night" in the name.
+
+## The Agenda card
+
+The page shows one Agenda card (Today, Tomorrow, This week, Later) built from `agenda`: a list of `{date: "yyyy-mm-dd", time: "HH:MM" or "", title, kind: "meeting" | "send" | "date"}` in UK time. Each morning rebuild it from three sources:
+- meetings from the calendar for the next 14 days (`search_calendar_events`), with kind "meeting";
+- scheduled emails from `queue` (not drafts), with kind "send" and a short title such as "3-Night launch email 3 sends" or "Pre-work email sends";
+- key dates from `upcoming`, with kind "date".
+Drop anything in the past. Don't list the same thing twice. `today` and `upcoming` stay in the data, but the page no longer shows them directly.
