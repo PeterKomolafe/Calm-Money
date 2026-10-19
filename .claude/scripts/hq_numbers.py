@@ -75,6 +75,23 @@ while url:
     url = nxt.split('/api/', 1)[1] if nxt else None
 lists.sort(key=lambda x: -x['count'])
 
+# content queue: scheduled emails (soonest first) and recent unscheduled drafts, which get flagged
+import urllib.parse
+def campaigns(status):
+    f = urllib.parse.quote(f"and(equals(messages.channel,'email'),equals(status,'{status}'))")
+    return klaviyo(f"campaigns/?filter={f}&fields[campaign]=name,send_time,updated_at")['data']
+queue = []
+for c in campaigns('Scheduled'):
+    t = datetime.datetime.fromisoformat(c['attributes']['send_time']).astimezone(UK)
+    queue.append({'when': t.isoformat(), 'dateText': t.strftime('%a %-d %b, %-I:%M%p').replace(':00', '').replace('AM', 'am').replace('PM', 'pm'),
+                  'channel': 'Email', 'title': c['attributes']['name'], 'draft': False})
+queue.sort(key=lambda x: x['when'])
+recent = now - datetime.timedelta(days=21)
+for c in campaigns('Draft'):
+    u = c['attributes'].get('updated_at')
+    if u and datetime.datetime.fromisoformat(u) >= recent:
+        queue.insert(0, {'when': '', 'dateText': '', 'channel': 'Email', 'title': c['attributes']['name'], 'draft': True})
+
 print(json.dumps({
     'updated': now.isoformat(timespec='minutes'),
     'sales': {'total': round(sum(p['amount_received'] for p in this) / 100, 2), 'count': len(this),
@@ -83,4 +100,5 @@ print(json.dumps({
                  'note': (f'Plus {tests} test payment{"s" if tests != 1 else ""}, not counted' if tests else f'£{sum(s["amount_total"] for s in paid) / 100:,.2f} taken'),
                  },
     'list': {'count': lst['profile_count'], 'note': 'Klaviyo Main List', 'lists': lists},
+    'queue': queue[:10],
 }, indent=1))
