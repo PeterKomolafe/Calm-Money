@@ -6,7 +6,7 @@ YouTube and Instagram come from the vidIQ connector, which the HQ session calls 
 
   python3 .claude/scripts/hq_numbers.py
 """
-import datetime, json, subprocess, sys
+import datetime, json, subprocess, sys, time
 from zoneinfo import ZoneInfo
 
 UK = ZoneInfo('Europe/London')
@@ -34,9 +34,14 @@ def stripe_all(path):
 
 
 def klaviyo(path):
-    out = subprocess.run(['curl', '-g', '-sS', '-m', '30', 'https://a.klaviyo.com/api/' + path, '-H', 'revision: 2025-07-15',
-                          '-H', 'accept: application/vnd.api+json'], capture_output=True, text=True).stdout
-    return json.loads(out)
+    for attempt in range(8):  # Klaviyo allows only a few list-size lookups per second, so wait and retry when throttled
+        out = subprocess.run(['curl', '-g', '-sS', '-m', '30', 'https://a.klaviyo.com/api/' + path, '-H', 'revision: 2025-07-15',
+                              '-H', 'accept: application/vnd.api+json'], capture_output=True, text=True).stdout
+        d = json.loads(out)
+        if 'data' in d:
+            return d
+        time.sleep(2 + attempt * 2)
+    sys.exit('Klaviyo: ' + json.dumps(d.get('errors', d))[:300])
 
 
 def month_start(d):
@@ -58,12 +63,42 @@ tests = len(sessions) - len(paid)
 
 lst = klaviyo(f'lists/{MAIN_LIST}/?additional-fields[list]=profile_count')['data']['attributes']
 
+# every list with its size, biggest first, for the mailing list card's details
+lists, url = [], 'lists/?fields[list]=name'
+while url:
+    d = klaviyo(url)
+    for x in d['data']:
+        c = klaviyo(f"lists/{x['id']}/?additional-fields[list]=profile_count")['data']['attributes'].get('profile_count') or 0
+        if c:
+            lists.append({'name': x['attributes']['name'], 'count': c})
+    nxt = (d.get('links') or {}).get('next')
+    url = nxt.split('/api/', 1)[1] if nxt else None
+lists.sort(key=lambda x: -x['count'])
+
+# content queue: scheduled emails (soonest first) and recent unscheduled drafts, which get flagged
+import urllib.parse
+def campaigns(status):
+    f = urllib.parse.quote(f"and(equals(messages.channel,'email'),equals(status,'{status}'))")
+    return klaviyo(f"campaigns/?filter={f}&fields[campaign]=name,send_time,updated_at")['data']
+queue = []
+for c in campaigns('Scheduled'):
+    t = datetime.datetime.fromisoformat(c['attributes']['send_time']).astimezone(UK)
+    queue.append({'when': t.isoformat(), 'dateText': t.strftime('%a %-d %b, %-I:%M%p').replace(':00', '').replace('AM', 'am').replace('PM', 'pm'),
+                  'channel': 'Email', 'title': c['attributes']['name'], 'draft': False})
+queue.sort(key=lambda x: x['when'])
+recent = now - datetime.timedelta(days=21)
+for c in campaigns('Draft'):
+    u = c['attributes'].get('updated_at')
+    if u and datetime.datetime.fromisoformat(u) >= recent:
+        queue.insert(0, {'when': '', 'dateText': '', 'channel': 'Email', 'title': c['attributes']['name'], 'draft': True})
+
 print(json.dumps({
     'updated': now.isoformat(timespec='minutes'),
     'sales': {'total': round(sum(p['amount_received'] for p in this) / 100, 2), 'count': len(this),
               'prevLabel': prev_m.strftime('%b'), 'prevTotal': round(sum(p['amount_received'] for p in prev) / 100, 2)},
     'bookings': {'paid': len(paid), 'revenue': round(sum(s['amount_total'] for s in paid) / 100, 2),
                  'note': (f'Plus {tests} test payment{"s" if tests != 1 else ""}, not counted' if tests else f'£{sum(s["amount_total"] for s in paid) / 100:,.2f} taken'),
-                 'tone': 'warn' if tests else ''},
-    'list': {'count': lst['profile_count'], 'note': 'Klaviyo Main List'},
+                 },
+    'list': {'count': lst['profile_count'], 'note': 'Klaviyo Main List', 'lists': lists},
+    'queue': queue[:10],
 }, indent=1))
