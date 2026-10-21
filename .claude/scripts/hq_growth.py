@@ -6,6 +6,7 @@ For every month from Jan 2026 to now:
   - calmMoney: Calm Money revenue (same rules as hq_numbers.py)
   - bookings: paid 3-Night Money Plan bookings
   - listJoined: people on the Klaviyo Main List today who joined that month
+  - list28 (top level): Main List sign-ups in the last 28 days and the 28 days before
   - listEnd: Main List size at the end of the month, counting only people still on it today
     (Klaviyo keeps no record of people who have left, so earlier months read a little low)
 
@@ -94,10 +95,17 @@ for k in months:
     row[k]['listJoined'] = sum(1 for j in jm if j == k)
     row[k]['listEnd'] = sum(1 for j in jm if j <= k)
 
+# Main List sign-ups over the last 28 days (today included) and the 28 days before, for the Mailing list tile
+today = now.date()
+d28 = lambda n: today - datetime.timedelta(days=n)
+jd = [datetime.datetime.fromisoformat(j.replace('Z', '+00:00')).astimezone(UK).date() for j in joined]
+list28 = {'joined': sum(1 for d in jd if d28(27) <= d <= today), 'joinedPrev': sum(1 for d in jd if d28(55) <= d <= d28(28)),
+          'from': d28(27).isoformat(), 'to': today.isoformat(), 'prevFrom': d28(55).isoformat(), 'prevTo': d28(28).isoformat()}
+
 out = []
 for k in months:
     r = row[k]
     r['sales'] = {'total': round(r['sales']['total'] / 100, 2), 'count': r['sales']['count']}
     r['calmMoney'] = round(r['calmMoney'] / 100, 2)
     out.append(r)
-print(json.dumps({'updated': now.isoformat(timespec='minutes'), 'listMembersNow': len(joined), 'months': out}, indent=1))
+print(json.dumps({'updated': now.isoformat(timespec='minutes'), 'listMembersNow': len(joined), 'list28': list28, 'months': out}, indent=1))
