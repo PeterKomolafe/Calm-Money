@@ -18,6 +18,9 @@ import datetime, json, subprocess, sys, time, urllib.parse
 from zoneinfo import ZoneInfo
 
 UK = ZoneInfo('Europe/London')
+import os
+# refunded payments (the Stripe key can't read refunds), see hq_refunds.json
+REFUNDED = {r['payment_intent'] for r in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'hq_refunds.json')))['refunded']}
 THREE_NIGHT_LINK = 'plink_1UOZJFGYq0laa7Atf46h4C8o'
 MAIN_LIST = 'SjUbWK'
 TEST_UNDER = 100
@@ -61,7 +64,7 @@ s0 = int(START.timestamp())
 
 # Stripe sales
 for p in stripe_all(f'payment_intents?limit=100&created[gte]={s0}'):
-    if p['status'] == 'succeeded' and p['amount_received'] >= TEST_UNDER and key(p['created']) in row:
+    if p['status'] == 'succeeded' and p['amount_received'] >= TEST_UNDER and p['id'] not in REFUNDED and key(p['created']) in row:
         r = row[key(p['created'])]['sales']; r['total'] += p['amount_received']; r['count'] += 1
 
 # Calm Money and 3-Night bookings (rules as in hq_numbers.py)
@@ -70,7 +73,7 @@ plan_customers = {c.get('customer') for c in sess if (c.get('metadata') or {}).g
 for c in sess:
     md = c.get('metadata') or {}
     amt = c['amount_total'] or 0
-    if amt < TEST_UNDER or key(c['created']) not in row:
+    if amt < TEST_UNDER or key(c['created']) not in row or c.get('payment_intent') in REFUNDED:
         continue
     if md.get('plan') in ('at-your-pace', 'coaching-full') or md.get('type') == 'learner_payment':
         row[key(c['created'])]['calmMoney'] += amt
@@ -78,7 +81,7 @@ for c in sess:
         row[key(c['created'])]['bookings'] += 1
 for p in stripe_all(f'payment_intents?limit=100&created[gte]={s0}'):
     md = p.get('metadata') or {}
-    if p['status'] != 'succeeded' or p['amount_received'] < TEST_UNDER or key(p['created']) not in row:
+    if p['status'] != 'succeeded' or p['amount_received'] < TEST_UNDER or p['id'] in REFUNDED or key(p['created']) not in row:
         continue
     if md.get('type') == 'second_instalment' or (p.get('customer') in plan_customers and (p.get('description') or '').startswith('Subscription')):
         row[key(p['created'])]['calmMoney'] += p['amount_received']

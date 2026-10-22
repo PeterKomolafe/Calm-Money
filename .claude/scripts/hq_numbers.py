@@ -10,6 +10,9 @@ import datetime, json, subprocess, sys, time
 from zoneinfo import ZoneInfo
 
 UK = ZoneInfo('Europe/London')
+import os
+# refunded payments (the Stripe key can't read refunds), see hq_refunds.json
+REFUNDED = {r['payment_intent'] for r in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'hq_refunds.json')))['refunded']}
 THREE_NIGHT_LINK = 'plink_1UOZJFGYq0laa7Atf46h4C8o'   # 3-Night Money Plan payment link
 MAIN_LIST = 'SjUbWK'                                   # Klaviyo "Main List"
 TEST_UNDER = 100                                       # payments under £1 are test payments (the 47p code)
@@ -53,13 +56,14 @@ this_m = month_start(now)
 prev_m = month_start(this_m - datetime.timedelta(days=1))
 ts = lambda d: int(d.timestamp())
 
-pis = [p for p in stripe_all(f'payment_intents?limit=100&created[gte]={ts(prev_m)}') if p['status'] == 'succeeded' and p['amount_received'] >= TEST_UNDER]
+pis = [p for p in stripe_all(f'payment_intents?limit=100&created[gte]={ts(prev_m)}') if p['status'] == 'succeeded' and p['amount_received'] >= TEST_UNDER and p['id'] not in REFUNDED]
 this = [p for p in pis if p['created'] >= ts(this_m)]
 prev = [p for p in pis if p['created'] < ts(this_m)]
 
 sessions = [s for s in stripe_all('checkout/sessions?limit=100&status=complete') if s.get('payment_link') == THREE_NIGHT_LINK]
-paid = [s for s in sessions if (s['amount_total'] or 0) >= TEST_UNDER]
-tests = len(sessions) - len(paid)
+paid = [s for s in sessions if (s['amount_total'] or 0) >= TEST_UNDER and s.get('payment_intent') not in REFUNDED]
+refunded = [s for s in sessions if s.get('payment_intent') in REFUNDED]
+tests = len(sessions) - len(paid) - len(refunded)
 
 # Calm Money revenue, all time. Three kinds of payment count:
 #  - learning-platform payments (founders): checkout sessions with metadata type "learner_payment" (paid in full or a
@@ -80,7 +84,7 @@ try:
             cm.append((c['created'], c['amount_total'], m.get('user_id') or c.get('customer') or (c.get('customer_details') or {}).get('email') or c['id']))
     for p in stripe_all(f'payment_intents?limit=100&created[gte]={CM_START}'):
         m = p.get('metadata') or {}
-        if p['status'] != 'succeeded' or p['amount_received'] < TEST_UNDER:
+        if p['status'] != 'succeeded' or p['amount_received'] < TEST_UNDER or p['id'] in REFUNDED:
             continue
         if m.get('type') == 'second_instalment':
             cm.append((p['created'], p['amount_received'], m.get('user_id') or p.get('customer') or p['id']))
@@ -128,7 +132,7 @@ print(json.dumps({
     'sales': {'total': round(sum(p['amount_received'] for p in this) / 100, 2), 'count': len(this),
               'prevLabel': prev_m.strftime('%b'), 'prevTotal': round(sum(p['amount_received'] for p in prev) / 100, 2)},
     'bookings': {'paid': len(paid), 'revenue': round(sum(s['amount_total'] for s in paid) / 100, 2),
-                 'note': (f'Plus {tests} test payment{"s" if tests != 1 else ""}, not counted' if tests else f'£{sum(s["amount_total"] for s in paid) / 100:,.2f} taken'),
+                 'note': ' · '.join(x for x in [f'{len(refunded)} refunded' if refunded else '', f'Plus {tests} test payment{"s" if tests != 1 else ""}, not counted' if tests else ''] if x) or f'£{sum(s["amount_total"] for s in paid) / 100:,.2f} taken',
                  },
     'list': {'count': lst['profile_count'], 'note': 'Klaviyo Main List', 'lists': lists},
     'queue': queue[:10],

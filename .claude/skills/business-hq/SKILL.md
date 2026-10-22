@@ -36,6 +36,8 @@ The page reads everything from its own database, so updating numbers never needs
 
 ## Rules
 
+- Refunds: the Stripe key can't read refunds (it lacks Charges and Refunds Read). When Peter says a payment was refunded, add its payment intent to `.claude/scripts/hq_refunds.json`; both scripts then leave it out of sales, bookings and Calm Money. Ask Peter which payment if it isn't clear.
+
 - Numbers come only from the sources above. Never estimate or round up. Payments under £1 are test payments and are not counted.
 - Calm Money members are on the learning platform, which isn't connected. Don't show a figure for it unless Peter gives one.
 - Dates in UK style ("Tue 3 Nov"). No em dashes. Always "Peter".
