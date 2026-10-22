@@ -101,6 +101,9 @@ d28 = lambda n: today - datetime.timedelta(days=n)
 jd = [datetime.datetime.fromisoformat(j.replace('Z', '+00:00')).astimezone(UK).date() for j in joined]
 list28 = {'joined': sum(1 for d in jd if d28(27) <= d <= today), 'joinedPrev': sum(1 for d in jd if d28(55) <= d <= d28(28)),
           'from': d28(27).isoformat(), 'to': today.isoformat(), 'prevFrom': d28(55).isoformat(), 'prevTo': d28(28).isoformat()}
+recent = sorted({d for d in jd if d28(27) <= d <= today})
+if len(recent) == 1 and list28['joined'] > 1:  # one batch (an import or one campaign), not steady growth
+    list28['note'] = 'all on ' + recent[0].strftime('%-d %b')
 
 out = []
 for k in months:
