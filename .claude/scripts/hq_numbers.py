@@ -127,9 +127,24 @@ for c in campaigns('Draft'):
     if u and datetime.datetime.fromisoformat(u) >= recent:
         queue.insert(0, {'when': '', 'dateText': '', 'channel': 'Email', 'title': c['attributes']['name'], 'draft': True})
 
+# each Stripe payment this month, named by what it was for (no customer details), so Peter can remove one on the page
+def label_for(p):
+    try:
+        cs = stripe(f"checkout/sessions?payment_intent={p['id']}&limit=1")['data']
+    except BaseException:
+        cs = []
+    c = cs[0] if cs else {}
+    m = {**(c.get('metadata') or {}), **(p.get('metadata') or {})}
+    if c.get('payment_link') == THREE_NIGHT_LINK: return '3-Night Money Plan booking'
+    if m.get('type') in ('learner_payment', 'second_instalment') or m.get('plan') in ('at-your-pace', 'coaching-full', 'coaching-payment-plan'):
+        return 'Calm Money' + (' (' + m['plan'].replace('-', ' ') + ')' if m.get('plan') else '')
+    if (p.get('description') or '').startswith('Subscription'): return 'Subscription payment'
+    return p.get('description') or 'Stripe payment'
+sale_items = [{'id': p['id'], 'amount': round(p['amount_received'] / 100, 2), 'date': datetime.datetime.fromtimestamp(p['created'], UK).strftime('%Y-%m-%d'), 'label': label_for(p)} for p in sorted(this, key=lambda p: p['created'])]
+
 print(json.dumps({
     'updated': now.isoformat(timespec='minutes'),
-    'sales': {'total': round(sum(p['amount_received'] for p in this) / 100, 2), 'count': len(this),
+    'sales': {'total': round(sum(p['amount_received'] for p in this) / 100, 2), 'count': len(this), 'items': sale_items,
               'prevLabel': prev_m.strftime('%b'), 'prevTotal': round(sum(p['amount_received'] for p in prev) / 100, 2)},
     'bookings': {'paid': len(paid), 'revenue': round(sum(s['amount_total'] for s in paid) / 100, 2),
                  'note': ' · '.join(x for x in [f'{len(refunded)} refunded' if refunded else '', f'Plus {tests} test payment{"s" if tests != 1 else ""}, not counted' if tests else ''] if x) or f'£{sum(s["amount_total"] for s in paid) / 100:,.2f} taken',
