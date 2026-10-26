@@ -1,0 +1,6 @@
+{
+ "note": "Payments refunded in Stripe. The dashboard's Stripe key can't read refunds, so they are listed here and left out of sales, bookings and Calm Money. Add one when Peter says a payment was refunded.",
+ "refunded": [
+  {"payment_intent": "pi_3UOz2UGYq0laa7At35pfme5V", "amount": 37.00, "date": "2026-10-10", "what": "3-Night Money Plan booking", "told": "2026-10-22"}
+ ]
+}
